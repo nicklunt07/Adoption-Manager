@@ -1,6 +1,8 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/Users/Sushanth/Desktop/javafx-sdk-19.0.2.1/lib/**/*.jar"
+        "/Users/Sushanth/Desktop/javafx-sdk-19.0.2.1/lib/**/*.jar",
+        "/Users/adnankhaleeli/Documents/JavaFX/javafx-sdk-19.0.2-2.1/lib/javafx-swt.jar",
+        "/Users/adnankhaleeli/Documents/JavaFX/javafx-sdk-19.0.2-2.1/**/*.jar"
     ]
 }

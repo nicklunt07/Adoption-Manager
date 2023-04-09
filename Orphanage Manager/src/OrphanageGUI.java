@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -49,12 +50,28 @@ public class OrphanageGUI extends Application {
      orphan2.setAlignment(Pos.CENTER);
      orphan3.setAlignment(Pos.CENTER);
 
+    HBox.setHgrow(top, Priority.ALWAYS);
+    HBox.setHgrow(bottom, Priority.ALWAYS);
+    HBox.setHgrow(orphan1, Priority.ALWAYS);
+    HBox.setHgrow(orphan2 ,Priority.ALWAYS);
+    HBox.setHgrow(orphan3, Priority.ALWAYS);
+
+    VBox.setVgrow(top, Priority.ALWAYS);
+    VBox.setVgrow(bottom, Priority.ALWAYS);
+    VBox.setVgrow(orphan1, Priority.ALWAYS);
+    VBox.setVgrow(orphan2 ,Priority.ALWAYS);
+    VBox.setVgrow(orphan3, Priority.ALWAYS);
+
+    
+    
+    
     
 
      top.getChildren().add(label); 
      bottom.getChildren().addAll(orphan1, orphan2, orphan3);
      bottom.setSpacing(100);
 
+     
 
 
      mainPane.setTop(top);

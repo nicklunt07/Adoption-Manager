@@ -28,8 +28,9 @@ public class OrphanageGUI extends Application {
         HBox top = new HBox();
         HBox bottom = new HBox();
 
-        top.setPrefHeight(250);
-        bottom.setPrefHeight(250);
+        top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        bottom.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+     
 
         top.setFillHeight(true);
         bottom.setFillHeight(true);
@@ -40,6 +41,11 @@ public class OrphanageGUI extends Application {
         Label label3 = new Label("This is another orphan");
         Label label4 = new Label("This is a third orphan");
 
+        label2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        label3.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        label4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+       
        
 
         VBox orphan1 = new VBox();

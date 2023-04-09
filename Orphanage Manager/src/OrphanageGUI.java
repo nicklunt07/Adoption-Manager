@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,8 +25,12 @@ public class OrphanageGUI extends Application {
     private void setUpControls(BorderPane mainPane) {
      HBox top = new HBox(); 
      HBox bottom = new HBox(); 
+
+     top.setPrefHeight(250);
+     bottom.setPrefHeight(250);
+ 
      
-     Label label = new Label("This is the top HBox"); 
+     Label label = new Label("This is the top HBox(Adopter questions)"); 
     
      Label label2 = new Label("This is one orphan");
      Label label3 = new Label("This is another orphan");
@@ -39,9 +44,18 @@ public class OrphanageGUI extends Application {
      orphan2.getChildren().add(label3);
      orphan3.getChildren().add(label4);
 
+     top.setAlignment(Pos.CENTER);
+     orphan1.setAlignment(Pos.CENTER);
+     orphan2.setAlignment(Pos.CENTER);
+     orphan3.setAlignment(Pos.CENTER);
+
+    
+
      top.getChildren().add(label); 
      bottom.getChildren().addAll(orphan1, orphan2, orphan3);
      bottom.setSpacing(100);
+
+
 
      mainPane.setTop(top);
      mainPane.setBottom(bottom);

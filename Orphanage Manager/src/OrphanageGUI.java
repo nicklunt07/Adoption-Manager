@@ -9,80 +9,81 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class OrphanageGUI extends Application {
-    
+
     public static void main(String[] args) {
         Application.launch();
     }
 
     public void start(final Stage mainStage) {
-        BorderPane root = new BorderPane();
+        VBox root = new VBox();
         setUpControls(root);
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root);
         setStage(mainStage, scene);
     }
 
-    private void setUpControls(BorderPane mainPane) {
-     HBox top = new HBox(); 
-     HBox bottom = new HBox(); 
+    private void setUpControls(VBox mainPane) {
+        HBox top = new HBox();
+        HBox bottom = new HBox();
 
-     top.setPrefHeight(250);
-     bottom.setPrefHeight(250);
- 
-     
-     Label label = new Label("This is the top HBox(Adopter questions)"); 
-    
-     Label label2 = new Label("This is one orphan");
-     Label label3 = new Label("This is another orphan");
-     Label label4 = new Label("This is a third orphan");
-     
-     VBox orphan1 = new VBox(); 
-     VBox orphan2 = new VBox(); 
-     VBox orphan3 = new VBox(); 
+        top.setPrefHeight(250);
+        bottom.setPrefHeight(250);
 
-     orphan1.getChildren().add(label2);
-     orphan2.getChildren().add(label3);
-     orphan3.getChildren().add(label4);
+        top.setFillHeight(true);
+        bottom.setFillHeight(true);
 
-     top.setAlignment(Pos.CENTER);
-     orphan1.setAlignment(Pos.CENTER);
-     orphan2.setAlignment(Pos.CENTER);
-     orphan3.setAlignment(Pos.CENTER);
+        Label label = new Label("This is the top HBox(Adopter questions)");
 
-    HBox.setHgrow(top, Priority.ALWAYS);
-    HBox.setHgrow(bottom, Priority.ALWAYS);
-    HBox.setHgrow(orphan1, Priority.ALWAYS);
-    HBox.setHgrow(orphan2 ,Priority.ALWAYS);
-    HBox.setHgrow(orphan3, Priority.ALWAYS);
+        Label label2 = new Label("This is one orphan");
+        Label label3 = new Label("This is another orphan");
+        Label label4 = new Label("This is a third orphan");
 
-    VBox.setVgrow(top, Priority.ALWAYS);
-    VBox.setVgrow(bottom, Priority.ALWAYS);
-    VBox.setVgrow(orphan1, Priority.ALWAYS);
-    VBox.setVgrow(orphan2 ,Priority.ALWAYS);
-    VBox.setVgrow(orphan3, Priority.ALWAYS);
+       
 
-    
-    
-    
-    
+        VBox orphan1 = new VBox();
+        VBox orphan2 = new VBox();
+        VBox orphan3 = new VBox();
 
-     top.getChildren().add(label); 
-     bottom.getChildren().addAll(orphan1, orphan2, orphan3);
-     bottom.setSpacing(100);
+        
 
-     
+         top.getChildren().add(label);
+        bottom.getChildren().addAll(orphan1, orphan2, orphan3);
+        bottom.setSpacing(100);
+
+        orphan1.getChildren().add(label2);
+        orphan2.getChildren().add(label3);
+        orphan3.getChildren().add(label4);
+
+        top.setAlignment(Pos.CENTER);
+        orphan1.setAlignment(Pos.CENTER);
+        orphan2.setAlignment(Pos.CENTER);
+        orphan3.setAlignment(Pos.CENTER);
+
+        HBox.setHgrow(top, Priority.ALWAYS);
+        HBox.setHgrow(bottom, Priority.ALWAYS);
+        HBox.setHgrow(orphan1, Priority.ALWAYS);
+        HBox.setHgrow(orphan2, Priority.ALWAYS);
+        HBox.setHgrow(orphan3, Priority.ALWAYS);
 
 
-     mainPane.setTop(top);
-     mainPane.setBottom(bottom);
-     
+        VBox.setVgrow(top, Priority.ALWAYS);
+        VBox.setVgrow(bottom, Priority.ALWAYS);
+        VBox.setVgrow(orphan1, Priority.ALWAYS);
+        VBox.setVgrow(orphan2, Priority.ALWAYS);
+        VBox.setVgrow(orphan3, Priority.ALWAYS);
+       
+
+        VBox.setVgrow(mainPane, Priority.ALWAYS);
+        mainPane.getChildren().addAll(top, bottom);
+
     }
 
     private void setStage(Stage mainStage, Scene scene) {
         mainStage.setTitle("Orphange");
         mainStage.setScene(scene);
         mainStage.show();
-        
+
     }
 }

@@ -9,7 +9,14 @@
             "name": "OrphanageGUI",
             "request": "launch",
             "mainClass": "OrphanageGUI",
-            "vmArgs": "--module-path \"/Users/adnankhaleeli/Documents/JavaFX/javafx-sdk-19.0.2-2.1/lib\" --add-modules javafx.controls,javafx.web",
+            "projectName": "Orphanage-Manager_6dab2994"
+        },
+        {
+            "type": "java",
+            "name": "OrphanageGUI",
+            "request": "launch",
+            "mainClass": "OrphanageGUI",
+            "vmArgs": "--module-path /Users/Sushanth/Desktop/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.fxml,javafx.web",
             "projectName": "Orphanage-Manager_96caf8e6"
         },
         {
@@ -17,7 +24,6 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
-      
+        }
     ]
 }

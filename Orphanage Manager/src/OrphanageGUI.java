@@ -54,8 +54,8 @@ public class OrphanageGUI extends Application {
         titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-        title.setStyle("-fx-background-color: red;");
-        title.setTextFill(Paint.valueOf("yellow"));
+        title.setStyle("-fx-background-color: #8B0000;");
+        title.setTextFill(Paint.valueOf("#FFD700"));
 
         VBox radioButton = new VBox();
         Label label = new Label("Choose your Gender");

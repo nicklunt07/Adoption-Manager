@@ -1,4 +1,7 @@
+import java.awt.Color;
+
 import javafx.application.Application;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,8 +11,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.text.Font;
+
 
 public class OrphanageGUI extends Application {
 
@@ -20,12 +28,14 @@ public class OrphanageGUI extends Application {
     public void start(final Stage mainStage) {
         VBox root = new VBox();
         setUpControls(root);
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 700, 500);
         setStage(mainStage, scene);
     }
 
     private void setUpControls(VBox mainPane) {
-        HBox top = new HBox();
+        Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
+      
+        HBox top = new HBox(30);
         HBox bottom = new HBox();
 
         top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -35,7 +45,52 @@ public class OrphanageGUI extends Application {
         top.setFillHeight(true);
         bottom.setFillHeight(true);
 
-        Label label = new Label("This is the top HBox(Adopter questions)");
+        HBox titleBox = new HBox();
+        Label title = new Label("Adoption Selection");
+        title.setFont(font);
+        title.setAlignment(Pos.CENTER);
+        titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        titleBox.getChildren().add(title);
+        titleBox.setAlignment(Pos.CENTER);
+        
+        titleBox.setStyle("-fx-background-color: red;");
+
+        VBox radioButton = new VBox();
+        Label label = new Label("Choose your Gender");
+        RadioButton male = new RadioButton("Male"); 
+        RadioButton female = new RadioButton("Female"); 
+        ToggleGroup gender = new ToggleGroup();
+        male.setToggleGroup(gender);
+        female.setToggleGroup(gender);
+
+
+        radioButton.getChildren().addAll(label, male, female);
+        radioButton.setAlignment(Pos.CENTER_LEFT);
+        
+        VBox ageBox = new VBox();
+        Label labelAge = new Label("Orphan's age");
+        Slider age = new Slider();
+        age.setMin(0);
+        age.setMax(30);
+        age.setValue(15);
+        age.setShowTickLabels(true);
+        age.setShowTickMarks(true);
+        age.setMajorTickUnit(10);
+        age.setMinorTickCount(5);
+        age.setBlockIncrement(10);
+        age.setOrientation(Orientation.HORIZONTAL);
+  
+
+        ageBox.setAlignment(Pos.CENTER);
+        ageBox.getChildren().addAll(labelAge, age);
+
+
+
+
+       // Adding nodes to HBox top
+       top.getChildren().addAll(radioButton, ageBox);
+       mainPane.setAlignment(Pos.CENTER);
+       // ---------------------------------------------------------------------
 
         Label label2 = new Label("This is one orphan");
         Label label3 = new Label("This is another orphan");
@@ -46,6 +101,7 @@ public class OrphanageGUI extends Application {
         label4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
        
+        
        
 
         VBox orphan1 = new VBox();
@@ -54,7 +110,9 @@ public class OrphanageGUI extends Application {
 
         
 
-         top.getChildren().add(label);
+
+
+        // Adding nodes to HBox bottom
         bottom.getChildren().addAll(orphan1, orphan2, orphan3);
         bottom.setSpacing(100);
 
@@ -82,7 +140,7 @@ public class OrphanageGUI extends Application {
        
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
-        mainPane.getChildren().addAll(top, bottom);
+        mainPane.getChildren().addAll(title,top, bottom);
 
     }
 

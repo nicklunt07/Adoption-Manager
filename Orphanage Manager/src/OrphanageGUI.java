@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
+import javafx.scene.paint.*;
 
 
 public class OrphanageGUI extends Application {
@@ -34,6 +35,7 @@ public class OrphanageGUI extends Application {
 
     private void setUpControls(VBox mainPane) {
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
+        
       
         HBox top = new HBox(30);
         HBox bottom = new HBox();
@@ -52,8 +54,8 @@ public class OrphanageGUI extends Application {
         titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-        
-        titleBox.setStyle("-fx-background-color: red;");
+        title.setStyle("-fx-background-color: red;");
+        title.setTextFill(Paint.valueOf("yellow"));
 
         VBox radioButton = new VBox();
         Label label = new Label("Choose your Gender");

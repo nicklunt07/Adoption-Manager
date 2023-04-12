@@ -1,4 +1,4 @@
-public interface Skilable {
+public interface Skillable {
     
     public void skill();
 }

@@ -15,9 +15,11 @@ public class Orphan extends Person implements Skillable{
         return orphanSkill;
      }
 
-     public void makeVideoSkill() {
+     public void makeVideoSkill(String filename) {
 
      }
+
+     
 
     
 }

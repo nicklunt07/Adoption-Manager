@@ -5,5 +5,6 @@ public class Adopter extends Person{
        super(name, age, gender);
        this.isFelon = isFelon;
        this.criminalRecord = criminalRecord;
+       addPerson(this);
     }
 }

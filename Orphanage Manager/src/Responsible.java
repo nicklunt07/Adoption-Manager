@@ -4,5 +4,5 @@ public interface Responsible {
 
      public String getCriminalRecord();
 
-     public int getAge();
+     
 }

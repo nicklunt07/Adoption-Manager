@@ -1,39 +1,68 @@
-import java.awt.Color;
-
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.text.Font;
-import javafx.scene.paint.*;
 
-
-public class OrphanageGUI extends Application {
+public class OrphangeGUI extends Application {
 
     public static void main(String[] args) {
-        Application.launch();
+        launch(args);
     }
 
-    public void start(final Stage mainStage) {
-        VBox root = new VBox();
-        setUpControls(root);
-        Scene scene = new Scene(root, 700, 500);
-        setStage(mainStage, scene);
+    /**
+     * @author Sushanth Ambati
+     */
+    @Override
+    public void start(Stage primaryStage) {
+        Pane welcomePage = createWelcomePage(primaryStage);
+        Scene scene = new Scene(welcomePage, 800, 600);       
+
+        //primaryStage.setTitle("Orphanage Manager - Welcome");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
-    private void setUpControls(VBox mainPane) {
+    /**
+     * @author Sushanth Ambati
+     * @author Adnan Khaleeli
+     * @param mainPane
+     */
+    private void setupControls( VBox mainPane) {
+        // Menu bar setup
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        Menu helpMenu = new Menu("Help");
+    
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(e -> System.exit(0));
+    
+        fileMenu.getItems().add(exitItem);
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
+        //mainPane.setClip(menuBar);
+    
+        // Tab pane setup
+        TabPane tabPane = new TabPane();
+
+        Tab childrenTab = new Tab("Children");
+        Tab staffTab = new Tab("Staff");
+        Tab roomsTab = new Tab("Rooms");
+
+        childrenTab.setClosable(false);
+        staffTab.setClosable(false);
+        roomsTab.setClosable(false);
+
+        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+
+        // Add the menu bar and tab pane to the mainPane (VBox)
+        mainPane.getChildren().addAll(menuBar, tabPane);
+        
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
         
       
@@ -144,12 +173,45 @@ public class OrphanageGUI extends Application {
         VBox.setVgrow(mainPane, Priority.ALWAYS);
         mainPane.getChildren().addAll(title,top, bottom);
 
+
+    }   
+    
+
+   
+    /**
+     * @author Sushanth Ambati
+     * @param primaryStage
+     * @return
+     */
+    private Pane createWelcomePage(Stage primaryStage) {
+        VBox welcomeLayout = new VBox(20);
+        welcomeLayout.setAlignment(Pos.CENTER);
+        welcomeLayout.setPadding(new Insets(20));
+        welcomeLayout.setStyle("-fx-background-color: #B0E0E6;");
+
+        Label nameLabel = new Label("Orphanage Name");
+        nameLabel.setStyle("-fx-font-size: 24;");
+
+        Label motiveLabel = new Label("An orphanage is a place where the cries of the innocent are heard, and the love of the forgotten is felt. - Anthony T. Hincks");
+        motiveLabel.setWrapText(true);
+        motiveLabel.setMaxWidth(400);
+
+        Button enterButton = new Button("Enter");
+
+        // Add an event listener to the button to navigate to the main application window
+        enterButton.setOnAction(e -> {
+            VBox root = new VBox();
+            setupControls(root);
+            primaryStage.setScene(new Scene(root, 800, 600));
+        });
+
+        welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
+
+        return welcomeLayout;
     }
 
-    private void setStage(Stage mainStage, Scene scene) {
-        mainStage.setTitle("Orphange");
-        mainStage.setScene(scene);
-        mainStage.show();
-
-    }
+    
+    
+    
+    
 }

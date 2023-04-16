@@ -1,5 +1,6 @@
 
 import java.util.*;
+
 public abstract class Person {
     private String name;
     private int age;
@@ -38,6 +39,8 @@ public abstract class Person {
     public String toString() {
         return name + ":\tage: " + age + "\tgender:" + gender;
     }
+
+    
     
     /*public void addPerson(Person person) {
       persons.add(person);
@@ -46,6 +49,8 @@ public abstract class Person {
     public ArrayList<Person> getPersons() {
         return persons;
     }*/
+
+    abstract int getID();
 
 
     

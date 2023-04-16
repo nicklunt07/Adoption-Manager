@@ -7,8 +7,7 @@ public class Orphanage {
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
 
-    public Orphanage(String orphanageName) {
-        this.orphanageName = orphanageName;
+    public Orphanage() {
         employees = new ArrayList<>();
         adopters = new ArrayList<>();
         orphans = new ArrayList<>();

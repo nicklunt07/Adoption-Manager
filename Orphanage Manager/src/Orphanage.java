@@ -9,7 +9,23 @@ public class Orphanage {
         employees = new ArrayList<>();
         adopters = new ArrayList<>();
         orphans = new ArrayList<>();
+        addDefaultEmployees();
     }
+
+    public void addDefaultEmployees(){
+        // I am not sure about y'all ages I am just using it test nothing else.
+        Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this);
+        Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder", this);
+        Employee employee3 = new Employee("Nick Lunt", 20, "Male", "Founder", this);
+        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this);
+        //createAndAddEmployee("Sushanth Ambati", 20, "Male", "Founder");
+    }
+
+    // Testing purposes
+    /*public void createAndAddEmployee(String name, int age, String gender, String role) {
+        Employee newEmployee = new Employee(name, age, gender, role, this);
+        employees.add(newEmployee);
+    }*/
 
     public void addEmployee(Employee employee) {
         employees.add(employee);

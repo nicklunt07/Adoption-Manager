@@ -3,11 +3,12 @@ public class Employee extends Person implements Skillable {
     
     ArrayList<Skillable> skill;
     private String position;
-    private static int employeeID = 300001;
+    private static long employeeID = 300001;
+    private long id;
 
     public Employee(String name, int age, String gender, String position,Orphanage orphanage) {
         super(name,age,gender);
-        //addPerson(this);
+        this.id = employeeID++;
         this.position = position;
         orphanage.addEmployee(this);
     }
@@ -20,14 +21,20 @@ public class Employee extends Person implements Skillable {
         return this.position;
     }
 
-    protected int getID(){
+    protected long getID(){
         
-        return employeeID;
+        return id;
     }
 
     public void skill() {
 
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\tID: " + getID() + "\tPosition: " + getPosition();
+    }
+
 
    
 }

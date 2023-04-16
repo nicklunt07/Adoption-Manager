@@ -37,7 +37,7 @@ public abstract class Person {
     }
 
     public String toString() {
-        return name + ":\tage: " + age + "\tgender:" + gender;
+        return name + "\tage: " + age + "\tgender:" + gender;
     }
 
     
@@ -50,7 +50,7 @@ public abstract class Person {
     //     return persons;
     // }
 
-    abstract int getID();
+    abstract long getID();
 
 
     

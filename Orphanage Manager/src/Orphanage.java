@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Orphanage {
     String orphanageName;
-    ArrayList<Orphan> orphans = new ArrayList<>();
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
@@ -46,7 +45,4 @@ public class Orphanage {
     public ArrayList<Orphan> getOrphans(){
         return orphans;
     }
-}
-
-
 }

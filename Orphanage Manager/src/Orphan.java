@@ -1,9 +1,9 @@
 public class Orphan extends Person implements Skillable{
    
    Skillable orphanSkill;
-   public Orphan(String name, int age, String gender, Skillable skill) {
+   public Orphan(Orphanage orphanage,String name, int age, String gender, Skillable skill) {
       super(name, age, gender);
-      addPerson(this);
+      orphanage.addOrphan(this);
       this.orphanSkill = skill;
    }
 

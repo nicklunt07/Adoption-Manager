@@ -4,10 +4,10 @@ public class Employee extends Person implements Skillable {
     ArrayList<Skillable> skill;
     private String position;
 
-    public Employee(String name, int age, String gender, String position) {
+    public Employee(Orphanage orphanage, String name, int age, String gender, String position) {
         super(name,age,gender);
         this.position = position;
-        addPerson(this);
+        orphanage.addEmployee(this);
     }
 
     /**

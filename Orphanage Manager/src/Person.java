@@ -1,10 +1,9 @@
 
 import java.util.*;
-public class Person {
+public abstract class Person {
     private String name;
     private int age;
     private String gender;
-    private ArrayList<Person> persons;
 
     public Person(String name, int age, String gender) {
         this.name = name; 
@@ -40,13 +39,13 @@ public class Person {
         return name + ":\tage: " + age + "\tgender:" + gender;
     }
     
-    public void addPerson(Person person) {
+    /*public void addPerson(Person person) {
       persons.add(person);
     }
 
     public ArrayList<Person> getPersons() {
         return persons;
-    }
+    }*/
 
 
     

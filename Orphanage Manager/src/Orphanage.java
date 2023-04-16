@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Orphanage {
-    String orphanageName;
+    private String orphanageName;
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
 
-    public Orphanage() {
+    public Orphanage(String orphanageName) {
+        this.orphanageName = orphanageName;
         employees = new ArrayList<>();
         adopters = new ArrayList<>();
         orphans = new ArrayList<>();
@@ -112,13 +114,10 @@ public class Orphanage {
     public ArrayList<Orphan> getOrphans() {
         return orphans;
     }
-    
-    
-    public Orphanage(String orphanageName){
-        this.orphanageName = orphanageName;
 
-    }
-
+    /**
+     * adds starting 10 orphans (no skills at the moment)
+     */
     public void addOrphans(){
         orphans.add(new Orphan("Keanu Hardin", 5, "Male", null));
         orphans.add(new Orphan("Barnaby Kane", 1, "Male", null));
@@ -132,4 +131,12 @@ public class Orphanage {
         orphans.add(new Orphan("Rajan O'Quinn", 8, "Male", null));
     }
 
+    /**
+     * @param age
+     * @return filtered arraylist
+     */
+    public ArrayList<Orphan> filterByAge(int age){
+        ArrayList<Orphan> filteredOrphans = orphans.stream().filter(o -> o.getAge() == age).collect(Collectors.toCollection(ArrayList::new));
+        return filteredOrphans;
+    }
 }

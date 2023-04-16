@@ -40,13 +40,13 @@ public class Person {
         return name + ":\tage: " + age + "\tgender:" + gender;
     }
     
-    public void addPerson(Person person) {
-      persons.add(person);
-    }
+    // public void addPerson(Person person) {
+    //   persons.add(person);
+    // }
 
-    public ArrayList<Person> getPersons() {
-        return persons;
-    }
+    // public ArrayList<Person> getPersons() {
+    //     return persons;
+    // }
 
 
     

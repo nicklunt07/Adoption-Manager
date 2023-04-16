@@ -34,7 +34,7 @@ public class OrphangeGUI extends Application {
      * @author Adnan Khaleeli
      * @param mainPane
      */
-    private void setupControls( VBox mainPane) {
+    private void setupControls(VBox mainPane) {
         // Menu bar setup
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -118,56 +118,71 @@ public class OrphangeGUI extends Application {
 
 
 
-       // Adding nodes to HBox top
-       top.getChildren().addAll(radioButton, ageBox);
-       mainPane.setAlignment(Pos.CENTER);
-       // ---------------------------------------------------------------------
+        // Adding nodes to HBox top
+        top.getChildren().addAll(radioButton, ageBox);
+        mainPane.setAlignment(Pos.CENTER);
+        // ---------------------------------------------------------------------
 
-        Label label2 = new Label("This is one orphan");
-        Label label3 = new Label("This is another orphan");
-        Label label4 = new Label("This is a third orphan");
+        // Label label2 = new Label("This is one orphan");
+        // Label label3 = new Label("This is another orphan");
+        // Label label4 = new Label("This is a third orphan");
 
-        label2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        label3.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        label4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        // label2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        // label3.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        // label4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        Orphanage orphanage = new Orphanage("Friendship Orphan Home");
+        orphanage.addOrphans();
+        for(Orphan orphan : orphanage.getOrphans()){
+            VBox orphanBox = new VBox();
+            orphanBox.setStyle("-fx-background-color: #E0E0E0");
+            orphanBox.setPrefWidth(200);
+            orphanBox.setPrefHeight(200);
+            Label orpLabel = new Label(orphan.toString());
+            orphanBox.getChildren().add(orpLabel);
+            bottom.getChildren().add(orphanBox);
+        }
        
+
+        // VBox orphan1 = new VBox();
+        // orphan1.setStyle("-fx-background-color: #E0E0E0");
+        // VBox orphan2 = new VBox();
+        // orphan2.setStyle("-fx-background-color: #BDBDBD");
+        // VBox orphan3 = new VBox();
+        // orphan3.setStyle("-fx-background-color: #9E9E9E");
         
-       
-
-        VBox orphan1 = new VBox();
-        VBox orphan2 = new VBox();
-        VBox orphan3 = new VBox();
-
-        
-
-
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(bottom);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mainPane.getChildren().add(scrollPane);
 
         // Adding nodes to HBox bottom
-        bottom.getChildren().addAll(orphan1, orphan2, orphan3);
+        //bottom.getChildren().addAll(orphan1, orphan2, orphan3);
+        
         bottom.setSpacing(100);
 
-        orphan1.getChildren().add(label2);
-        orphan2.getChildren().add(label3);
-        orphan3.getChildren().add(label4);
+        // orphan1.getChildren().add(label2);
+        // orphan2.getChildren().add(label3);
+        // orphan3.getChildren().add(label4);
 
         top.setAlignment(Pos.CENTER);
-        orphan1.setAlignment(Pos.CENTER);
-        orphan2.setAlignment(Pos.CENTER);
-        orphan3.setAlignment(Pos.CENTER);
+        // orphan1.setAlignment(Pos.CENTER);
+        // orphan2.setAlignment(Pos.CENTER);
+        // orphan3.setAlignment(Pos.CENTER);
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
-        HBox.setHgrow(orphan1, Priority.ALWAYS);
-        HBox.setHgrow(orphan2, Priority.ALWAYS);
-        HBox.setHgrow(orphan3, Priority.ALWAYS);
+        // HBox.setHgrow(orphan1, Priority.ALWAYS);
+        // HBox.setHgrow(orphan2, Priority.ALWAYS);
+        // HBox.setHgrow(orphan3, Priority.ALWAYS);
 
 
         VBox.setVgrow(top, Priority.ALWAYS);
         VBox.setVgrow(bottom, Priority.ALWAYS);
-        VBox.setVgrow(orphan1, Priority.ALWAYS);
-        VBox.setVgrow(orphan2, Priority.ALWAYS);
-        VBox.setVgrow(orphan3, Priority.ALWAYS);
+        // VBox.setVgrow(orphan1, Priority.ALWAYS);
+        // VBox.setVgrow(orphan2, Priority.ALWAYS);
+        // VBox.setVgrow(orphan3, Priority.ALWAYS);
        
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
@@ -210,8 +225,4 @@ public class OrphangeGUI extends Application {
         return welcomeLayout;
     }
 
-    
-    
-    
-    
 }

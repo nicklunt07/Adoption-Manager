@@ -3,11 +3,13 @@ import java.util.stream.Collectors;
 
 public class Orphanage {
     private String orphanageName;
+    private ArrayList<Person> persons;
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
 
     public Orphanage() {
+        persons = new ArrayList<>();
         employees = new ArrayList<>();
         adopters = new ArrayList<>();
         orphans = new ArrayList<>();
@@ -37,16 +39,8 @@ public class Orphanage {
         employees.add(newEmployee);
     }*/
 
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
-    }
-    
-    public void addAdopter(Adopter adopter) {
-        adopters.add(adopter);
-    }
-    
-    public void addOrphan(Orphan orphan) {
-        orphans.add(orphan);
+    public void addPerson(Person pers){
+        persons.add(pers);
     }
 
     /**
@@ -102,29 +96,9 @@ public class Orphanage {
      * getting employees
      * @return employees
      */
-    public ArrayList<Employee> getEmployees() {
-        return employees;
+    public ArrayList<Person> getPersons() {
+        return persons;
     }
-
-    /**
-     * getting adopters
-     * @return adopters
-     */
-    public ArrayList<Adopter> getAdopters() {
-        return adopters;
-    }
-
-    /**
-     * getting orphans
-     * @return orphans
-     */
-    public ArrayList<Orphan> getOrphans() {
-        return orphans;
-    }
-
-    /**
-     * adds starting 10 orphans (no skills at the moment)
-     */
 
 
     /**

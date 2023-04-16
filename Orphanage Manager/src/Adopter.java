@@ -9,7 +9,7 @@ public class Adopter extends Person{
        this.isFelon = isFelon;
        this.criminalRecord = criminalRecord;
        //addPerson(this);
-       orphanage.addAdopter(this);
+       orphanage.addPerson(this);
     }
 
 

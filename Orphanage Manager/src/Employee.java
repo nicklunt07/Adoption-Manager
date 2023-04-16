@@ -10,7 +10,7 @@ public class Employee extends Person implements Skillable {
         super(name,age,gender);
         this.id = employeeID++;
         this.position = position;
-        orphanage.addEmployee(this);
+        orphanage.addPerson(this);
     }
 
     /**

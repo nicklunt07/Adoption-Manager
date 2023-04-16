@@ -102,12 +102,12 @@ public class OrphangeGUI extends Application {
         Label labelAge = new Label("Orphan's age");
         Slider age = new Slider();
         age.setMin(0);
-        age.setMax(30);
+        age.setMax(18);
         age.setValue(15);
         age.setShowTickLabels(true);
         age.setShowTickMarks(true);
-        age.setMajorTickUnit(10);
-        age.setMinorTickCount(5);
+        age.setMajorTickUnit(2);
+        age.setMinorTickCount(1);
         age.setBlockIncrement(10);
         age.setOrientation(Orientation.HORIZONTAL);
   
@@ -136,11 +136,14 @@ public class OrphangeGUI extends Application {
         for(Orphan orphan : orphanage.getOrphans()){
             VBox orphanBox = new VBox();
             orphanBox.setStyle("-fx-background-color: #E0E0E0");
-            orphanBox.setPrefWidth(200);
+            orphanBox.setPrefWidth(300);
             orphanBox.setPrefHeight(200);
             Label orpLabel = new Label(orphan.toString());
             orphanBox.getChildren().add(orpLabel);
             bottom.getChildren().add(orphanBox);
+            
+            Button button = new Button("adopt");
+            orphanBox.getChildren().add(button);
         }
        
 

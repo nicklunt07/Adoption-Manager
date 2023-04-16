@@ -116,7 +116,4 @@ public class Orphanage {
         orphans.add(new Orphan("Rajan O'Quinn", 8, "Male", null));
     }
 
-    public ArrayList<Orphan> getOrphans(){
-        return orphans;
-    }
 }

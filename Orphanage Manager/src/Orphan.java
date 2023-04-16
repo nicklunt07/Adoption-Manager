@@ -2,10 +2,12 @@ public class Orphan extends Person implements Skillable{
    
    Skillable orphanSkill;
    private static long orphanID = 400001;
-   public Orphan(String name, int age, String gender, Skillable skill) {
+   private long id;
+   public Orphan(String name, int age, String gender, Skillable skill, Orphanage orphanage) {
       super(name, age, gender);
-      //orphanage.addOrphan(this);
+      this.id = orphanID++;
       this.orphanSkill = skill;
+      orphanage.addOrphan(this);
    }
 
    public void skill() {
@@ -21,7 +23,12 @@ public class Orphan extends Person implements Skillable{
    }
 
    protected long getID(){
-      return orphanID;
+      return id;
    }
+
+   @Override
+    public String toString() {
+        return super.toString() + "\tID: " + getID();
+    }
 
 }

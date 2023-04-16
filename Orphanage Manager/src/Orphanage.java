@@ -12,6 +12,7 @@ public class Orphanage {
         adopters = new ArrayList<>();
         orphans = new ArrayList<>();
         addDefaultEmployees();
+        addDefaultOrphans();
     }
 
     public void addDefaultEmployees(){
@@ -22,6 +23,13 @@ public class Orphanage {
         Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this);
         //createAndAddEmployee("Sushanth Ambati", 20, "Male", "Founder");
     }
+
+    public void addDefaultOrphans(){
+        Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", null,this);
+        Orphan orphan2 = new Orphan("Mary Cooper", 3, "FeMale", null,this);
+        Orphan orphan3 = new Orphan("Howard craig", 7, "Male", null,this);
+    }
+
 
     // Testing purposes, please dont delete this
     /*public void createAndAddEmployee(String name, int age, String gender, String role) {
@@ -117,18 +125,7 @@ public class Orphanage {
     /**
      * adds starting 10 orphans (no skills at the moment)
      */
-    public void addOrphans(){
-        orphans.add(new Orphan("Keanu Hardin", 5, "Male", null));
-        orphans.add(new Orphan("Barnaby Kane", 1, "Male", null));
-        orphans.add(new Orphan("Safia Palmer", 3, "Female", null));
-        orphans.add(new Orphan("Mattie Odom", 11, "Male", null));
-        orphans.add(new Orphan("Dale Byrne", 16, "Male", null));
-        orphans.add(new Orphan("Kaider Blackburn", 0, "Male", null));
-        orphans.add(new Orphan("Kenneth Holman", 2, "Male", null));
-        orphans.add(new Orphan("Sidney Gaines", 7, "Female", null));
-        orphans.add(new Orphan("Nettie Nash", 5, "Female", null));
-        orphans.add(new Orphan("Rajan O'Quinn", 8, "Male", null));
-    }
+
 
     /**
      * @param age

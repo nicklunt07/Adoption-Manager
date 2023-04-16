@@ -22,7 +22,7 @@ public class Orphanage {
         //createAndAddEmployee("Sushanth Ambati", 20, "Male", "Founder");
     }
 
-    // Testing purposes
+    // Testing purposes, please dont delete this
     /*public void createAndAddEmployee(String name, int age, String gender, String role) {
         Employee newEmployee = new Employee(name, age, gender, role, this);
         employees.add(newEmployee);

@@ -5,7 +5,7 @@ public class Employee extends Person implements Skillable {
     private String position;
     private static int employeeID = 300001;
 
-    public Employee(Orphanage orphanage, String name, int age, String gender, String position) {
+    public Employee(String name, int age, String gender, String position,Orphanage orphanage) {
         super(name,age,gender);
         //addPerson(this);
         this.position = position;

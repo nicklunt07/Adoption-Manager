@@ -1,8 +1,8 @@
 public interface Responsible {
 
-    public boolean eligableCareGiver();
+    public boolean isEligableCareGiver();
 
-     public String getCriminalRecord();
+    public String getCriminalRecord();
 
      
 }

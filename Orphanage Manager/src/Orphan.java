@@ -1,7 +1,7 @@
 public class Orphan extends Person implements Skillable{
    
    Skillable orphanSkill;
-   private static int orphanID = 400001;
+   private static long orphanID = 400001;
    public Orphan(Orphanage orphanage,String name, int age, String gender, Skillable skill) {
       super(name, age, gender);
       orphanage.addOrphan(this);
@@ -20,7 +20,7 @@ public class Orphan extends Person implements Skillable{
 
    }
 
-   protected int getID(){
+   protected long getID(){
       return orphanID;
    }
 

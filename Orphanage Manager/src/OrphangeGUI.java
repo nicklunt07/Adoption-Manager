@@ -1,6 +1,7 @@
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.*;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -65,6 +66,7 @@ public class OrphangeGUI extends Application {
         
       
         HBox top = new HBox(30);
+        HBox center = new HBox();
         HBox bottom = new HBox();
 
         top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -118,103 +120,43 @@ public class OrphangeGUI extends Application {
         ageBox.getChildren().addAll(labelAge, age);
 
         // --- reveal button ---
-        VBox loadButton = new VBox();
+       
         Button reveal = new Button("Click to Reveal Orphans under Filters");
 
-        loadButton.getChildren().addAll(reveal);
-        reveal.setOnAction(event -> {     
-            displayOrphans(bottom, maxAge);
-        });
-
-
-       // Adding nodes to HBox top
-       top.getChildren().addAll(radioButton, ageBox, loadButton);
-       mainPane.setAlignment(Pos.CENTER);
+     
+   
+      
+     
        // ---------------------------------------------------------------------
-
-        Label label2 = new Label("This is one orphan");
-        Label label3 = new Label("This is another orphan");
-        Label label4 = new Label("This is a third orphan");
-
-        label2.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        label3.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        label4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
-       /*
-        * Orphanage orphanage = new Orphanage("Friendship Orphan Home");
-        orphanage.addOrphans();
-        for(Orphan orphan : orphanage.getOrphans()){
-            VBox orphanBox = new VBox();
-            orphanBox.setStyle("-fx-background-color: #E0E0E0");
-            orphanBox.setPrefWidth(300);
-            orphanBox.setPrefHeight(200);
-            Label orpLabel = new Label(orphan.toString());
-            orphanBox.getChildren().add(orpLabel);
-            bottom.getChildren().add(orphanBox);
-            
-            Button button = new Button("adopt");
-            orphanBox.getChildren().add(button);
-        }
-        */
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(bottom);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        mainPane.getChildren().add(scrollPane);
-
-        // for(Orphan orphan : getOrphans()){
-        //     VBox orphanBox = new VBox();
-        //     orphanBox.setStyle(STYLESHEET_CASPIAN);
-        //     orphanBox.setPrefWidth(350);
-        //     orphanBox.setPrefHeight(200);
-        //     Label label10 = new Label(orphan.toString());
-        //     orphanBox.getChildren().add(label10);
-        //     bottom.getChildren().add(orphanBox);
-
-        //     Button button = new Button("Adopt");
-        //     orphanBox.getChildren().add(button);
-        // }
         
        
-
-        // VBox orphan1 = new VBox();
-        // VBox orphan2 = new VBox();
-        // VBox orphan3 = new VBox();
-
-        
-
-
-
-        // Adding nodes to HBox bottom
-        //bottom.getChildren().addAll(orphan1, orphan2, orphan3);
         bottom.setSpacing(100);
 
-        // orphan1.getChildren().add(label2);
-        // orphan2.getChildren().add(label3);
-        // orphan3.getChildren().add(label4);
 
         top.setAlignment(Pos.CENTER);
-        // orphan1.setAlignment(Pos.CENTER);
-        // orphan2.setAlignment(Pos.CENTER);
-        // orphan3.setAlignment(Pos.CENTER);
+       
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
-        // HBox.setHgrow(orphan1, Priority.ALWAYS);
-        // HBox.setHgrow(orphan2, Priority.ALWAYS);
-        // HBox.setHgrow(orphan3, Priority.ALWAYS);
-
+      
 
         VBox.setVgrow(top, Priority.ALWAYS);
         VBox.setVgrow(bottom, Priority.ALWAYS);
-        // VBox.setVgrow(orphan1, Priority.ALWAYS);
-        // VBox.setVgrow(orphan2, Priority.ALWAYS);
-        // VBox.setVgrow(orphan3, Priority.ALWAYS);
+   
        
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
+       bottom.setAlignment(Pos.CENTER);
+
+        top.getChildren().addAll(radioButton, ageBox);
+        bottom.getChildren().addAll(reveal);
+        mainPane.setAlignment(Pos.CENTER);
         mainPane.getChildren().addAll(title,top, bottom);
+
+           
+        reveal.setOnAction(event -> {     
+            displayOrphans(bottom, maxAge, reveal);
+        });
     }   
     
     private Pane createWelcomePage(Stage primaryStage) {
@@ -265,18 +207,22 @@ public class OrphangeGUI extends Application {
      * @param bottom
      * @param age
      */
-    private void displayOrphans(HBox bottom, int age){
-        for(Orphan orphan : getOrphans(age)){
+    private void displayOrphans(HBox bottom, int age, Button reveal){
+       bottom.getChildren().remove(reveal);
+        
+        age = 7;
+        List<Orphan> orphans = getOrphans(age);
+        Orphan orphan = orphans.get(0);
+      
             VBox orphanBox = new VBox();
             orphanBox.setStyle(STYLESHEET_CASPIAN);
-            orphanBox.setPrefWidth(350);
-            orphanBox.setPrefHeight(200);
+            
             Label label10 = new Label(orphan.toString());
-            orphanBox.getChildren().add(label10);
+            orphanBox.getChildren().addAll(label10);
             bottom.getChildren().add(orphanBox);
 
             Button button = new Button("Adopt");
             orphanBox.getChildren().add(button);
-        }
+        
     }
 }

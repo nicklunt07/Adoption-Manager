@@ -98,7 +98,7 @@ public class OrphangeGUI extends Application {
         
         // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's Max Age : " + maxAge);
+        Label labelAge = new Label("Orphan's Max Age : " + maxAge); //wont display the maxAge part right...idk why!
         Slider age = new Slider();
         age.setMin(0);
         age.setMax(18);
@@ -110,7 +110,7 @@ public class OrphangeGUI extends Application {
         age.setBlockIncrement(10);
         age.setOrientation(Orientation.HORIZONTAL);
 
-        age.valueProperty().addListener((observable, oldValue, newValue) -> {
+        age.valueProperty().addListener((observable, oldValue, newValue) -> { 
             maxAge = newValue.intValue();
         });
 
@@ -122,7 +122,7 @@ public class OrphangeGUI extends Application {
         Button reveal = new Button("Click to Reveal Orphans under Filters");
 
         loadButton.getChildren().addAll(reveal);
-        reveal.setOnAction(event -> {
+        reveal.setOnAction(event -> {     
             displayOrphans(bottom, maxAge);
         });
 
@@ -215,13 +215,8 @@ public class OrphangeGUI extends Application {
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
         mainPane.getChildren().addAll(title,top, bottom);
-
-
     }   
     
-
-   
-
     private Pane createWelcomePage(Stage primaryStage) {
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
@@ -259,12 +254,17 @@ public class OrphangeGUI extends Application {
         List<Orphan> orphans = orphanage.getPersons().stream()
                 .filter(person -> person instanceof Orphan)
                 .map(person -> (Orphan)person)
-                .filter(orphan -> orphan.getAge()< age)
+                .filter(orphan -> orphan.getAge()<  maxAge)
                 .collect(Collectors.toList());
         return orphans;
        // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());
     }
 
+    /**
+     * 
+     * @param bottom
+     * @param age
+     */
     private void displayOrphans(HBox bottom, int age){
         for(Orphan orphan : getOrphans(age)){
             VBox orphanBox = new VBox();

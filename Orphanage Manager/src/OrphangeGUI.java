@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class OrphangeGUI extends Application {
+    Orphanage orphanage = new Orphanage();
 
     public static void main(String[] args) {
         launch(args);
@@ -144,11 +145,10 @@ public class OrphangeGUI extends Application {
         }
         */
 
-        Orphanage orphanage = new Orphanage();
         for(Orphan orphan : getOrphans()){
             VBox orphanBox = new VBox();
             orphanBox.setStyle(STYLESHEET_CASPIAN);
-            orphanBox.setPrefWidth(200);
+            orphanBox.setPrefWidth(350);
             orphanBox.setPrefHeight(200);
             Label label10 = new Label(orphan.toString());
             orphanBox.getChildren().add(label10);
@@ -230,7 +230,6 @@ public class OrphangeGUI extends Application {
 
     public List<Orphan> getOrphans(){
         int age = 5;
-        Orphanage orphanage = new Orphanage();
         List<Orphan> orphans = orphanage.getPersons().stream().filter(person -> person instanceof Orphan).map(person -> (Orphan)person).filter(orphan -> orphan.getAge()<age).collect(Collectors.toList());
         return orphans;
        // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());

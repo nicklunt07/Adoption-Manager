@@ -28,8 +28,18 @@ public class Orphanage {
 
     public void addDefaultOrphans(){
         Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", null,this);
-        Orphan orphan2 = new Orphan("Mary Cooper", 3, "FeMale", null,this);
-        Orphan orphan3 = new Orphan("Howard craig", 7, "Male", null,this);
+        Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", null,this);
+        Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", null,this);
+        Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", null,this);
+        Orphan orphan5 = new Orphan("Barnaby Kane", 1, "Male", null,this);
+        Orphan orphan6 = new Orphan("Safia Palmer", 3, "Female", null,this);
+        Orphan orphan7 = new Orphan("Mattie Odom", 11, "Male", null,this);
+        Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", null,this);
+        Orphan orphan9 = new Orphan("Kaider Blackburn", 0, "Male", null,this);
+        Orphan orphan10 = new Orphan("Kenneth Holman", 2, "Male", null,this);
+        Orphan orphan11 = new Orphan("Sidney Gaines", 7, "Female", null,this);
+        Orphan orphan12 = new Orphan("Nettie Nash", 5, "Female", null,this);
+        Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
     }
 
 

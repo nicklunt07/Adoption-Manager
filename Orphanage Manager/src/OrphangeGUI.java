@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
+    int maxAge;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,7 +27,7 @@ public class OrphangeGUI extends Application {
         Pane welcomePage = createWelcomePage(primaryStage);
         Scene scene = new Scene(welcomePage, 800, 600);       
 
-        //primaryStage.setTitle("Orphanage Manager - Welcome");
+        primaryStage.setTitle("Orphanage Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -84,7 +85,7 @@ public class OrphangeGUI extends Application {
         title.setTextFill(Paint.valueOf("#FFD700"));
 
         VBox radioButton = new VBox();
-        Label label = new Label("Choose your Gender");
+        Label label = new Label("Orphan's Sex: ");
         RadioButton male = new RadioButton("Male"); 
         RadioButton female = new RadioButton("Female"); 
         ToggleGroup gender = new ToggleGroup();
@@ -95,8 +96,9 @@ public class OrphangeGUI extends Application {
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
         
+        // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's age");
+        Label labelAge = new Label("Orphan's Max Age : " + maxAge);
         Slider age = new Slider();
         age.setMin(0);
         age.setMax(18);
@@ -107,16 +109,26 @@ public class OrphangeGUI extends Application {
         age.setMinorTickCount(1);
         age.setBlockIncrement(10);
         age.setOrientation(Orientation.HORIZONTAL);
-  
+
+        age.valueProperty().addListener((observable, oldValue, newValue) -> {
+            maxAge = newValue.intValue();
+        });
 
         ageBox.setAlignment(Pos.CENTER);
         ageBox.getChildren().addAll(labelAge, age);
 
+        // --- reveal button ---
+        VBox loadButton = new VBox();
+        Button reveal = new Button("Click to Reveal Orphans under Filters");
 
+        loadButton.getChildren().addAll(reveal);
+        reveal.setOnAction(event -> {
+            displayOrphans(bottom, maxAge);
+        });
 
 
        // Adding nodes to HBox top
-       top.getChildren().addAll(radioButton, ageBox);
+       top.getChildren().addAll(radioButton, ageBox, loadButton);
        mainPane.setAlignment(Pos.CENTER);
        // ---------------------------------------------------------------------
 
@@ -145,51 +157,60 @@ public class OrphangeGUI extends Application {
         }
         */
 
-        for(Orphan orphan : getOrphans()){
-            VBox orphanBox = new VBox();
-            orphanBox.setStyle(STYLESHEET_CASPIAN);
-            orphanBox.setPrefWidth(350);
-            orphanBox.setPrefHeight(200);
-            Label label10 = new Label(orphan.toString());
-            orphanBox.getChildren().add(label10);
-            bottom.getChildren().add(orphanBox);
-        }
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(bottom);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mainPane.getChildren().add(scrollPane);
+
+        // for(Orphan orphan : getOrphans()){
+        //     VBox orphanBox = new VBox();
+        //     orphanBox.setStyle(STYLESHEET_CASPIAN);
+        //     orphanBox.setPrefWidth(350);
+        //     orphanBox.setPrefHeight(200);
+        //     Label label10 = new Label(orphan.toString());
+        //     orphanBox.getChildren().add(label10);
+        //     bottom.getChildren().add(orphanBox);
+
+        //     Button button = new Button("Adopt");
+        //     orphanBox.getChildren().add(button);
+        // }
         
        
 
-        VBox orphan1 = new VBox();
-        VBox orphan2 = new VBox();
-        VBox orphan3 = new VBox();
+        // VBox orphan1 = new VBox();
+        // VBox orphan2 = new VBox();
+        // VBox orphan3 = new VBox();
 
         
 
 
 
         // Adding nodes to HBox bottom
-        bottom.getChildren().addAll(orphan1, orphan2, orphan3);
+        //bottom.getChildren().addAll(orphan1, orphan2, orphan3);
         bottom.setSpacing(100);
 
-        orphan1.getChildren().add(label2);
-        orphan2.getChildren().add(label3);
-        orphan3.getChildren().add(label4);
+        // orphan1.getChildren().add(label2);
+        // orphan2.getChildren().add(label3);
+        // orphan3.getChildren().add(label4);
 
         top.setAlignment(Pos.CENTER);
-        orphan1.setAlignment(Pos.CENTER);
-        orphan2.setAlignment(Pos.CENTER);
-        orphan3.setAlignment(Pos.CENTER);
+        // orphan1.setAlignment(Pos.CENTER);
+        // orphan2.setAlignment(Pos.CENTER);
+        // orphan3.setAlignment(Pos.CENTER);
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
-        HBox.setHgrow(orphan1, Priority.ALWAYS);
-        HBox.setHgrow(orphan2, Priority.ALWAYS);
-        HBox.setHgrow(orphan3, Priority.ALWAYS);
+        // HBox.setHgrow(orphan1, Priority.ALWAYS);
+        // HBox.setHgrow(orphan2, Priority.ALWAYS);
+        // HBox.setHgrow(orphan3, Priority.ALWAYS);
 
 
         VBox.setVgrow(top, Priority.ALWAYS);
         VBox.setVgrow(bottom, Priority.ALWAYS);
-        VBox.setVgrow(orphan1, Priority.ALWAYS);
-        VBox.setVgrow(orphan2, Priority.ALWAYS);
-        VBox.setVgrow(orphan3, Priority.ALWAYS);
+        // VBox.setVgrow(orphan1, Priority.ALWAYS);
+        // VBox.setVgrow(orphan2, Priority.ALWAYS);
+        // VBox.setVgrow(orphan3, Priority.ALWAYS);
        
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
@@ -233,19 +254,29 @@ public class OrphangeGUI extends Application {
      * @author Sushanth Ambati
      * @return orphans
      */
-    public List<Orphan> getOrphans(){
-        int age = 5;
+    public List<Orphan> getOrphans(int maxAge){ //added param but not used yet
+        int age = 18;
         List<Orphan> orphans = orphanage.getPersons().stream()
                 .filter(person -> person instanceof Orphan)
                 .map(person -> (Orphan)person)
-                .filter(orphan -> orphan.getAge()<age)
+                .filter(orphan -> orphan.getAge()< age)
                 .collect(Collectors.toList());
         return orphans;
        // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());
     }
 
-    
-    
-    
-    
+    private void displayOrphans(HBox bottom, int age){
+        for(Orphan orphan : getOrphans(age)){
+            VBox orphanBox = new VBox();
+            orphanBox.setStyle(STYLESHEET_CASPIAN);
+            orphanBox.setPrefWidth(350);
+            orphanBox.setPrefHeight(200);
+            Label label10 = new Label(orphan.toString());
+            orphanBox.getChildren().add(label10);
+            bottom.getChildren().add(orphanBox);
+
+            Button button = new Button("Adopt");
+            orphanBox.getChildren().add(button);
+        }
+    }
 }

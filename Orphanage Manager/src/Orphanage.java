@@ -100,6 +100,10 @@ public class Orphanage {
         return persons;
     }
 
+    public Orphanage getOrphanage(){
+        return this;
+    }
+
 
     /**
      * @param age

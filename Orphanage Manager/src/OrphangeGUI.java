@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -139,6 +143,17 @@ public class OrphangeGUI extends Application {
             orphanBox.getChildren().add(button);
         }
         */
+
+        Orphanage orphanage = new Orphanage();
+        for(Orphan orphan : getOrphans()){
+            VBox orphanBox = new VBox();
+            orphanBox.setStyle(STYLESHEET_CASPIAN);
+            orphanBox.setPrefWidth(200);
+            orphanBox.setPrefHeight(200);
+            Label label10 = new Label(orphan.toString());
+            orphanBox.getChildren().add(label10);
+            bottom.getChildren().add(orphanBox);
+        }
         
        
 
@@ -211,6 +226,14 @@ public class OrphangeGUI extends Application {
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
 
         return welcomeLayout;
+    }
+
+    public List<Orphan> getOrphans(){
+        int age = 5;
+        Orphanage orphanage = new Orphanage();
+        List<Orphan> orphans = orphanage.getPersons().stream().filter(person -> person instanceof Orphan).map(person -> (Orphan)person).filter(orphan -> orphan.getAge()<age).collect(Collectors.toList());
+        return orphans;
+       // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());
     }
 
     

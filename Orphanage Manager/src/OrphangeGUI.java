@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 import java.util.*;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -98,6 +99,7 @@ public class OrphangeGUI extends Application {
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
         
+       
         // --- age slider ---
         VBox ageBox = new VBox();
         Label labelAge = new Label("Orphan's Max Age : " + maxAge); //wont display the maxAge part right...idk why!

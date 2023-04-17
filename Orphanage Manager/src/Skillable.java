@@ -1,4 +1,6 @@
+import javafx.scene.control.Button;
+
 public interface Skillable {
     
-    public void skill();
+    public Button skill();
 }

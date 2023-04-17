@@ -1,5 +1,5 @@
 import java.util.*;
-public class Employee extends Person implements Skillable {
+public class Employee extends Person {
     
     ArrayList<Skillable> skill;
     private String position;
@@ -26,9 +26,7 @@ public class Employee extends Person implements Skillable {
         return id;
     }
 
-    public void skill() {
-
-    }
+    
 
     @Override
     public String toString() {

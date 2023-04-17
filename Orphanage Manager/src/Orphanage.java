@@ -1,5 +1,15 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
 public class Orphanage {
     private String orphanageName;
@@ -7,6 +17,7 @@ public class Orphanage {
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
+    private static HashMap<String, Skillable> skills;
 
     public Orphanage() {
         persons = new ArrayList<>();
@@ -122,5 +133,46 @@ public class Orphanage {
     public ArrayList<Orphan> filterByAge(int age){
         ArrayList<Orphan> filteredOrphans = orphans.stream().filter(o -> o.getAge() == age).collect(Collectors.toCollection(ArrayList::new));
         return filteredOrphans;
+    }
+
+    public HashMap<String, Skillable> getSkills() {
+        return skills;
+    }
+
+    static {
+
+        skills.put("Cleaning", () -> createButton("DishWashing.mp4"));
+            
+      
+
+       
+
+           
+            
+        
+    }
+
+    public static Button createButton(String filename) {
+        String [] list = filename.split(".");
+        Button button = new Button(list[0]);
+        button.setOnAction(event -> { 
+            Stage stage = new Stage();
+            File file = new File(filename);
+            Media media = new Media(file.toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            MediaView mediaView = new MediaView(mediaPlayer);
+            
+            // Set the size of the MediaView to match the size of the video
+            mediaView.setFitWidth(media.getWidth());
+            mediaView.setFitHeight(media.getHeight());
+            
+            VBox box = new VBox();
+            box.getChildren().add(mediaView);
+            Scene scene = new Scene(box);
+            stage.setScene(scene);
+            stage.show();
+        });
+
+        return button;
     }
 }

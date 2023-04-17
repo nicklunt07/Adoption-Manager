@@ -1,4 +1,4 @@
-public class Orphan extends Person implements Skillable{
+public class Orphan extends Person {
    
    Skillable orphanSkill;
    private static long orphanID = 400001;
@@ -10,9 +10,7 @@ public class Orphan extends Person implements Skillable{
       orphanage.addPerson(this);
    }
 
-   public void skill() {
-      orphanSkill.skill();
-   }
+   
 
    public Skillable getSkill() {
       return orphanSkill;

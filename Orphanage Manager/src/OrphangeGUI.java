@@ -235,7 +235,11 @@ public class OrphangeGUI extends Application {
      */
     public List<Orphan> getOrphans(){
         int age = 5;
-        List<Orphan> orphans = orphanage.getPersons().stream().filter(person -> person instanceof Orphan).map(person -> (Orphan)person).filter(orphan -> orphan.getAge()<age).collect(Collectors.toList());
+        List<Orphan> orphans = orphanage.getPersons().stream()
+                .filter(person -> person instanceof Orphan)
+                .map(person -> (Orphan)person)
+                .filter(orphan -> orphan.getAge()<age)
+                .collect(Collectors.toList());
         return orphans;
        // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());
     }

@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
-    String sex = "";
-    
+    String sex = "Male";
+    Orphan orphanSelected;
 
     public static void main(String[] args) {
         launch(args);
@@ -29,26 +29,26 @@ public class OrphangeGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         Pane welcomePage = createWelcomePage(primaryStage);
-        Scene scene = new Scene(welcomePage, 800, 600);       
+        Scene scene = new Scene(welcomePage, 800, 600);
 
         primaryStage.setTitle("Orphanage Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void setupControls( VBox mainPane) {
+    private void setupControls(VBox mainPane) {
         // Menu bar setup
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         Menu helpMenu = new Menu("Help");
-    
+
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> System.exit(0));
-    
+
         fileMenu.getItems().add(exitItem);
         menuBar.getMenus().addAll(fileMenu, helpMenu);
-        //mainPane.setClip(menuBar);
-    
+        // mainPane.setClip(menuBar);
+
         // Tab pane setup
         TabPane tabPane = new TabPane();
 
@@ -64,17 +64,15 @@ public class OrphangeGUI extends Application {
 
         // Add the menu bar and tab pane to the mainPane (VBox)
         mainPane.getChildren().addAll(menuBar, tabPane);
-        
+
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
-        
-      
+
         HBox top = new HBox(30);
         HBox center = new HBox();
         HBox bottom = new HBox();
 
         top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         bottom.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-     
 
         top.setFillHeight(true);
         bottom.setFillHeight(true);
@@ -91,26 +89,25 @@ public class OrphangeGUI extends Application {
 
         VBox radioButton = new VBox();
         Label label = new Label("Orphan's Sex: ");
-        RadioButton male = new RadioButton("Male"); 
-        RadioButton female = new RadioButton("Female"); 
+        RadioButton male = new RadioButton("Male");
+        RadioButton female = new RadioButton("Female");
         ToggleGroup gender = new ToggleGroup();
         male.setToggleGroup(gender);
         female.setToggleGroup(gender);
 
-
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
 
+        gender.selectToggle(male);
         gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
-            RadioButton buttonGender  = (RadioButton) gender.getSelectedToggle();
+            RadioButton buttonGender = (RadioButton) gender.getSelectedToggle();
             sex = buttonGender.getText();
-            System.out.println(sex);
+
         });
-        
-       
+
         // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's Max Age : " + maxAge); //wont display the maxAge part right...idk why!
+        Label labelAge = new Label("Orphan's Max Age : " + maxAge); // wont display the maxAge part right...idk why!
         Slider age = new Slider();
         age.setMin(0);
         age.setMax(18);
@@ -122,7 +119,7 @@ public class OrphangeGUI extends Application {
         age.setBlockIncrement(10);
         age.setOrientation(Orientation.HORIZONTAL);
 
-        age.valueProperty().addListener((observable, oldValue, newValue) -> { 
+        age.valueProperty().addListener((observable, oldValue, newValue) -> {
             maxAge = newValue.intValue();
         });
 
@@ -130,45 +127,35 @@ public class OrphangeGUI extends Application {
         ageBox.getChildren().addAll(labelAge, age);
 
         // --- reveal button ---
-       
+
         Button reveal = new Button("Click to Reveal Orphans under Filters");
 
-     
-   
-      
-     
-       // ---------------------------------------------------------------------
-        
-       
+        // ---------------------------------------------------------------------
+
         bottom.setSpacing(100);
 
-
         top.setAlignment(Pos.CENTER);
-       
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
-      
 
         VBox.setVgrow(top, Priority.ALWAYS);
         VBox.setVgrow(bottom, Priority.ALWAYS);
-   
-       
 
         VBox.setVgrow(mainPane, Priority.ALWAYS);
-       bottom.setAlignment(Pos.CENTER);
+        bottom.setAlignment(Pos.CENTER);
 
         top.getChildren().addAll(radioButton, ageBox);
         bottom.getChildren().addAll(reveal);
         mainPane.setAlignment(Pos.CENTER);
-        mainPane.getChildren().addAll(title,top, bottom);
+        mainPane.getChildren().addAll(title, top, bottom);
 
-           
-        reveal.setOnAction(event -> {     
-            displayOrphans(bottom, maxAge, reveal);
+        reveal.setOnAction(event -> {
+            setOrphan();
+            displayOrphans(bottom, reveal);
         });
-    }   
-    
+    }
+
     private Pane createWelcomePage(Stage primaryStage) {
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
@@ -178,13 +165,15 @@ public class OrphangeGUI extends Application {
         Label nameLabel = new Label("Orphanage Name");
         nameLabel.setStyle("-fx-font-size: 24;");
 
-        Label motiveLabel = new Label("An orphanage is a place where the cries of the innocent are heard, and the love of the forgotten is felt. - Anthony T. Hincks");
+        Label motiveLabel = new Label(
+                "An orphanage is a place where the cries of the innocent are heard, and the love of the forgotten is felt. - Anthony T. Hincks");
         motiveLabel.setWrapText(true);
         motiveLabel.setMaxWidth(400);
 
         Button enterButton = new Button("Enter");
 
-        // Add an event listener to the button to navigate to the main application window
+        // Add an event listener to the button to navigate to the main application
+        // window
         enterButton.setOnAction(e -> {
             VBox root = new VBox();
             setupControls(root);
@@ -197,51 +186,33 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * @author Adnan Khaleeli
-     * @author Sushanth Ambati
-     * @return orphans
-     */
-    public List<Orphan> getOrphans(int maxAge){ //added param but not used yet
-        int age = 18;
-        List<Orphan> orphans = orphanage.getPersons().stream()
-                .filter(person -> person instanceof Orphan)
-                .map(person -> (Orphan)person)
-                .filter(orphan -> orphan.getAge()<  maxAge)
-                .collect(Collectors.toList());
-        return orphans;
-       // persons.stream().filter(person -> person instanceof Orphan). map(person -> (Orphan)person).collect(Collectors.toList());
-    }
-
-    /**
      * 
      * @param bottom
-     * @param age
      */
-    private void displayOrphans(HBox bottom, int age, Button reveal){
-       bottom.getChildren().remove(reveal);
-        
-    //    Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder", orphanage);
-    //    employee2.setSkill(Orphanage.skills.get("DishWashing"));
+    private void displayOrphans(HBox bottom, Button reveal) {
+        bottom.getChildren().remove(reveal);
+        System.out.println(orphanSelected);
+        Button childSkill = orphanSelected.getSkill().skill();
+        childSkill.setText("Skill");
 
-    //    Button employeeSkill = employee2.getSkill().skill();
+        VBox orphanBox = new VBox();
+        orphanBox.setStyle(STYLESHEET_CASPIAN);
 
-        age = 7;
-        
-      
-            VBox orphanBox = new VBox();
-            orphanBox.setStyle(STYLESHEET_CASPIAN);
-            
+        Button button = new Button("Adopt");
 
-            Button button = new Button("Adopt");
-           
+        Label label10 = new Label(orphanSelected.toString());
+        orphanBox.getChildren().addAll(label10, button, childSkill);
+        bottom.getChildren().add(orphanBox);
 
-            // Label label10 = new Label(employee2.toString());
-            // orphanBox.getChildren().addAll(label10, button, employeeSkill);
-            bottom.getChildren().add(orphanBox);
-        
     }
 
-    public void setOrphan() {
-
+    private void setOrphan() {
+        orphanSelected = (Orphan) orphanage.getPersons().parallelStream()
+                .filter(person -> person instanceof Orphan)
+                .map((person -> (Orphan) person))
+                .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
+                .filter(orphan -> orphan.getGender().equals(sex))
+                .findFirst()
+                .orElse(null);
     }
 }

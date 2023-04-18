@@ -29,4 +29,6 @@ public class Orphan extends Person {
         return super.toString() + "\tID: " + getID();
     }
 
+    
+
 }

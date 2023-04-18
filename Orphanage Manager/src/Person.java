@@ -37,7 +37,7 @@ public abstract class Person {
     }
 
     public String toString() {
-        return name + "\tage: " + age + "\tgender:" + gender;
+        return name + "\tage: " + age + "\tgender: " + gender;
     }
 
     

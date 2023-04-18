@@ -43,7 +43,7 @@ public class OrphangeGUI extends Application {
 
     private void setupControls(VBox mainPane) {
         Button reveal = new Button("Click to Reveal Orphans under Filters");
-
+        mainPane.setStyle("-fx-background-color: #D73030");
         // Menu bar setup
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -75,7 +75,6 @@ public class OrphangeGUI extends Application {
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
 
         HBox top = new HBox(30);
-        HBox center = new HBox();
         HBox bottom = new HBox();
 
         top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -91,11 +90,12 @@ public class OrphangeGUI extends Application {
         titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-        title.setStyle("-fx-background-color: #8B0000;");
+       // title.setStyle("-fx-background-color: #B15B37;");
         title.setTextFill(Paint.valueOf("#FFD700"));
 
         VBox radioButton = new VBox();
         Label label = new Label("Orphan's Sex: ");
+        label.setTextFill(Paint.valueOf("#FFD700"));
         RadioButton male = new RadioButton("Male");
         RadioButton female = new RadioButton("Female");
         ToggleGroup gender = new ToggleGroup();
@@ -114,8 +114,10 @@ public class OrphangeGUI extends Application {
 
         // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's age"); // wont display the maxAge part right...idk why!
+        Label labelAge = new Label("Orphan's age"); 
+        labelAge.setTextFill(Paint.valueOf("#FFD700"));
         Slider age = new Slider();
+        
         age.setMin(0);
         age.setMax(18);
         age.setValue(15);
@@ -141,6 +143,7 @@ public class OrphangeGUI extends Application {
         bottom.setSpacing(100);
 
         top.setAlignment(Pos.CENTER);
+        
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
@@ -219,6 +222,7 @@ public class OrphangeGUI extends Application {
                 Button button = new Button("Adopt");
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
+                label10.setTextFill(Paint.valueOf("#FFD700"));
                 orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
                 bottom.getChildren().add(orphanBox);
             }
@@ -238,6 +242,7 @@ public class OrphangeGUI extends Application {
                 Button button = new Button("Adopt");
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
+                label10.setTextFill(Paint.valueOf("#FFD700"));
                 orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
                 bottom.getChildren().add(orphanBox);
 
@@ -256,6 +261,7 @@ public class OrphangeGUI extends Application {
             Button button = new Button("Adopt");
 
             Label label10 = new Label(possibleOrphans.get(counter).toString());
+            label10.setTextFill(Paint.valueOf("#FFD700"));
             orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
             bottom.getChildren().add(orphanBox);
             pressed = true;

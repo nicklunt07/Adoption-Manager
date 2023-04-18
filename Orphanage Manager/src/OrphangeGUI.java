@@ -21,6 +21,11 @@ public class OrphangeGUI extends Application {
     int maxAge;
     String sex = "Male";
     Orphan orphanSelected;
+    List<Orphan> possibleOrphans;
+    private int counter = 0;
+    private boolean pressed = false;
+
+    VBox orphanBox = new VBox();
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +42,8 @@ public class OrphangeGUI extends Application {
     }
 
     private void setupControls(VBox mainPane) {
+        Button reveal = new Button("Click to Reveal Orphans under Filters");
+
         // Menu bar setup
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -128,8 +135,6 @@ public class OrphangeGUI extends Application {
 
         // --- reveal button ---
 
-        Button reveal = new Button("Click to Reveal Orphans under Filters");
-
         // ---------------------------------------------------------------------
 
         bottom.setSpacing(100);
@@ -151,8 +156,9 @@ public class OrphangeGUI extends Application {
         mainPane.getChildren().addAll(title, top, bottom);
 
         reveal.setOnAction(event -> {
-            setOrphan();
+            setOrphans();
             displayOrphans(bottom, reveal);
+
         });
     }
 
@@ -190,28 +196,78 @@ public class OrphangeGUI extends Application {
      * @param bottom
      */
     private void displayOrphans(HBox bottom, Button reveal) {
+
         bottom.getChildren().remove(reveal);
-        Button childSkill = orphanSelected.getSkill().skill();
-        childSkill.setText("Skill");
 
-        VBox orphanBox = new VBox();
-        orphanBox.setStyle(STYLESHEET_CASPIAN);
+        Button backward = new Button();
+        backward.setText("Previous Orphan");
 
-        Button button = new Button("Adopt");
+        Button forward = new Button();
+        forward.setText("Next orphan");
 
-        Label label10 = new Label(orphanSelected.toString());
-        orphanBox.getChildren().addAll(label10, button, childSkill);
-        bottom.getChildren().add(orphanBox);
+        forward.setOnAction(e -> {
+            if (counter < possibleOrphans.size()-1 && counter >= 0 && pressed == true) {
+                counter++;
+                orphanBox.getChildren().clear();
+                bottom.getChildren().clear();
+                Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+                childSkill.setText("Skill");
+
+                orphanBox.setStyle(STYLESHEET_CASPIAN);
+
+                Button button = new Button("Adopt");
+
+                Label label10 = new Label(possibleOrphans.get(counter).toString());
+                orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
+                bottom.getChildren().add(orphanBox);
+            }
+        });
+
+        backward.setOnAction(e -> {
+            if (counter <= possibleOrphans.size()-1 && counter > 0 && pressed == true) {
+                try {
+                counter--;
+                orphanBox.getChildren().clear();
+                bottom.getChildren().clear();
+                Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+                childSkill.setText("Skill");
+
+                orphanBox.setStyle(STYLESHEET_CASPIAN);
+
+                Button button = new Button("Adopt");
+
+                Label label10 = new Label(possibleOrphans.get(counter).toString());
+                orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
+                bottom.getChildren().add(orphanBox);
+
+                } catch(Exception f) {
+
+                }
+            }
+        });
+
+        if (pressed == false) {
+            Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+            childSkill.setText("Skill");
+
+            orphanBox.setStyle(STYLESHEET_CASPIAN);
+
+            Button button = new Button("Adopt");
+
+            Label label10 = new Label(possibleOrphans.get(counter).toString());
+            orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
+            bottom.getChildren().add(orphanBox);
+            pressed = true;
+        }
 
     }
 
-    private void setOrphan() {
-        orphanSelected = (Orphan) orphanage.getPersons().parallelStream()
+    private void setOrphans() {
+        possibleOrphans = orphanage.getPersons().parallelStream()
                 .filter(person -> person instanceof Orphan)
                 .map((person -> (Orphan) person))
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
-                .findFirst()
-                .orElse(null);
+                .collect(Collectors.toList());
     }
 }

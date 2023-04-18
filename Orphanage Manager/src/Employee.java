@@ -1,5 +1,5 @@
 import java.util.*;
-public class Employee extends Person {
+public class Employee extends Person implements Taskable {
     
     private Skillable skill;
     private String position;
@@ -33,7 +33,7 @@ public class Employee extends Person {
         return super.toString() + "\tID: " + getID() + "\tPosition: " + getPosition();
     }
 
-    public void setSkill(Skillable skill) {
+    public void assignTask(Skillable skill) {
        this.skill = skill;
     }
 

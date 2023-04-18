@@ -1,4 +1,4 @@
-public class Orphan extends Person {
+public class Orphan extends Person implements Taskable {
    
    Skillable orphanSkill;
    private static long orphanID = 400001;
@@ -27,6 +27,10 @@ public class Orphan extends Person {
    @Override
     public String toString() {
         return super.toString() + "\tID: " + getID();
+    }
+
+    public void assignTask(Skillable skill) {
+      this.orphanSkill = skill;
     }
 
     

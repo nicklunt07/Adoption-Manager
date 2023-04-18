@@ -114,7 +114,7 @@ public class OrphangeGUI extends Application {
 
         // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's Max Age : " + maxAge); // wont display the maxAge part right...idk why!
+        Label labelAge = new Label("Orphan's age"); // wont display the maxAge part right...idk why!
         Slider age = new Slider();
         age.setMin(0);
         age.setMax(18);
@@ -128,6 +128,7 @@ public class OrphangeGUI extends Application {
 
         age.valueProperty().addListener((observable, oldValue, newValue) -> {
             maxAge = newValue.intValue();
+            labelAge.setText("Orphan's age: " + maxAge);
         });
 
         ageBox.setAlignment(Pos.CENTER);

@@ -183,7 +183,7 @@ public class Orphanage {
 
             Stage stage = new Stage();
             String[] parts = filename.split("/");
-            String fileNameWithExtension = parts[2];
+            String fileNameWithExtension = parts[parts.length-1];
             String fileNameWithoutExtension = fileNameWithExtension.split("\\.")[0];
             stage.setTitle(fileNameWithoutExtension);
             

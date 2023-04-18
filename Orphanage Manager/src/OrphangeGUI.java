@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
+    String sex = "";
     
 
     public static void main(String[] args) {
@@ -99,6 +100,12 @@ public class OrphangeGUI extends Application {
 
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
+
+        gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            RadioButton buttonGender  = (RadioButton) gender.getSelectedToggle();
+            sex = buttonGender.getText();
+            System.out.println(sex);
+        });
         
        
         // --- age slider ---
@@ -232,5 +239,9 @@ public class OrphangeGUI extends Application {
             // orphanBox.getChildren().addAll(label10, button, employeeSkill);
             bottom.getChildren().add(orphanBox);
         
+    }
+
+    public void setOrphan() {
+
     }
 }

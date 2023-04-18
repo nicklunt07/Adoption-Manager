@@ -43,7 +43,7 @@ public class OrphangeGUI extends Application {
 
     private void setupControls(VBox mainPane) {
         Button reveal = new Button("Click to Reveal Orphans under Filters");
-        mainPane.setStyle("-fx-background-color: #D73030");
+        mainPane.setStyle("-fx-background-color: #0A1C2E");
         // Menu bar setup
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -97,7 +97,9 @@ public class OrphangeGUI extends Application {
         Label label = new Label("Orphan's Sex: ");
         label.setTextFill(Paint.valueOf("#FFD700"));
         RadioButton male = new RadioButton("Male");
+        male.setTextFill(Paint.valueOf("#FFD700"));
         RadioButton female = new RadioButton("Female");
+        female.setTextFill(Paint.valueOf("#FFD700"));
         ToggleGroup gender = new ToggleGroup();
         male.setToggleGroup(gender);
         female.setToggleGroup(gender);

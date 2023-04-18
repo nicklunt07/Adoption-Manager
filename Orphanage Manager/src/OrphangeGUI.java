@@ -221,7 +221,7 @@ public class OrphangeGUI extends Application {
 
                 orphanBox.setStyle(STYLESHEET_CASPIAN);
 
-                Button button = new Button("        Adopt         ");
+                Button button = new Button("Adopt");
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));

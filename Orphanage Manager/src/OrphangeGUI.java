@@ -191,7 +191,6 @@ public class OrphangeGUI extends Application {
      */
     private void displayOrphans(HBox bottom, Button reveal) {
         bottom.getChildren().remove(reveal);
-        System.out.println(orphanSelected);
         Button childSkill = orphanSelected.getSkill().skill();
         childSkill.setText("Skill");
 

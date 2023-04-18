@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
+    
 
     public static void main(String[] args) {
         launch(args);
@@ -212,19 +213,24 @@ public class OrphangeGUI extends Application {
     private void displayOrphans(HBox bottom, int age, Button reveal){
        bottom.getChildren().remove(reveal);
         
+    //    Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder", orphanage);
+    //    employee2.setSkill(Orphanage.skills.get("DishWashing"));
+
+    //    Button employeeSkill = employee2.getSkill().skill();
+
         age = 7;
-        List<Orphan> orphans = getOrphans(age);
-        Orphan orphan = orphans.get(0);
+        
       
             VBox orphanBox = new VBox();
             orphanBox.setStyle(STYLESHEET_CASPIAN);
             
-            Label label10 = new Label(orphan.toString());
-            orphanBox.getChildren().addAll(label10);
-            bottom.getChildren().add(orphanBox);
 
             Button button = new Button("Adopt");
-            orphanBox.getChildren().add(button);
+           
+
+            // Label label10 = new Label(employee2.toString());
+            // orphanBox.getChildren().addAll(label10, button, employeeSkill);
+            bottom.getChildren().add(orphanBox);
         
     }
 }

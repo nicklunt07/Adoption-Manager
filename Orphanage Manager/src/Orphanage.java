@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class Orphanage {
@@ -17,7 +19,7 @@ public class Orphanage {
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
-    private static HashMap<String, Skillable> skills;
+    public static HashMap<String, Skillable> skills = new HashMap<String, Skillable>();
 
     public Orphanage() {
         persons = new ArrayList<>();
@@ -30,10 +32,10 @@ public class Orphanage {
 
     public void addDefaultEmployees(){
         // I am not sure about y'all ages I am just using it test nothing else.
-        Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this);
-        Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder", this);
-        Employee employee3 = new Employee("Nick Lunt", 20, "Male", "Founder", this);
-        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this);
+        Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this, skills.get("Cooking"));
+        Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder",this, skills.get("DishWashing"));
+        Employee employee3 = new Employee("Nick Lunt", 20, "Male", "Founder", this, skills.get("Manager"));
+        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this, skills.get("ironing"));
         //createAndAddEmployee("Sushanth Ambati", 20, "Male", "Founder");
     }
 
@@ -139,38 +141,56 @@ public class Orphanage {
         return skills;
     }
 
-    static {
+   
+     static {
 
-        skills.put("Cleaning", () -> createButton("DishWashing.mp4"));
-            
-      
+        // Some Employee Skills
+        skills.put("DishWashing", () -> createButton("Orphanage Manager/Assets/DishWashing.mp4"));
+        skills.put("Cooking", () -> createButton("Orphanage Manager/Assets/Cooking.mp4"));
+        skills.put("Ironing", () -> createButton("Orphanage Manager/Assets/Ironing.mp4"));
+        skills.put("Manager", () -> createButton("Orphanage Manager/Assets/Manager.mp4"));
+        // End of the employee skills
 
-       
+        //Some orphan skills
+        skills.put("Math", () -> createButton("Orphanage Manager/Assets/Math.mp4"));
+        skills.put("Skateboaring", () -> createButton("Orphanage Manager/Assets/Skateboarding.mp4"));
+        skills.put("Biking", () -> createButton("Orphanage Manager/Assets/Biking.mp4"));
 
-           
             
         
-    }
+     }
 
     public static Button createButton(String filename) {
-        String [] list = filename.split(".");
-        Button button = new Button(list[0]);
+       
+        Button button = new Button("Skill");
+        
         button.setOnAction(event -> { 
-            Stage stage = new Stage();
+            WebView postFeed = new WebView();
+            WebEngine postEngine = postFeed.getEngine();
+            postFeed.setPrefHeight(200);
+		    postFeed.setPrefWidth(320);
             File file = new File(filename);
-            Media media = new Media(file.toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            MediaView mediaView = new MediaView(mediaPlayer);
+            String html =  " <video width='300' autoplay>  <source src='" + file.toURI() 
+        +   "' type='video/mp4' />" + "Your browser does not support the video element.</video> ";
+            postEngine.loadContent(html);
+
+
+            Stage stage = new Stage();
+            String[] parts = filename.split("/");
+            String fileNameWithExtension = parts[2];
+            String fileNameWithoutExtension = fileNameWithExtension.split("\\.")[0];
+            stage.setTitle(fileNameWithoutExtension);
             
             // Set the size of the MediaView to match the size of the video
-            mediaView.setFitWidth(media.getWidth());
-            mediaView.setFitHeight(media.getHeight());
+            
             
             VBox box = new VBox();
-            box.getChildren().add(mediaView);
+            box.getChildren().add(postFeed);
             Scene scene = new Scene(box);
+            
             stage.setScene(scene);
             stage.show();
+        
         });
 
         return button;

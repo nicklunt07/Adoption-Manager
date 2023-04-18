@@ -204,7 +204,7 @@ public class OrphangeGUI extends Application {
     private void displayOrphans(HBox bottom, Button reveal) {
 
         bottom.getChildren().remove(reveal);
-
+        orphanBox.setAlignment(Pos.CENTER);
         Button backward = new Button();
         backward.setText("Previous Orphan");
 
@@ -221,7 +221,7 @@ public class OrphangeGUI extends Application {
 
                 orphanBox.setStyle(STYLESHEET_CASPIAN);
 
-                Button button = new Button("Adopt");
+                Button button = new Button("        Adopt         ");
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));

@@ -216,7 +216,7 @@ public class OrphangeGUI extends Application {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
 
-                orphanBox.setStyle(STYLESHEET_CASPIAN);
+                //orphanBox.setStyle(STYLESHEET_CASPIAN);
 
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
@@ -239,7 +239,7 @@ public class OrphangeGUI extends Application {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
 
-                orphanBox.setStyle(STYLESHEET_CASPIAN);
+                //orphanBox.setStyle(STYLESHEET_CASPIAN);
 
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
@@ -261,7 +261,7 @@ public class OrphangeGUI extends Application {
             Button childSkill = possibleOrphans.get(counter).getSkill().skill();
             childSkill.setText("Skill");
 
-            orphanBox.setStyle(STYLESHEET_CASPIAN);
+            //orphanBox.setStyle(STYLESHEET_CASPIAN);
 
             Button button = new Button("Adopt");
             button.setOnAction(event -> {

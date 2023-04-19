@@ -37,7 +37,7 @@ public class Orphan extends Person implements Taskable {
       this.orphanSkill = skill;
     }
 
-   public void getAdoptionInfo(){
+   public void AdoptionInfo(){
       try (BufferedWriter bw = new BufferedWriter(new FileWriter("AdoptionRecord.txt"))) {
          String adoptionInfo = "Adopted! \nName: " + getName() + "\nAge: " + getAge() + "\nSex: " + getGender();
          bw.write(adoptionInfo);

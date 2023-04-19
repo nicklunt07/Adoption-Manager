@@ -291,7 +291,7 @@ public class OrphangeGUI extends Application {
      * adopting the orphan
      */
     private void adopt(){
-        possibleOrphans.get(counter).getAdoptionInfo();
+        possibleOrphans.get(counter).AdoptionInfo();
         showAdoptionDetails(possibleOrphans.get(counter));
         possibleOrphans.remove(counter);
     }

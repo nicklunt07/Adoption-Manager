@@ -28,6 +28,7 @@ public class Orphanage {
         orphans = new ArrayList<>();
         addDefaultEmployees();
         addDefaultOrphans();
+        addDefaultAdopters();
     }
 
     public void addDefaultEmployees(){
@@ -53,6 +54,12 @@ public class Orphanage {
         // Orphan orphan11 = new Orphan("Sidney Gaines", 7, "Female", null,this);
         // Orphan orphan12 = new Orphan("Nettie Nash", 5, "Female", null,this);
         // Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
+    }
+
+    public void addDefaultAdopters(){
+        Adopter adopter1 = new Adopter(this, "Kevin Koett", 27, "Male", false, false);
+        Adopter adopter2 = new Adopter(this, "Kevin Carr", 37, "Male", true, false);
+        Adopter adopter3 = new Adopter(this, "Kevin Hof", 30, "Male", false, false);
     }
 
 
@@ -177,7 +184,7 @@ public class Orphanage {
 		    postFeed.setPrefWidth(320);
             File file = new File(filename);
             String html =  " <video width='300' autoplay>  <source src='" + file.toURI() 
-        +   "' type='video/mp4' />" + "Your browser does not support the video element.</video> ";
+            +   "' type='video/mp4' />" + "Your browser does not support the video element.</video> ";
             postEngine.loadContent(html);
 
 

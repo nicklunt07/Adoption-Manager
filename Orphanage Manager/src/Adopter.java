@@ -1,10 +1,10 @@
 public class Adopter extends Person{
     
     boolean isFelon;
-    String criminalRecord;
+    boolean criminalRecord;
     boolean isSingle;
     private static long adopterID = 500001;
-    public Adopter(Orphanage orphanage, String name, int age, String gender, boolean isFelon, String criminalRecord) {
+    public Adopter(Orphanage orphanage, String name, int age, String gender, boolean isFelon, boolean criminalRecord) {
        super(name, age, gender);
        this.isFelon = isFelon;
        this.criminalRecord = criminalRecord;

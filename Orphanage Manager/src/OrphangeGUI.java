@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class OrphangeGUI extends Application {
@@ -286,8 +287,44 @@ public class OrphangeGUI extends Application {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * adopting the orphan
+     */
     private void adopt(){
         possibleOrphans.get(counter).getAdoptionInfo();
+        showAdoptionDetails(possibleOrphans.get(counter));
         possibleOrphans.remove(counter);
     }
+
+    /**
+     * 
+     * @param adoptedOrphan
+     */
+    private void showAdoptionDetails(Orphan adoptedOrphan) {
+        Stage detailsStage = new Stage();
+        VBox detailsLayout = new VBox(20);
+        detailsLayout.setAlignment(Pos.CENTER);
+        detailsLayout.setPadding(new Insets(20));
+        detailsLayout.setStyle("-fx-background-color: #B0E0E6");
+
+    
+        Label title = new Label("Adoption Details");
+        title.setStyle("-fx-font-size: 24;");
+    
+        Label detailsLabel = new Label(adoptedOrphan.toString());
+        detailsLabel.setWrapText(true);
+        detailsLabel.setMaxWidth(400);
+    
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> detailsStage.close());
+    
+        detailsLayout.getChildren().addAll(title, detailsLabel, closeButton);
+    
+        Scene detailsScene = new Scene(detailsLayout, 400, 300);
+        detailsStage.setScene(detailsScene);
+        detailsStage.setTitle("Adoption Details");
+        detailsStage.initModality(Modality.APPLICATION_MODAL);
+        detailsStage.showAndWait();
+    }
+    
 }

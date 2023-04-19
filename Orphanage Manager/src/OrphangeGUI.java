@@ -185,15 +185,81 @@ public class OrphangeGUI extends Application {
         // Add an event listener to the button to navigate to the main application
         // window
         enterButton.setOnAction(e -> {
-            VBox root = new VBox();
+            Pane registrationPage = createRegistrationPage(primaryStage);
+            primaryStage.setScene(new Scene(registrationPage, 800, 600));
+            /*VBox root = new VBox();
             setupControls(root);
-            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.setScene(new Scene(root, 800, 600));*/
         });
 
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
 
         return welcomeLayout;
     }
+
+    private Pane createRegistrationPage(Stage primaryStage) {
+        //Making a title and updating the font
+        HBox titleBox = new HBox();
+        Label title = new Label("Verify your details");
+        title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
+        title.setAlignment(Pos.CENTER);
+        titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        titleBox.getChildren().add(title);
+        titleBox.setAlignment(Pos.CENTER);
+
+        VBox registrationLayout = new VBox(20);
+        registrationLayout.setAlignment(Pos.CENTER);
+        registrationLayout.setPadding(new Insets(20));
+        registrationLayout.setStyle("-fx-background-color: #B0E0E6;");
+    
+        TextField firstNameField = new TextField();
+        firstNameField.setPromptText("First Name");
+    
+        TextField lastNameField = new TextField();
+        lastNameField.setPromptText("Last Name");
+    
+        TextField mobileNumberField = new TextField();
+        mobileNumberField.setPromptText("Mobile Number");
+    
+        TextField emailField = new TextField();
+        emailField.setPromptText("Email ID");
+    
+        Button submitButton = new Button("Submit");
+    
+        // an event listener to the button to navigate to the main application window
+        submitButton.setOnAction(e -> {
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String mobileNumber = mobileNumberField.getText();
+            String email = emailField.getText();
+            
+            //If the fields of the text box are left empty then gives out a message
+            if (firstName.isEmpty() || lastName.isEmpty() || mobileNumber.isEmpty() || email.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing Information");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all the fields.");
+                alert.showAndWait();
+            } else {
+    
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Registration Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("You're all set! Look at the orphans.");
+                alert.showAndWait();
+    
+                VBox root = new VBox();
+                setupControls(root);
+                primaryStage.setScene(new Scene(root, 800, 600));
+            }
+        });
+    
+        registrationLayout.getChildren().addAll(title,firstNameField, lastNameField, mobileNumberField, emailField, submitButton);
+    
+        return registrationLayout;
+    }
+    
+    
 
     /**
      * 

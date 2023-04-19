@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Adopter extends Person{
     
     boolean isFelon;
@@ -17,4 +21,26 @@ public class Adopter extends Person{
     protected long getID(){
         return adopterID;
     }
+
+    /**
+     * to Maintain adopter's record
+     * @param firstName
+     * @param lastName
+     * @param mobileNumber
+     * @param email
+     */
+    private void saveAopterInfo(String firstName, String lastName, String mobileNumber, String email) {
+        String fileName = "adopter_data.txt";
+    
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write("First Name: " + firstName + "\n");
+            writer.write("Last Name: " + lastName + "\n");
+            writer.write("Mobile Number: " + mobileNumber + "\n");
+            writer.write("Email: " + email + "\n");
+            writer.write("------------------------------\n");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+    
 }

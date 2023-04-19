@@ -1,10 +1,7 @@
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.*;
-
 import javafx.application.Application;
-import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -222,6 +219,9 @@ public class OrphangeGUI extends Application {
                 orphanBox.setStyle(STYLESHEET_CASPIAN);
 
                 Button button = new Button("Adopt");
+                button.setOnAction(event -> {
+                    adopt();
+                });
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));
@@ -242,6 +242,9 @@ public class OrphangeGUI extends Application {
                 orphanBox.setStyle(STYLESHEET_CASPIAN);
 
                 Button button = new Button("Adopt");
+                button.setOnAction(event -> {
+                    adopt();
+                });
 
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));
@@ -261,6 +264,9 @@ public class OrphangeGUI extends Application {
             orphanBox.setStyle(STYLESHEET_CASPIAN);
 
             Button button = new Button("Adopt");
+            button.setOnAction(event -> {
+                adopt();
+            });
 
             Label label10 = new Label(possibleOrphans.get(counter).toString());
             label10.setTextFill(Paint.valueOf("#FFD700"));
@@ -278,5 +284,10 @@ public class OrphangeGUI extends Application {
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
                 .collect(Collectors.toList());
+    }
+
+    private void adopt(){
+        possibleOrphans.get(counter).getAdoptionInfo();
+        possibleOrphans.remove(counter);
     }
 }

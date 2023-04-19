@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Orphan extends Person implements Taskable {
    
    Skillable orphanSkill;
@@ -33,6 +37,13 @@ public class Orphan extends Person implements Taskable {
       this.orphanSkill = skill;
     }
 
-    
+   public void getAdoptionInfo(){
+      try (BufferedWriter bw = new BufferedWriter(new FileWriter("AdoptionRecord.txt"))) {
+         String adoptionInfo = "Adopted! \nName: " + getName() + "\nAge: " + getAge() + "\nSex: " + getGender();
+         bw.write(adoptionInfo);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   } 
 
 }

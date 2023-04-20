@@ -25,7 +25,7 @@ public class OrphangeGUI extends Application {
 
     VBox orphanBox = new VBox();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
     }
 
@@ -137,7 +137,7 @@ public class OrphangeGUI extends Application {
         ageBox.getChildren().addAll(labelAge, age);
 
         VBox LanguageBox = new VBox(); 
-        Label languageLabel = new Label("Languages Known"); 
+        Label languageLabel = new Label("Languages Known(3 years+)"); 
         languageLabel.setTextFill(Paint.valueOf("#FFD700"));
         CheckBox EnglishBox = new CheckBox("English");
         CheckBox SpanishBox = new CheckBox("Spanish"); 

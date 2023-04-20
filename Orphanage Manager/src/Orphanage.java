@@ -51,8 +51,8 @@ public class Orphanage {
         Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this);
         Orphan orphan9 = new Orphan("Kaider Blackburn", 0, "Male", skills.get("Gardening"),this);
         Orphan orphan10 = new Orphan("Kenneth Holman", 4, "Male", skills.get("BasketBall"),this);
-        // Orphan orphan11 = new Orphan("Sidney Gaines", 7, "Female", null,this);
-        // Orphan orphan12 = new Orphan("Nettie Nash", 5, "Female", null,this);
+        Orphan orphan11 = new Orphan("Sidney Gaines", 16, "Female", skills.get("Soccer"),this);
+        // Orphan orphan12 = new Orphan("Nettie Nash", 17, "Female", null,this);
         // Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
     }
 
@@ -169,6 +169,8 @@ public class Orphanage {
         skills.put("Circle", () -> createButton("Orphanage Manager/Assets/Circle.mp4"));
         skills.put("BottleFlip" ,() -> createButton("Orphanage Manager/Assets/BottleFlip.mp4"));
         skills.put("BasketBall" ,() -> createButton("Orphanage Manager/Assets/Basketball.mp4"));
+        skills.put("Soccer" ,() -> createButton("Orphanage Manager/Assets/Soccer.mp4"));
+
            
         
      }

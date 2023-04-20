@@ -280,8 +280,9 @@ public class OrphangeGUI extends Application {
      * 
      * @param bottom
      */
-    private void displayOrphans(HBox bottom, Button reveal) {
+    private void displayOrphans(HBox bottom, Button reveal)  {
 
+        try{
         bottom.getChildren().remove(reveal);
         orphanBox.setAlignment(Pos.CENTER);
         Button backward = new Button();
@@ -356,6 +357,9 @@ public class OrphangeGUI extends Application {
             bottom.getChildren().add(orphanBox);
             pressed = true;
         }
+    } catch(Exception e) {
+        throw new NoOrphanFoundException("No orphan was found for your given inputs");
+    }
 
     }
 
@@ -367,7 +371,7 @@ public class OrphangeGUI extends Application {
                 .filter(orphan -> orphan.getGender().equals(sex))
                 .collect(Collectors.toList());
         if(possibleOrphans.size() == 0) {
-            System.err.println("There are no matching orphans");
+            
         }
     }
 

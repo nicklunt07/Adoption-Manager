@@ -63,7 +63,7 @@ public class Orphan extends Person implements Taskable {
 
    public boolean speaksLanguage(ArrayList<String> languagesDesired) {
     
-      if (getAge() <= 3) { 
+      if (getAge() < 3) { 
          return true;
      }
  

@@ -135,15 +135,6 @@ public class Orphanage {
     }
 
 
-    /**
-     * @param age
-     * @return filtered arraylist
-     */
-    public ArrayList<Orphan> filterByAge(int age){
-        ArrayList<Orphan> filteredOrphans = orphans.stream().filter(o -> o.getAge() == age).collect(Collectors.toCollection(ArrayList::new));
-        return filteredOrphans;
-    }
-
     public HashMap<String, Skillable> getSkills() {
         return skills;
     }

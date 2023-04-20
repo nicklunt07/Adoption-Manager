@@ -136,9 +136,6 @@ public class OrphangeGUI extends Application {
         ageBox.setAlignment(Pos.CENTER);
         ageBox.getChildren().addAll(labelAge, age);
 
-        // --- reveal button ---
-
-        // ---------------------------------------------------------------------
 
         bottom.setSpacing(100);
 
@@ -351,6 +348,9 @@ public class OrphangeGUI extends Application {
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
                 .collect(Collectors.toList());
+        if(possibleOrphans.size() == 0) {
+            System.err.println("There are no matching orphans");
+        }
     }
 
     /**

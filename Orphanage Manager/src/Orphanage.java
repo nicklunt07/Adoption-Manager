@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -41,17 +42,17 @@ public class Orphanage {
     }
 
     public void addDefaultOrphans(){
-        Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", skills.get("Math"),this);
-        Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"),this);
-        Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", skills.get("Circle"),this);
-        Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", skills.get("Running"),this);
+        Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", skills.get("Math"),this, Arrays.asList("Spanish", "English"));
+        Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"),this,Arrays.asList("English"));
+        Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", skills.get("Circle"),this,Arrays.asList("Spanish", "English"));
+        Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", skills.get("Running"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan5 = new Orphan("Barnaby Kane", 1, "Male", skills.get("Skateboarding"),this);
-        Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this);
-        Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"),this);
-        Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this);
+        Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
+        Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"),this,Arrays.asList("Spanish", "English"));
+        Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this, Arrays.asList("English"));
         Orphan orphan9 = new Orphan("Kaider Blackburn", 0, "Male", skills.get("Gardening"),this);
-        Orphan orphan10 = new Orphan("Kenneth Holman", 4, "Male", skills.get("BasketBall"),this);
-        Orphan orphan11 = new Orphan("Sidney Gaines", 16, "Female", skills.get("Soccer"),this);
+        Orphan orphan10 = new Orphan("Kenneth Holman", 4, "Male", skills.get("BasketBall"),this, Arrays.asList("English", "Spanish"));
+        Orphan orphan11 = new Orphan("Sidney Gaines", 16, "Female", skills.get("Soccer"),this, Arrays.asList("English", "Spanish"));
         // Orphan orphan12 = new Orphan("Nettie Nash", 17, "Female", null,this);
         // Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
     }

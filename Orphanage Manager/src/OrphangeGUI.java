@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ public class OrphangeGUI extends Application {
     List<Orphan> possibleOrphans;
     private int counter = 0;
     private boolean pressed = false;
-
+    private ArrayList<String> languages = new ArrayList<String>();
     VBox orphanBox = new VBox();
 
     public static void main(String[] args) throws NoOrphanFoundException {
@@ -153,6 +154,21 @@ public class OrphangeGUI extends Application {
         LanguageBox.setAlignment(Pos.CENTER);
         EnglishBox.setAlignment(Pos.CENTER);
         SpanishBox.setAlignment(Pos.CENTER);
+
+        EnglishBox.setOnAction(event -> {
+          if(EnglishBox.isSelected()) {
+             languages.add(EnglishBox.getText());
+          } else if(EnglishBox.isSelected() == false) {
+             languages.remove(EnglishBox.getText());
+          }
+        });
+        SpanishBox.setOnAction(event -> {
+            if(SpanishBox.isSelected()) {
+                languages.add(SpanishBox.getText());
+             } else if(SpanishBox.isSelected() == false) {
+                languages.remove(SpanishBox.getText());
+             }
+        });
         
 
         bottom.setSpacing(100);
@@ -369,6 +385,7 @@ public class OrphangeGUI extends Application {
                 .map((person -> (Orphan) person))
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
+                .filter(orphan -> orphan.speaksLanguage(languages))
                 .collect(Collectors.toList());
         if(possibleOrphans.size() == 0) {
             

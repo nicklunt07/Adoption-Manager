@@ -136,6 +136,24 @@ public class OrphangeGUI extends Application {
         ageBox.setAlignment(Pos.CENTER);
         ageBox.getChildren().addAll(labelAge, age);
 
+        VBox LanguageBox = new VBox(); 
+        Label languageLabel = new Label("Languages Known"); 
+        languageLabel.setTextFill(Paint.valueOf("#FFD700"));
+        CheckBox EnglishBox = new CheckBox("English");
+        CheckBox SpanishBox = new CheckBox("Spanish"); 
+        EnglishBox.setPrefHeight(10);
+        EnglishBox.setPrefWidth(70);
+        EnglishBox.setStyle("-fx-text-fill: #FFD700;");
+        SpanishBox.setPrefHeight(10);
+        SpanishBox.setPrefWidth(70);
+        SpanishBox.setStyle("-fx-text-fill: #FFD700;");
+      
+
+        LanguageBox.getChildren().addAll(languageLabel, EnglishBox, SpanishBox);
+        LanguageBox.setAlignment(Pos.CENTER);
+        EnglishBox.setAlignment(Pos.CENTER);
+        SpanishBox.setAlignment(Pos.CENTER);
+        
 
         bottom.setSpacing(100);
 
@@ -151,7 +169,7 @@ public class OrphangeGUI extends Application {
         VBox.setVgrow(mainPane, Priority.ALWAYS);
         bottom.setAlignment(Pos.CENTER);
 
-        top.getChildren().addAll(radioButton, ageBox);
+        top.getChildren().addAll(radioButton, ageBox, LanguageBox);
         bottom.getChildren().addAll(reveal);
         mainPane.setAlignment(Pos.CENTER);
         mainPane.getChildren().addAll(title, top, bottom);

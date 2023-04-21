@@ -31,6 +31,8 @@ public class OrphangeGUI extends Application {
     private Tab roomsTab = new Tab("Rooms");
     private final int PASSWORD = 123456;
     private MenuBar menuBar = new MenuBar();
+    private Menu fileMenu = new Menu("File");
+    private Menu helpMenu = new Menu("Help");
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -47,10 +49,32 @@ public class OrphangeGUI extends Application {
     }
 
     private void setupControls(VBox mainPane) {
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(e -> System.exit(0));
+
+        MenuItem refreshItem = new MenuItem("Refresh");
+
+        refreshItem.setOnAction(e -> {
+            SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+            Tab currentTab = selectionModel.getSelectedItem();
+
+            if (currentTab == childrenTab) {
+                setChilrenContent(mainPane);
+            } else {
+                setEmployeeContent(mainPane);
+            }
+
+        });
+
+        fileMenu.getItems().addAll(exitItem);
+        helpMenu.getItems().add(refreshItem);
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
         setChilrenContent(mainPane);
 
         childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
+                mainPane.getChildren().remove(menuBar);
+
                 setChilrenContent(mainPane);
             }
         });
@@ -224,8 +248,6 @@ public class OrphangeGUI extends Application {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
 
-                // orphanBox.setStyle(STYLESHEET_CASPIAN);
-
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
                     adopt();
@@ -299,19 +321,6 @@ public class OrphangeGUI extends Application {
         mainPane.getChildren().clear();
         Button reveal = new Button("Click to Reveal Orphans under Filters");
         mainPane.setStyle("-fx-background-color: #0A1C2E");
-        // Menu bar setup
-       
-        Menu fileMenu = new Menu("File");
-        Menu helpMenu = new Menu("Help");
-
-        MenuItem exitItem = new MenuItem("Exit");
-        exitItem.setOnAction(e -> System.exit(0));
-
-        fileMenu.getItems().add(exitItem);
-        menuBar.getMenus().addAll(fileMenu, helpMenu);
-        // mainPane.setClip(menuBar);
-
-        // Tab pane setup
 
         childrenTab.setClosable(false);
         staffTab.setClosable(false);
@@ -447,7 +456,6 @@ public class OrphangeGUI extends Application {
 
     private void setEmployeeContent(VBox mainPane) {
         mainPane.getChildren().clear();
-        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
         mainPane.getChildren().addAll(menuBar, tabPane);
 
         mainPane.setAlignment(Pos.TOP_CENTER);
@@ -455,70 +463,67 @@ public class OrphangeGUI extends Application {
         HBox box1 = new HBox(1000);
         box1.setAlignment(Pos.CENTER);
         mainPane.setFillWidth(true);
-    
+
         TextField textField = new TextField();
         textField.setPrefWidth(50);
         box1.getChildren().add(textField);
         Label label = new Label("Enter the Password");
-        
-        VBox.setMargin(label, new Insets(100,0,0,0));
+
+        VBox.setMargin(label, new Insets(100, 0, 0, 0));
         VBox.setMargin(textField, new Insets(10, 0, 0, 0));
         Label error = new Label("Enter a valid passward");
         Label incorrect = new Label("Wrong passward entered, try again");
         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         Button submitButton = new Button("Submit");
-        VBox.setMargin(submitButton, new Insets(10,0,0,0)); 
+        VBox.setMargin(submitButton, new Insets(10, 0, 0, 0));
         submitButton.setOnAction((e) -> {
             String text = textField.getText();
-            if(mainPane.getChildren().contains(error)) {
+            if (mainPane.getChildren().contains(error)) {
                 mainPane.getChildren().remove(error);
             }
-            if(mainPane.getChildren().contains(incorrect)) {
+            if (mainPane.getChildren().contains(incorrect)) {
                 mainPane.getChildren().remove(incorrect);
             }
-            try{
-            int enteredPassword = Integer.parseInt(text);
-            if(enteredPassword == PASSWORD) {
-               setUpEmployeesGUI(mainPane);
-            } else {
-                incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
-                mainPane.getChildren().add(incorrect);
-            }
+            try {
+                int enteredPassword = Integer.parseInt(text);
+                if (enteredPassword == PASSWORD) {
+                    setUpEmployeesGUI(mainPane);
+                } else {
+                    incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+                    mainPane.getChildren().add(incorrect);
+                }
 
-            }catch(Exception f) {
-                System.out.println(f);
+            } catch (Exception f) {
                 error.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                 mainPane.getChildren().add(error);
-            
+
             }
         });
-        mainPane.getChildren().addAll(label, box1, submitButton); 
-        
+        mainPane.getChildren().addAll(label, box1, submitButton);
+
     }
 
     private void setUpEmployeesGUI(VBox mainPane) {
-      mainPane.getChildren().clear(); 
-      tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
-      mainPane.getChildren().addAll(menuBar, tabPane);
-      List<Employee> employees = orphanage.getPersons().parallelStream()
-                                            .filter(person -> person instanceof Employee)
-                                            .map((person -> (Employee) person))
-                                            .collect(Collectors.toList());
-    Label label1 = new Label("Employees");
-    label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
-     for(int i = 0; i< employees.size(); i++) {
-         Label label = new Label(employees.get(i).toString()); 
-         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
-         Button skill = employees.get(i).performTask();
-         skill.setText("Skill");
-         HBox box = new HBox();
-         HBox.setMargin(box, new Insets(10, 0, 0, 0));
-         box.getChildren().addAll(label, skill);
-         mainPane.getChildren().add(box);
-         
+        mainPane.getChildren().clear();
+        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+        mainPane.getChildren().addAll(menuBar, tabPane);
+        List<Employee> employees = orphanage.getPersons().parallelStream()
+                .filter(person -> person instanceof Employee)
+                .map((person -> (Employee) person))
+                .collect(Collectors.toList());
+        Label label1 = new Label("Employees");
+        label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
+        for (int i = 0; i < employees.size(); i++) {
+            Label label = new Label(employees.get(i).toString());
+            label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+            Button skill = employees.get(i).performTask();
+            skill.setText("Skill");
+            HBox box = new HBox();
+            HBox.setMargin(box, new Insets(10, 0, 0, 0));
+            box.getChildren().addAll(label, skill);
+            mainPane.getChildren().add(box);
 
-     }
-
+        }
 
     }
 

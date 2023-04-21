@@ -287,6 +287,7 @@ public class OrphangeGUI extends Application {
         possibleOrphans.get(counter).AdoptionInfo();
         showAdoptionDetails(possibleOrphans.get(counter));
         possibleOrphans.remove(counter);
+        orphanage.serializeOrphanage();
     }
 
     /**
@@ -543,5 +544,6 @@ public class OrphangeGUI extends Application {
         }
 
     }
+    
 
 }

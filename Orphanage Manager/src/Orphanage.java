@@ -1,15 +1,16 @@
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -202,4 +203,36 @@ public class Orphanage {
 
         return button;
     }
+    
+    void serializeOrphanage() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("orphanage.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    private Orphanage deserializeOrphanage() {
+        Orphanage deserializedOrphanage = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("orphanage.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            deserializedOrphanage = (Orphanage) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Orphanage class not found");
+            c.printStackTrace();
+        }
+        return deserializedOrphanage;
+    }
+    
+    
+
 }

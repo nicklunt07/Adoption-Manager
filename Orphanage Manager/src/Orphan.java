@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -55,8 +56,8 @@ public class Orphan extends Person implements Taskable {
     }
 
    public void AdoptionInfo(){
-      try (BufferedWriter bw = new BufferedWriter(new FileWriter("AdoptionRecord.txt"))) {
-         String adoptionInfo = "Adopted! \nName: " + getName() + "\nAge: " + getAge() + "\nSex: " + getGender();
+      try (BufferedWriter bw = new BufferedWriter(new FileWriter("AdoptionRecord.txt",true))) {
+         String adoptionInfo = "Adopted! \nName: " + getName() + "\nAge: " + getAge() + "\nSex: " + getGender()+ "\n\n";
          bw.write(adoptionInfo);
       } catch (IOException e) {
          e.printStackTrace();
@@ -83,5 +84,6 @@ public class Orphan extends Person implements Taskable {
    public Button performTask() {
       return orphanSkill.skill();
    }
+
 
 }

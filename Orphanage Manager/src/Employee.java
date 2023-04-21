@@ -12,6 +12,7 @@ public class Employee extends Person implements Taskable {
         super(name,age,gender);
         this.id = employeeID++;
         this.position = position;
+        this.skill = skill;
         orphanage.addPerson(this);
     }
 

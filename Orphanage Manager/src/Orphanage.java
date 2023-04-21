@@ -37,7 +37,7 @@ public class Orphanage {
         Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this, skills.get("Cooking"));
         Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder",this, skills.get("DishWashing"));
         Employee employee3 = new Employee("Nick Lunt", 20, "Male", "Founder", this, skills.get("Manager"));
-        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this, skills.get("ironing"));
+        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this, skills.get("Ironing"));
 
     }
 

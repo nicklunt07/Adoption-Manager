@@ -30,7 +30,6 @@ public class OrphangeGUI extends Application {
     private Tab staffTab = new Tab("Staff");
     private Tab roomsTab = new Tab("Rooms");
     private final int PASSWORD = 123456;
-    private Boolean correct = false;
     private MenuBar menuBar = new MenuBar();
 
     public static void main(String[] args) throws NoOrphanFoundException {
@@ -449,19 +448,13 @@ public class OrphangeGUI extends Application {
     private void setEmployeeContent(VBox mainPane) {
         mainPane.getChildren().clear();
         tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
-        
-        // Add the menu bar and tab pane to the mainPane (VBox)
         mainPane.getChildren().addAll(menuBar, tabPane);
+
         mainPane.setAlignment(Pos.TOP_CENTER);
         mainPane.setPrefWidth(1000);
         HBox box1 = new HBox(1000);
         box1.setAlignment(Pos.CENTER);
         mainPane.setFillWidth(true);
-        
-        HBox employee1 = new HBox();
-        HBox employee2 = new HBox();
-        HBox employee3 = new HBox();
-        HBox employee4 = new HBox();
     
         TextField textField = new TextField();
         textField.setPrefWidth(50);
@@ -486,15 +479,14 @@ public class OrphangeGUI extends Application {
             try{
             int enteredPassword = Integer.parseInt(text);
             if(enteredPassword == PASSWORD) {
-               correct = true;
+               setUpEmployeesGUI(mainPane);
             } else {
-              
                 incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                 mainPane.getChildren().add(incorrect);
             }
 
             }catch(Exception f) {
-              
+                System.out.println(f);
                 error.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                 mainPane.getChildren().add(error);
             
@@ -502,6 +494,32 @@ public class OrphangeGUI extends Application {
         });
         mainPane.getChildren().addAll(label, box1, submitButton); 
         
+    }
+
+    private void setUpEmployeesGUI(VBox mainPane) {
+      mainPane.getChildren().clear(); 
+      tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+      mainPane.getChildren().addAll(menuBar, tabPane);
+      List<Employee> employees = orphanage.getPersons().parallelStream()
+                                            .filter(person -> person instanceof Employee)
+                                            .map((person -> (Employee) person))
+                                            .collect(Collectors.toList());
+    Label label1 = new Label("Employees");
+    label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
+     for(int i = 0; i< employees.size(); i++) {
+         Label label = new Label(employees.get(i).toString()); 
+         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+         Button skill = employees.get(i).performTask();
+         skill.setText("Skill");
+         HBox box = new HBox();
+         HBox.setMargin(box, new Insets(10, 0, 0, 0));
+         box.getChildren().addAll(label, skill);
+         mainPane.getChildren().add(box);
+         
+
+     }
+
+
     }
 
 }

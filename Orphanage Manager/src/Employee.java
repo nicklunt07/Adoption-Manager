@@ -1,4 +1,6 @@
 import java.util.*;
+
+import javafx.scene.control.Button;
 public class Employee extends Person implements Taskable {
     
     private Skillable skill;
@@ -40,6 +42,9 @@ public class Employee extends Person implements Taskable {
     public Skillable getSkill() {
         return skill;
     }
+    public Button performTask() {
+        return skill.skill();
+     }
 
 
    

@@ -41,14 +41,7 @@ public abstract class Person {
     }
 
     
-    
-    // public void addPerson(Person person) {
-    //   persons.add(person);
-    // }
 
-    // public ArrayList<Person> getPersons() {
-    //     return persons;
-    // }
 
     abstract long getID();
 

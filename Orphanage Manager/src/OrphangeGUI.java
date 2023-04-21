@@ -312,11 +312,10 @@ public class OrphangeGUI extends Application {
                 counter++;
                 orphanBox.getChildren().clear();
                 bottom.getChildren().clear();
-                Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+                Button childSkill = possibleOrphans.get(counter).performTask();
                 childSkill.setText("Skill");
 
-                //orphanBox.setStyle(STYLESHEET_CASPIAN);
-
+                
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
                     adopt();

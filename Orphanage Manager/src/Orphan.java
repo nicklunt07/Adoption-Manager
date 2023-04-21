@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import javafx.scene.control.Button;
+
 public class Orphan extends Person implements Taskable {
    
    Skillable orphanSkill;
@@ -76,6 +78,10 @@ public class Orphan extends Person implements Taskable {
      }
  
      return spoken;
+   }
+
+   public Button performTask() {
+      return orphanSkill.skill();
    }
 
 }

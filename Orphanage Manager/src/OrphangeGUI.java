@@ -59,6 +59,8 @@ public class OrphangeGUI extends Application {
             Tab currentTab = selectionModel.getSelectedItem();
 
             if (currentTab == childrenTab) {
+                pressed = false;
+                orphanBox.getChildren().clear();
                 setChilrenContent(mainPane);
             } else {
                 setEmployeeContent(mainPane);

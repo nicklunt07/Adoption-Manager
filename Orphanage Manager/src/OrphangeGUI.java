@@ -31,6 +31,7 @@ public class OrphangeGUI extends Application {
     private Tab roomsTab = new Tab("Rooms");
     private final int PASSWORD = 123456;
     private Boolean correct = false;
+    private MenuBar menuBar = new MenuBar();
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -300,7 +301,7 @@ public class OrphangeGUI extends Application {
         Button reveal = new Button("Click to Reveal Orphans under Filters");
         mainPane.setStyle("-fx-background-color: #0A1C2E");
         // Menu bar setup
-        MenuBar menuBar = new MenuBar();
+       
         Menu fileMenu = new Menu("File");
         Menu helpMenu = new Menu("Help");
 
@@ -447,18 +448,33 @@ public class OrphangeGUI extends Application {
 
     private void setEmployeeContent(VBox mainPane) {
         mainPane.getChildren().clear();
-        mainPane.setAlignment(Pos.CENTER);
+        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+        
+        // Add the menu bar and tab pane to the mainPane (VBox)
+        mainPane.getChildren().addAll(menuBar, tabPane);
+        mainPane.setAlignment(Pos.TOP_CENTER);
+        mainPane.setPrefWidth(1000);
+        HBox box1 = new HBox(1000);
+        box1.setAlignment(Pos.CENTER);
+        mainPane.setFillWidth(true);
+        
         HBox employee1 = new HBox();
         HBox employee2 = new HBox();
         HBox employee3 = new HBox();
         HBox employee4 = new HBox();
     
         TextField textField = new TextField();
+        textField.setPrefWidth(50);
+        box1.getChildren().add(textField);
         Label label = new Label("Enter the Password");
+        
+        VBox.setMargin(label, new Insets(100,0,0,0));
+        VBox.setMargin(textField, new Insets(10, 0, 0, 0));
         Label error = new Label("Enter a valid passward");
         Label incorrect = new Label("Wrong passward entered, try again");
         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
-        Button submitButton = new Button("Submit"); 
+        Button submitButton = new Button("Submit");
+        VBox.setMargin(submitButton, new Insets(10,0,0,0)); 
         submitButton.setOnAction((e) -> {
             String text = textField.getText();
             if(mainPane.getChildren().contains(error)) {
@@ -484,7 +500,7 @@ public class OrphangeGUI extends Application {
             
             }
         });
-        mainPane.getChildren().addAll(label,textField, submitButton); 
+        mainPane.getChildren().addAll(label, box1, submitButton); 
         
     }
 

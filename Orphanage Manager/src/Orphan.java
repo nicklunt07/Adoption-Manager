@@ -2,11 +2,12 @@ import java.io.BufferedWriter;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 import javafx.scene.control.Button;
 
-public class Orphan extends Person implements Taskable {
+public class Orphan extends Person implements Taskable, Serializable {
    
    Skillable orphanSkill;
    private static long orphanID = 400001;

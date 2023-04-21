@@ -1,6 +1,8 @@
+import java.io.Serializable;
+
 import javafx.scene.control.Button;
 
-public interface  Taskable {
+public interface  Taskable extends Serializable{
     
     public Skillable getSkill(); 
     public void assignTask(Skillable skill); 

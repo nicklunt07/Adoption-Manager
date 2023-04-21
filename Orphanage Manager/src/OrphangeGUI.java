@@ -40,13 +40,20 @@ public class OrphangeGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        orphanage = orphanage.deserializeOrphanage();
+        if (orphanage == null) {
+            orphanage = new Orphanage();
+        }
         Pane welcomePage = createWelcomePage(primaryStage);
         Scene scene = new Scene(welcomePage, 800, 600);
 
         primaryStage.setTitle("Orphanage Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+}
+
+
+    
 
     private void setupControls(VBox mainPane) {
         MenuItem exitItem = new MenuItem("Exit");

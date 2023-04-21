@@ -204,7 +204,7 @@ public class Orphanage {
         return button;
     }
     
-    void serializeOrphanage() {
+    public void serializeOrphanage() {
         try {
             FileOutputStream fileOut = new FileOutputStream("orphanage.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -216,7 +216,7 @@ public class Orphanage {
         }
     }
 
-    private Orphanage deserializeOrphanage() {
+    public Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
             FileInputStream fileIn = new FileInputStream("orphanage.ser");

@@ -1,8 +1,10 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Adopter extends Person{
+
+public class Adopter extends Person implements Serializable{
     
     boolean isFelon;
     boolean criminalRecord;

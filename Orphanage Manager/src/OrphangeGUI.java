@@ -26,11 +26,11 @@ public class OrphangeGUI extends Application {
     private ArrayList<String> languages = new ArrayList<String>();
     VBox orphanBox = new VBox();
     private TabPane tabPane = new TabPane();
-
-    private  Tab childrenTab = new Tab("Children");
+    private Tab childrenTab = new Tab("Children");
     private Tab staffTab = new Tab("Staff");
     private Tab roomsTab = new Tab("Rooms");
-   
+    private final int PASSWORD = 123456;
+    private Boolean correct = false;
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -47,13 +47,18 @@ public class OrphangeGUI extends Application {
     }
 
     private void setupControls(VBox mainPane) {
-       setChilrenContent(mainPane);
-       
-       childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
-       if(newVal) {
-       setChilrenContent(mainPane);
-       }
-    });
+        setChilrenContent(mainPane);
+
+        childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                setChilrenContent(mainPane);
+            }
+        });
+        staffTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                setEmployeeContent(mainPane);
+            }
+        });
 
     }
 
@@ -78,9 +83,11 @@ public class OrphangeGUI extends Application {
         enterButton.setOnAction(e -> {
             Pane registrationPage = createRegistrationPage(primaryStage);
             primaryStage.setScene(new Scene(registrationPage, 800, 600));
-            /*VBox root = new VBox();
-            setupControls(root);
-            primaryStage.setScene(new Scene(root, 800, 600));*/
+            /*
+             * VBox root = new VBox();
+             * setupControls(root);
+             * primaryStage.setScene(new Scene(root, 800, 600));
+             */
         });
 
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
@@ -89,7 +96,7 @@ public class OrphangeGUI extends Application {
     }
 
     private Pane createRegistrationPage(Stage primaryStage) {
-        //Making a title and updating the font
+        // Making a title and updating the font
         HBox titleBox = new HBox();
         Label title = new Label("Verify your details");
         title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
@@ -102,29 +109,29 @@ public class OrphangeGUI extends Application {
         registrationLayout.setAlignment(Pos.CENTER);
         registrationLayout.setPadding(new Insets(20));
         registrationLayout.setStyle("-fx-background-color: #B0E0E6;");
-    
+
         TextField firstNameField = new TextField();
         firstNameField.setPromptText("First Name");
-    
+
         TextField lastNameField = new TextField();
         lastNameField.setPromptText("Last Name");
-    
+
         TextField mobileNumberField = new TextField();
         mobileNumberField.setPromptText("Mobile Number");
-    
+
         TextField emailField = new TextField();
         emailField.setPromptText("Email ID");
-    
+
         Button submitButton = new Button("Submit");
-    
+
         // an event listener to the button to navigate to the main application window
         submitButton.setOnAction(e -> {
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String mobileNumber = mobileNumberField.getText();
             String email = emailField.getText();
-            
-            //If the fields of the text box are left empty then gives out a message
+
+            // If the fields of the text box are left empty then gives out a message
             if (firstName.isEmpty() || lastName.isEmpty() || mobileNumber.isEmpty() || email.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Missing Information");
@@ -132,72 +139,92 @@ public class OrphangeGUI extends Application {
                 alert.setContentText("Please fill in all the fields.");
                 alert.showAndWait();
             } else {
-    
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Registration Successful");
                 alert.setHeaderText(null);
                 alert.setContentText("You're all set! Look at the orphans.");
                 alert.showAndWait();
-    
+
                 VBox root = new VBox();
                 setupControls(root);
                 primaryStage.setScene(new Scene(root, 800, 600));
             }
         });
-    
-        registrationLayout.getChildren().addAll(title,firstNameField, lastNameField, mobileNumberField, emailField, submitButton);
-    
+
+        registrationLayout.getChildren().addAll(title, firstNameField, lastNameField, mobileNumberField, emailField,
+                submitButton);
+
         return registrationLayout;
     }
-    
-    
 
     /**
      * 
      * @param bottom
      */
-    private void displayOrphans(HBox bottom, Button reveal)  {
+    private void displayOrphans(HBox bottom, Button reveal) {
 
-        try{
-        bottom.getChildren().remove(reveal);
-        orphanBox.setAlignment(Pos.CENTER);
-        Button backward = new Button();
-        backward.setText("Previous Orphan");
+        try {
+            bottom.getChildren().remove(reveal);
+            orphanBox.setAlignment(Pos.CENTER);
+            Button backward = new Button();
+            backward.setText("Previous Orphan");
 
-        Button forward = new Button();
-        forward.setText("Next orphan");
+            Button forward = new Button();
+            forward.setText("Next orphan");
 
-        forward.setOnAction(e -> {
-            if (counter < possibleOrphans.size()-1 && counter >= 0 && pressed == true) {
-                counter++;
-                orphanBox.getChildren().clear();
-                bottom.getChildren().clear();
-                Button childSkill = possibleOrphans.get(counter).performTask();
-                childSkill.setText("Skill");
+            forward.setOnAction(e -> {
+                if (counter < possibleOrphans.size() - 1 && counter >= 0 && pressed == true) {
+                    counter++;
+                    orphanBox.getChildren().clear();
+                    bottom.getChildren().clear();
+                    Button childSkill = possibleOrphans.get(counter).performTask();
+                    childSkill.setText("Skill");
 
-                
-                Button button = new Button("Adopt");
-                button.setOnAction(event -> {
-                    adopt();
-                });
+                    Button button = new Button("Adopt");
+                    button.setOnAction(event -> {
+                        adopt();
+                    });
 
-                Label label10 = new Label(possibleOrphans.get(counter).toString());
-                label10.setTextFill(Paint.valueOf("#FFD700"));
-                orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
-                bottom.getChildren().add(orphanBox);
-            }
-        });
+                    Label label10 = new Label(possibleOrphans.get(counter).toString());
+                    label10.setTextFill(Paint.valueOf("#FFD700"));
+                    orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
+                    bottom.getChildren().add(orphanBox);
+                }
+            });
 
-        backward.setOnAction(e -> {
-            if (counter <= possibleOrphans.size()-1 && counter > 0 && pressed == true) {
-                try {
-                counter--;
-                orphanBox.getChildren().clear();
-                bottom.getChildren().clear();
+            backward.setOnAction(e -> {
+                if (counter <= possibleOrphans.size() - 1 && counter > 0 && pressed == true) {
+                    try {
+                        counter--;
+                        orphanBox.getChildren().clear();
+                        bottom.getChildren().clear();
+                        Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+                        childSkill.setText("Skill");
+
+                        // orphanBox.setStyle(STYLESHEET_CASPIAN);
+
+                        Button button = new Button("Adopt");
+                        button.setOnAction(event -> {
+                            adopt();
+                        });
+
+                        Label label10 = new Label(possibleOrphans.get(counter).toString());
+                        label10.setTextFill(Paint.valueOf("#FFD700"));
+                        orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
+                        bottom.getChildren().add(orphanBox);
+
+                    } catch (Exception f) {
+
+                    }
+                }
+            });
+
+            if (pressed == false) {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
 
-                //orphanBox.setStyle(STYLESHEET_CASPIAN);
+                // orphanBox.setStyle(STYLESHEET_CASPIAN);
 
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
@@ -208,33 +235,11 @@ public class OrphangeGUI extends Application {
                 label10.setTextFill(Paint.valueOf("#FFD700"));
                 orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
                 bottom.getChildren().add(orphanBox);
-
-                } catch(Exception f) {
-
-                }
+                pressed = true;
             }
-        });
-
-        if (pressed == false) {
-            Button childSkill = possibleOrphans.get(counter).getSkill().skill();
-            childSkill.setText("Skill");
-
-            //orphanBox.setStyle(STYLESHEET_CASPIAN);
-
-            Button button = new Button("Adopt");
-            button.setOnAction(event -> {
-                adopt();
-            });
-
-            Label label10 = new Label(possibleOrphans.get(counter).toString());
-            label10.setTextFill(Paint.valueOf("#FFD700"));
-            orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
-            bottom.getChildren().add(orphanBox);
-            pressed = true;
+        } catch (Exception e) {
+            throw new NoOrphanFoundException("No orphan was found for your given inputs");
         }
-    } catch(Exception e) {
-        throw new NoOrphanFoundException("No orphan was found for your given inputs");
-    }
 
     }
 
@@ -246,15 +251,15 @@ public class OrphangeGUI extends Application {
                 .filter(orphan -> orphan.getGender().equals(sex))
                 .filter(orphan -> orphan.speaksLanguage(languages))
                 .collect(Collectors.toList());
-        if(possibleOrphans.size() == 0) {
-            
+        if (possibleOrphans.size() == 0) {
+
         }
     }
 
     /**
      * adopting the orphan
      */
-    private void adopt(){
+    private void adopt() {
         possibleOrphans.get(counter).AdoptionInfo();
         showAdoptionDetails(possibleOrphans.get(counter));
         possibleOrphans.remove(counter);
@@ -271,19 +276,18 @@ public class OrphangeGUI extends Application {
         detailsLayout.setPadding(new Insets(20));
         detailsLayout.setStyle("-fx-background-color: #B0E0E6");
 
-    
         Label title = new Label("Adoption Details");
         title.setStyle("-fx-font-size: 24;");
-    
+
         Label detailsLabel = new Label(adoptedOrphan.toString());
         detailsLabel.setWrapText(true);
         detailsLabel.setMaxWidth(400);
-    
+
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> detailsStage.close());
-    
+
         detailsLayout.getChildren().addAll(title, detailsLabel, closeButton);
-    
+
         Scene detailsScene = new Scene(detailsLayout, 400, 300);
         detailsStage.setScene(detailsScene);
         detailsStage.setTitle("Adoption Details");
@@ -308,14 +312,12 @@ public class OrphangeGUI extends Application {
         // mainPane.setClip(menuBar);
 
         // Tab pane setup
-      
+
         childrenTab.setClosable(false);
         staffTab.setClosable(false);
         roomsTab.setClosable(false);
 
         tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
-
-
 
         // Add the menu bar and tab pane to the mainPane (VBox)
         mainPane.getChildren().addAll(menuBar, tabPane);
@@ -338,7 +340,7 @@ public class OrphangeGUI extends Application {
         titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-       // title.setStyle("-fx-background-color: #B15B37;");
+        // title.setStyle("-fx-background-color: #B15B37;");
         title.setTextFill(Paint.valueOf("#FFD700"));
 
         VBox radioButton = new VBox();
@@ -364,10 +366,10 @@ public class OrphangeGUI extends Application {
 
         // --- age slider ---
         VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's age"); 
+        Label labelAge = new Label("Orphan's age");
         labelAge.setTextFill(Paint.valueOf("#FFD700"));
         Slider age = new Slider();
-        
+
         age.setMin(0);
         age.setMax(18);
         age.setValue(15);
@@ -386,18 +388,17 @@ public class OrphangeGUI extends Application {
         ageBox.setAlignment(Pos.CENTER);
         ageBox.getChildren().addAll(labelAge, age);
 
-        VBox LanguageBox = new VBox(); 
-        Label languageLabel = new Label("Languages Known(3 years+)"); 
+        VBox LanguageBox = new VBox();
+        Label languageLabel = new Label("Languages Known(3 years+)");
         languageLabel.setTextFill(Paint.valueOf("#FFD700"));
         CheckBox EnglishBox = new CheckBox("English");
-        CheckBox SpanishBox = new CheckBox("Spanish"); 
+        CheckBox SpanishBox = new CheckBox("Spanish");
         EnglishBox.setPrefHeight(10);
         EnglishBox.setPrefWidth(70);
         EnglishBox.setStyle("-fx-text-fill: #FFD700;");
         SpanishBox.setPrefHeight(10);
         SpanishBox.setPrefWidth(70);
         SpanishBox.setStyle("-fx-text-fill: #FFD700;");
-      
 
         LanguageBox.getChildren().addAll(languageLabel, EnglishBox, SpanishBox);
         LanguageBox.setAlignment(Pos.CENTER);
@@ -405,25 +406,23 @@ public class OrphangeGUI extends Application {
         SpanishBox.setAlignment(Pos.CENTER);
 
         EnglishBox.setOnAction(event -> {
-          if(EnglishBox.isSelected()) {
-             languages.add(EnglishBox.getText());
-          } else if(EnglishBox.isSelected() == false) {
-             languages.remove(EnglishBox.getText());
-          }
+            if (EnglishBox.isSelected()) {
+                languages.add(EnglishBox.getText());
+            } else if (EnglishBox.isSelected() == false) {
+                languages.remove(EnglishBox.getText());
+            }
         });
         SpanishBox.setOnAction(event -> {
-            if(SpanishBox.isSelected()) {
+            if (SpanishBox.isSelected()) {
                 languages.add(SpanishBox.getText());
-             } else if(SpanishBox.isSelected() == false) {
+            } else if (SpanishBox.isSelected() == false) {
                 languages.remove(SpanishBox.getText());
-             }
+            }
         });
-        
 
         bottom.setSpacing(100);
 
         top.setAlignment(Pos.CENTER);
-        
 
         HBox.setHgrow(top, Priority.ALWAYS);
         HBox.setHgrow(bottom, Priority.ALWAYS);
@@ -447,9 +446,46 @@ public class OrphangeGUI extends Application {
     }
 
     private void setEmployeeContent(VBox mainPane) {
-      mainPane.getChildren().clear();
-
-    }
+        mainPane.getChildren().clear();
+        mainPane.setAlignment(Pos.CENTER);
+        HBox employee1 = new HBox();
+        HBox employee2 = new HBox();
+        HBox employee3 = new HBox();
+        HBox employee4 = new HBox();
     
-}
+        TextField textField = new TextField();
+        Label label = new Label("Enter the Password");
+        Label error = new Label("Enter a valid passward");
+        Label incorrect = new Label("Wrong passward entered, try again");
+        label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
+        Button submitButton = new Button("Submit"); 
+        submitButton.setOnAction((e) -> {
+            String text = textField.getText();
+            if(mainPane.getChildren().contains(error)) {
+                mainPane.getChildren().remove(error);
+            }
+            if(mainPane.getChildren().contains(incorrect)) {
+                mainPane.getChildren().remove(incorrect);
+            }
+            try{
+            int enteredPassword = Integer.parseInt(text);
+            if(enteredPassword == PASSWORD) {
+               correct = true;
+            } else {
+              
+                incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+                mainPane.getChildren().add(incorrect);
+            }
 
+            }catch(Exception f) {
+              
+                error.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+                mainPane.getChildren().add(error);
+            
+            }
+        });
+        mainPane.getChildren().addAll(label,textField, submitButton); 
+        
+    }
+
+}

@@ -25,6 +25,12 @@ public class OrphangeGUI extends Application {
     private boolean pressed = false;
     private ArrayList<String> languages = new ArrayList<String>();
     VBox orphanBox = new VBox();
+    private TabPane tabPane = new TabPane();
+
+    private  Tab childrenTab = new Tab("Children");
+    private Tab staffTab = new Tab("Staff");
+    private Tab roomsTab = new Tab("Rooms");
+   
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -41,160 +47,14 @@ public class OrphangeGUI extends Application {
     }
 
     private void setupControls(VBox mainPane) {
-        Button reveal = new Button("Click to Reveal Orphans under Filters");
-        mainPane.setStyle("-fx-background-color: #0A1C2E");
-        // Menu bar setup
-        MenuBar menuBar = new MenuBar();
-        Menu fileMenu = new Menu("File");
-        Menu helpMenu = new Menu("Help");
+       setChilrenContent(mainPane);
+       
+       childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
+       if(newVal) {
+       setChilrenContent(mainPane);
+       }
+    });
 
-        MenuItem exitItem = new MenuItem("Exit");
-        exitItem.setOnAction(e -> System.exit(0));
-
-        fileMenu.getItems().add(exitItem);
-        menuBar.getMenus().addAll(fileMenu, helpMenu);
-        // mainPane.setClip(menuBar);
-
-        // Tab pane setup
-        TabPane tabPane = new TabPane();
-
-        Tab childrenTab = new Tab("Children");
-        Tab staffTab = new Tab("Staff");
-        Tab roomsTab = new Tab("Rooms");
-
-        childrenTab.setClosable(false);
-        staffTab.setClosable(false);
-        roomsTab.setClosable(false);
-
-        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
-
-        // Add the menu bar and tab pane to the mainPane (VBox)
-        mainPane.getChildren().addAll(menuBar, tabPane);
-
-        Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
-
-        HBox top = new HBox(30);
-        HBox bottom = new HBox();
-
-        top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        bottom.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
-        top.setFillHeight(true);
-        bottom.setFillHeight(true);
-
-        HBox titleBox = new HBox();
-        Label title = new Label("Adoption Selection");
-        title.setFont(font);
-        title.setAlignment(Pos.CENTER);
-        titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        titleBox.getChildren().add(title);
-        titleBox.setAlignment(Pos.CENTER);
-       // title.setStyle("-fx-background-color: #B15B37;");
-        title.setTextFill(Paint.valueOf("#FFD700"));
-
-        VBox radioButton = new VBox();
-        Label label = new Label("Orphan's Sex: ");
-        label.setTextFill(Paint.valueOf("#FFD700"));
-        RadioButton male = new RadioButton("Male");
-        male.setTextFill(Paint.valueOf("#FFD700"));
-        RadioButton female = new RadioButton("Female");
-        female.setTextFill(Paint.valueOf("#FFD700"));
-        ToggleGroup gender = new ToggleGroup();
-        male.setToggleGroup(gender);
-        female.setToggleGroup(gender);
-
-        radioButton.getChildren().addAll(label, male, female);
-        radioButton.setAlignment(Pos.CENTER_LEFT);
-
-        gender.selectToggle(male);
-        gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
-            RadioButton buttonGender = (RadioButton) gender.getSelectedToggle();
-            sex = buttonGender.getText();
-
-        });
-
-        // --- age slider ---
-        VBox ageBox = new VBox();
-        Label labelAge = new Label("Orphan's age"); 
-        labelAge.setTextFill(Paint.valueOf("#FFD700"));
-        Slider age = new Slider();
-        
-        age.setMin(0);
-        age.setMax(18);
-        age.setValue(15);
-        age.setShowTickLabels(true);
-        age.setShowTickMarks(true);
-        age.setMajorTickUnit(2);
-        age.setMinorTickCount(1);
-        age.setBlockIncrement(10);
-        age.setOrientation(Orientation.HORIZONTAL);
-
-        age.valueProperty().addListener((observable, oldValue, newValue) -> {
-            maxAge = newValue.intValue();
-            labelAge.setText("Orphan's age: " + maxAge);
-        });
-
-        ageBox.setAlignment(Pos.CENTER);
-        ageBox.getChildren().addAll(labelAge, age);
-
-        VBox LanguageBox = new VBox(); 
-        Label languageLabel = new Label("Languages Known(3 years+)"); 
-        languageLabel.setTextFill(Paint.valueOf("#FFD700"));
-        CheckBox EnglishBox = new CheckBox("English");
-        CheckBox SpanishBox = new CheckBox("Spanish"); 
-        EnglishBox.setPrefHeight(10);
-        EnglishBox.setPrefWidth(70);
-        EnglishBox.setStyle("-fx-text-fill: #FFD700;");
-        SpanishBox.setPrefHeight(10);
-        SpanishBox.setPrefWidth(70);
-        SpanishBox.setStyle("-fx-text-fill: #FFD700;");
-      
-
-        LanguageBox.getChildren().addAll(languageLabel, EnglishBox, SpanishBox);
-        LanguageBox.setAlignment(Pos.CENTER);
-        EnglishBox.setAlignment(Pos.CENTER);
-        SpanishBox.setAlignment(Pos.CENTER);
-
-        EnglishBox.setOnAction(event -> {
-          if(EnglishBox.isSelected()) {
-             languages.add(EnglishBox.getText());
-          } else if(EnglishBox.isSelected() == false) {
-             languages.remove(EnglishBox.getText());
-          }
-        });
-        SpanishBox.setOnAction(event -> {
-            if(SpanishBox.isSelected()) {
-                languages.add(SpanishBox.getText());
-             } else if(SpanishBox.isSelected() == false) {
-                languages.remove(SpanishBox.getText());
-             }
-        });
-        
-
-        bottom.setSpacing(100);
-
-        top.setAlignment(Pos.CENTER);
-        
-
-        HBox.setHgrow(top, Priority.ALWAYS);
-        HBox.setHgrow(bottom, Priority.ALWAYS);
-
-        VBox.setVgrow(top, Priority.ALWAYS);
-        VBox.setVgrow(bottom, Priority.ALWAYS);
-
-        VBox.setVgrow(mainPane, Priority.ALWAYS);
-        bottom.setAlignment(Pos.CENTER);
-
-        top.getChildren().addAll(radioButton, ageBox, LanguageBox);
-        bottom.getChildren().addAll(reveal);
-        mainPane.setAlignment(Pos.CENTER);
-        mainPane.getChildren().addAll(title, top, bottom);
-
-        reveal.setOnAction(event -> {
-            setOrphans();
-            displayOrphans(bottom, reveal);
-
-        });
     }
 
     private Pane createWelcomePage(Stage primaryStage) {
@@ -430,5 +290,166 @@ public class OrphangeGUI extends Application {
         detailsStage.initModality(Modality.APPLICATION_MODAL);
         detailsStage.showAndWait();
     }
+
+    private void setChilrenContent(VBox mainPane) {
+        mainPane.getChildren().clear();
+        Button reveal = new Button("Click to Reveal Orphans under Filters");
+        mainPane.setStyle("-fx-background-color: #0A1C2E");
+        // Menu bar setup
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        Menu helpMenu = new Menu("Help");
+
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(e -> System.exit(0));
+
+        fileMenu.getItems().add(exitItem);
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
+        // mainPane.setClip(menuBar);
+
+        // Tab pane setup
+      
+        childrenTab.setClosable(false);
+        staffTab.setClosable(false);
+        roomsTab.setClosable(false);
+
+        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+
+
+
+        // Add the menu bar and tab pane to the mainPane (VBox)
+        mainPane.getChildren().addAll(menuBar, tabPane);
+
+        Font font = Font.font("Times New Roman", FontWeight.BOLD, 20);
+
+        HBox top = new HBox(30);
+        HBox bottom = new HBox();
+
+        top.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        bottom.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        top.setFillHeight(true);
+        bottom.setFillHeight(true);
+
+        HBox titleBox = new HBox();
+        Label title = new Label("Adoption Selection");
+        title.setFont(font);
+        title.setAlignment(Pos.CENTER);
+        titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        titleBox.getChildren().add(title);
+        titleBox.setAlignment(Pos.CENTER);
+       // title.setStyle("-fx-background-color: #B15B37;");
+        title.setTextFill(Paint.valueOf("#FFD700"));
+
+        VBox radioButton = new VBox();
+        Label label = new Label("Orphan's Sex: ");
+        label.setTextFill(Paint.valueOf("#FFD700"));
+        RadioButton male = new RadioButton("Male");
+        male.setTextFill(Paint.valueOf("#FFD700"));
+        RadioButton female = new RadioButton("Female");
+        female.setTextFill(Paint.valueOf("#FFD700"));
+        ToggleGroup gender = new ToggleGroup();
+        male.setToggleGroup(gender);
+        female.setToggleGroup(gender);
+
+        radioButton.getChildren().addAll(label, male, female);
+        radioButton.setAlignment(Pos.CENTER_LEFT);
+
+        gender.selectToggle(male);
+        gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            RadioButton buttonGender = (RadioButton) gender.getSelectedToggle();
+            sex = buttonGender.getText();
+
+        });
+
+        // --- age slider ---
+        VBox ageBox = new VBox();
+        Label labelAge = new Label("Orphan's age"); 
+        labelAge.setTextFill(Paint.valueOf("#FFD700"));
+        Slider age = new Slider();
+        
+        age.setMin(0);
+        age.setMax(18);
+        age.setValue(15);
+        age.setShowTickLabels(true);
+        age.setShowTickMarks(true);
+        age.setMajorTickUnit(2);
+        age.setMinorTickCount(1);
+        age.setBlockIncrement(10);
+        age.setOrientation(Orientation.HORIZONTAL);
+
+        age.valueProperty().addListener((observable, oldValue, newValue) -> {
+            maxAge = newValue.intValue();
+            labelAge.setText("Orphan's age: " + maxAge);
+        });
+
+        ageBox.setAlignment(Pos.CENTER);
+        ageBox.getChildren().addAll(labelAge, age);
+
+        VBox LanguageBox = new VBox(); 
+        Label languageLabel = new Label("Languages Known(3 years+)"); 
+        languageLabel.setTextFill(Paint.valueOf("#FFD700"));
+        CheckBox EnglishBox = new CheckBox("English");
+        CheckBox SpanishBox = new CheckBox("Spanish"); 
+        EnglishBox.setPrefHeight(10);
+        EnglishBox.setPrefWidth(70);
+        EnglishBox.setStyle("-fx-text-fill: #FFD700;");
+        SpanishBox.setPrefHeight(10);
+        SpanishBox.setPrefWidth(70);
+        SpanishBox.setStyle("-fx-text-fill: #FFD700;");
+      
+
+        LanguageBox.getChildren().addAll(languageLabel, EnglishBox, SpanishBox);
+        LanguageBox.setAlignment(Pos.CENTER);
+        EnglishBox.setAlignment(Pos.CENTER);
+        SpanishBox.setAlignment(Pos.CENTER);
+
+        EnglishBox.setOnAction(event -> {
+          if(EnglishBox.isSelected()) {
+             languages.add(EnglishBox.getText());
+          } else if(EnglishBox.isSelected() == false) {
+             languages.remove(EnglishBox.getText());
+          }
+        });
+        SpanishBox.setOnAction(event -> {
+            if(SpanishBox.isSelected()) {
+                languages.add(SpanishBox.getText());
+             } else if(SpanishBox.isSelected() == false) {
+                languages.remove(SpanishBox.getText());
+             }
+        });
+        
+
+        bottom.setSpacing(100);
+
+        top.setAlignment(Pos.CENTER);
+        
+
+        HBox.setHgrow(top, Priority.ALWAYS);
+        HBox.setHgrow(bottom, Priority.ALWAYS);
+
+        VBox.setVgrow(top, Priority.ALWAYS);
+        VBox.setVgrow(bottom, Priority.ALWAYS);
+
+        VBox.setVgrow(mainPane, Priority.ALWAYS);
+        bottom.setAlignment(Pos.CENTER);
+
+        top.getChildren().addAll(radioButton, ageBox, LanguageBox);
+        bottom.getChildren().addAll(reveal);
+        mainPane.setAlignment(Pos.CENTER);
+        mainPane.getChildren().addAll(title, top, bottom);
+
+        reveal.setOnAction(event -> {
+            setOrphans();
+            displayOrphans(bottom, reveal);
+
+        });
+    }
+
+    private void setEmployeeContent(VBox mainPane) {
+      mainPane.getChildren().clear();
+
+    }
     
 }
+

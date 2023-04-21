@@ -514,13 +514,28 @@ public class OrphangeGUI extends Application {
         Label label1 = new Label("Employees");
         label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         for (int i = 0; i < employees.size(); i++) {
-            Label label = new Label(employees.get(i).toString());
-            label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+            
+            Label labelName = new Label(employees.get(i).getName());
+            labelName.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+
+            Label labelAge = new Label("Age:" +employees.get(i).getAge());
+            labelAge.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
+
+            Label labelID = new Label("ID:" + employees.get(i).getID());
+            labelID.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
+
             Button skill = employees.get(i).performTask();
             skill.setText("Skill");
+
+            Label breaker = new Label("-----------------------");
+            breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
+           
+            VBox  info = new VBox();
+            info.getChildren().addAll(labelName, labelID, labelAge, skill, breaker);
+            info.setAlignment(Pos.CENTER);
             HBox box = new HBox();
-            HBox.setMargin(box, new Insets(10, 0, 0, 0));
-            box.getChildren().addAll(label, skill);
+            box.setAlignment(Pos.CENTER);
+            box.getChildren().addAll(info);
             mainPane.getChildren().add(box);
 
         }

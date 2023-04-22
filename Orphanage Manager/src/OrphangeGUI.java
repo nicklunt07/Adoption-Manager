@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class OrphangeGUI extends Application {
@@ -33,6 +35,7 @@ public class OrphangeGUI extends Application {
     private MenuBar menuBar = new MenuBar();
     private Menu fileMenu = new Menu("File");
     private Menu helpMenu = new Menu("Help");
+    private Adopter adopter;
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -50,10 +53,7 @@ public class OrphangeGUI extends Application {
         primaryStage.setTitle("Orphanage Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
-}
-
-
-    
+    }
 
     private void setupControls(VBox mainPane) {
         MenuItem exitItem = new MenuItem("Exit");
@@ -270,6 +270,7 @@ public class OrphangeGUI extends Application {
                 pressed = true;
             }
         } catch (Exception e) {
+            System.err.println("Custom Exception:");
             throw new NoOrphanFoundException("No orphan was found for your given inputs");
         }
 
@@ -292,10 +293,14 @@ public class OrphangeGUI extends Application {
      * adopting the orphan
      */
     private void adopt() {
-        possibleOrphans.get(counter).AdoptionInfo();
-        showAdoptionDetails(possibleOrphans.get(counter));
-        possibleOrphans.remove(counter);
-        orphanage.serializeOrphanage();
+        getAdopterInfo();
+        if(!(adopter == null) && adopter.isEligableCareGiver()) {
+            possibleOrphans.get(counter).AdoptionInfo();
+            showAdoptionDetails(possibleOrphans.get(counter));
+            possibleOrphans.remove(counter);
+            orphanage.serializeOrphanage();
+        }
+       
     }
 
     /**
@@ -525,11 +530,11 @@ public class OrphangeGUI extends Application {
         Label label1 = new Label("Employees");
         label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         for (int i = 0; i < employees.size(); i++) {
-            
+
             Label labelName = new Label(employees.get(i).getName());
             labelName.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
 
-            Label labelAge = new Label("Age:" +employees.get(i).getAge());
+            Label labelAge = new Label("Age:" + employees.get(i).getAge());
             labelAge.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
 
             Label labelID = new Label("ID:" + employees.get(i).getID());
@@ -540,8 +545,8 @@ public class OrphangeGUI extends Application {
 
             Label breaker = new Label("-----------------------");
             breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
-           
-            VBox  info = new VBox();
+
+            VBox info = new VBox();
             info.getChildren().addAll(labelName, labelID, labelAge, skill, breaker);
             info.setAlignment(Pos.CENTER);
             HBox box = new HBox();
@@ -552,6 +557,85 @@ public class OrphangeGUI extends Application {
         }
 
     }
-    
+
+    private void getAdopterInfo() {
+        Stage stage = new Stage();
+        stage.setHeight(300);
+        stage.setWidth(400);
+        stage.setTitle("Adopter Information");
+        VBox pane = new VBox();
+        Scene scene1 = new Scene(pane);
+        pane.setStyle("-fx-background-color: #0A1C2E");
+        
+        TextField nameTextField = new TextField();
+        nameTextField.setPromptText("Enter your name");
+       
+
+        TextField ageTextField = new TextField(); 
+        ageTextField.setPromptText("age");
+       
+
+        TextField gender = new TextField();
+        gender.setPromptText("Enter your gender");
+      
+
+        ToggleGroup group = new ToggleGroup(); 
+        Label label = new Label("Are you are felon?");
+        label.setStyle("-fx-text-fill: #FFD700;");
+        RadioButton yesFellon = new RadioButton("Yes"); 
+        RadioButton noFellon = new RadioButton("No");
+        yesFellon.setTextFill(Paint.valueOf("#FFD700"));
+        noFellon.setTextFill(Paint.valueOf("#FFD700"));
+        yesFellon.setToggleGroup(group); 
+        noFellon.setToggleGroup(group); 
+
+        VBox felonBox = new VBox(); 
+        felonBox.getChildren().addAll(label, yesFellon, noFellon);
+        
+
+        TextField income = new TextField();
+        income.setPromptText("Enter your gross income");
+       
+
+        VBox ComboVBox = new VBox();
+        Label label1 = new Label("Enter your number of dependencies");
+        label1.setStyle("-fx-text-fill: #FFD700;");
+        ComboBox<Integer> dependencies = new ComboBox<>();
+        dependencies.getItems().addAll(1, 2, 3,4,5,6,7,8,9,10);
+        ComboVBox.getChildren().addAll(label1,dependencies);
+       
+       
+
+      
+
+        Button submitButton = new Button();
+        submitButton.setText("Submit");
+        pane.setAlignment(Pos.TOP_CENTER);
+        pane.getChildren().addAll(nameTextField,ageTextField,gender,felonBox,income,ComboVBox, submitButton);
+        submitButton.setOnAction(e -> {
+            Toggle toggle = group.getSelectedToggle();
+            RadioButton selectedRadioButton = (RadioButton) toggle;
+            boolean felon = false;
+            if(selectedRadioButton.getText().equals("Yes")) {
+               felon= true;
+            }
+            try {
+           adopter = new Adopter(orphanage,nameTextField.getText(),Integer.parseInt(ageTextField.getText()),gender.getText(),felon,Double.parseDouble(income.getText()), dependencies.getValue());
+            } catch(Exception f) {
+              Label labelError = new Label("Please enter proper inputs");
+              labelError.setStyle("-fx-text-fill: #FFD700;");
+              pane.getChildren().add(labelError);
+            }
+        });
+
+       
+       
+        stage.centerOnScreen();
+        pane.setPrefHeight(100);
+        pane.setPrefHeight(400);
+        stage.setScene(scene1);
+        stage.show();
+
+    }
 
 }

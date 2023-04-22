@@ -51,7 +51,7 @@ public class Orphanage {
         Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
         Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this, Arrays.asList("English"));
-        Orphan orphan9 = new Orphan("Kaider Blackburn", 0, "Male", skills.get("Gardening"),this);
+        Orphan orphan9 = new Orphan("Andrea Elizabeth", 0, "Female", skills.get("Gardening"),this);
         Orphan orphan10 = new Orphan("Kenneth Holman", 4, "Male", skills.get("BasketBall"),this, Arrays.asList("English", "Spanish"));
         Orphan orphan11 = new Orphan("Sidney Gaines", 16, "Female", skills.get("Soccer"),this, Arrays.asList("English", "Spanish"));
         // Orphan orphan12 = new Orphan("Nettie Nash", 17, "Female", null,this);
@@ -59,9 +59,9 @@ public class Orphanage {
     }
 
     public void addDefaultAdopters(){
-        Adopter adopter1 = new Adopter(this, "Kevin Koett", 27, "Male", false, false);
-        Adopter adopter2 = new Adopter(this, "Kevin Carr", 37, "Male", true, false);
-        Adopter adopter3 = new Adopter(this, "Kevin Hof", 30, "Male", false, false);
+        Adopter adopter1 = new Adopter(this, "Kevin Koett", 27, "Male", false, 100000, 3);
+        Adopter adopter2 = new Adopter(this, "Kevin Carr", 37, "Male", true, 60000, 2);
+        Adopter adopter3 = new Adopter(this, "Kevin Hof", 30, "Male", false, 100000, 5);
     }
 
 

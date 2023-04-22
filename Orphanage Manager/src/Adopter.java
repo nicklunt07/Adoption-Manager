@@ -4,19 +4,59 @@ import java.io.IOException;
 import java.io.Serializable;
 
 
-public class Adopter extends Person implements Serializable{
+public class Adopter extends Person implements Serializable, Responsible{
     
-    boolean isFelon;
-    boolean criminalRecord;
-    boolean isSingle;
+    private boolean isFelon;
+    private boolean isSingle;
+    private double income;
     private static long adopterID = 500001;
-    public Adopter(Orphanage orphanage, String name, int age, String gender, boolean isFelon, boolean criminalRecord) {
+    private int dependencies;
+    public Adopter(Orphanage orphanage, String name, int age, String gender, boolean isFelon, double income, int dependencies) {
        super(name, age, gender);
        this.isFelon = isFelon;
-       this.criminalRecord = criminalRecord;
+       this.income = income;
+       this.dependencies = dependencies;
        //addPerson(this);
        orphanage.addPerson(this);
     }
+
+
+   
+
+    public boolean isIsSingle() {
+        return this.isSingle;
+    }
+
+
+    public double getIncome() {
+        return this.income;
+    }
+
+    public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public int getDependencies() {
+        return this.dependencies;
+    }
+
+    public void setDependencies(int dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    // to be implemented later
+    public boolean isEligableCareGiver(){
+        return !isFelon;
+    }
+
+    public String getCriminalRecord() {
+        if(isFelon) {
+            return "Felon";
+        }
+
+        return "Not a Felon";
+    }
+
 
 
 

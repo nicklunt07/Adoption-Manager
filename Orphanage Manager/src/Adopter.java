@@ -46,7 +46,7 @@ public class Adopter extends Person implements Serializable, Responsible{
 
     // to be implemented later
     public boolean isEligableCareGiver(){
-        return !isFelon;
+        return (!isFelon);
     }
 
     public String getCriminalRecord() {

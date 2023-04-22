@@ -46,7 +46,10 @@ public class OrphangeGUI extends Application {
     public void start(Stage primaryStage) {
         orphanage = orphanage.deserializeOrphanage();
         if (orphanage == null) {
+            System.out.println("Deserialization failed: creating a new Orphanage object.");
             orphanage = new Orphanage();
+        } else {
+            System.out.println("Deserialization successful.");
         }
         Pane welcomePage = createWelcomePage(primaryStage);
         Scene scene = new Scene(welcomePage, 800, 600);
@@ -363,8 +366,10 @@ public class OrphangeGUI extends Application {
                 System.out.println("Ah");
                 possibleOrphans.get(counter).AdoptionInfo();
                 showAdoptionDetails(possibleOrphans.get(counter));
-                possibleOrphans.remove(counter);
                 orphanage.serializeOrphanage();
+                orphanage.removeAdoptedChild(possibleOrphans.get(counter));
+                possibleOrphans.remove(counter);
+                
             }
             } catch(Exception f) {
               Label labelError = new Label("Please enter proper inputs");

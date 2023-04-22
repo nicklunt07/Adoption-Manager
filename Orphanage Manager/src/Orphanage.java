@@ -4,9 +4,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,12 +18,13 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-public class Orphanage {
-    private String orphanageName;
+public class Orphanage implements Serializable{
+    //private String orphanageName;
     private ArrayList<Person> persons;
     private ArrayList<Employee> employees;
     private ArrayList<Adopter> adopters;
     private ArrayList<Orphan> orphans;
+    List<Orphan> possibleOrphans;
     public static HashMap<String, Skillable> skills = new HashMap<String, Skillable>();
 
     public Orphanage() {
@@ -44,11 +48,11 @@ public class Orphanage {
 
     public void addDefaultOrphans(){
         Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", skills.get("Math"),this, Arrays.asList("Spanish", "English"));
-        Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"),this,Arrays.asList("English"));
+        //Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"),this,Arrays.asList("English"));
         Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", skills.get("Circle"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", skills.get("Running"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan5 = new Orphan("Barnaby Kane", 1, "Male", skills.get("Skateboarding"),this);
-        Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
+        //Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
         Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this, Arrays.asList("English"));
         Orphan orphan9 = new Orphan("Andrea Elizabeth", 0, "Female", skills.get("Gardening"),this);
@@ -74,6 +78,14 @@ public class Orphanage {
     public void addPerson(Person pers){
         persons.add(pers);
     }
+
+    public void removeAdoptedChild(Orphan child) {
+        // Remove child from the persons list
+        persons.remove(child);
+        // Remove child from the possibleOrphans list
+        //possibleOrphans.remove(child);
+    }
+    
 
     /**
      * remvoing employee wihtout using ID
@@ -105,6 +117,7 @@ public class Orphanage {
      * @param id
      */
     public void removeEmployeeById(int id) {
+        
         employees.removeIf(employee -> employee.getID() == id);
     }
 
@@ -206,7 +219,7 @@ public class Orphanage {
     
     public void serializeOrphanage() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("orphanage.ser");
+            FileOutputStream fileOut = new FileOutputStream("orph.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(this);
             out.close();
@@ -219,7 +232,7 @@ public class Orphanage {
     public Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
-            FileInputStream fileIn = new FileInputStream("orphanage.ser");
+            FileInputStream fileIn = new FileInputStream("orph.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             deserializedOrphanage = (Orphanage) in.readObject();
             in.close();

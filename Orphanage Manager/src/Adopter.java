@@ -1,10 +1,9 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Serializable;
 
 
-public class Adopter extends Person implements Serializable, Responsible{
+public class Adopter extends Person implements Responsible{
     
     private boolean isFelon;
     private boolean isSingle;

@@ -83,7 +83,8 @@ public class OrphangeGUI extends Application {
         childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 mainPane.getChildren().remove(menuBar);
-
+                pressed = false;
+                orphanBox.getChildren().clear();
                 setChilrenContent(mainPane);
             }
         });

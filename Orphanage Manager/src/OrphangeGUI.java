@@ -36,6 +36,7 @@ public class OrphangeGUI extends Application {
     private Menu fileMenu = new Menu("File");
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
+    private boolean isComplete;
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -293,8 +294,8 @@ public class OrphangeGUI extends Application {
      * adopting the orphan
      */
     private void adopt() {
-        getAdopterInfo();
-        if(!(adopter == null) && adopter.isEligableCareGiver()) {
+        boolean complete = getAdopterInfo();
+        if(!(adopter == null) && adopter.isEligableCareGiver() && complete == true) {
             possibleOrphans.get(counter).AdoptionInfo();
             showAdoptionDetails(possibleOrphans.get(counter));
             possibleOrphans.remove(counter);
@@ -558,7 +559,8 @@ public class OrphangeGUI extends Application {
 
     }
 
-    private void getAdopterInfo() {
+    private boolean getAdopterInfo() {
+        
         Stage stage = new Stage();
         stage.setHeight(300);
         stage.setWidth(400);
@@ -605,7 +607,7 @@ public class OrphangeGUI extends Application {
         ComboVBox.getChildren().addAll(label1,dependencies);
        
        
-
+   
       
 
         Button submitButton = new Button();
@@ -616,11 +618,14 @@ public class OrphangeGUI extends Application {
             Toggle toggle = group.getSelectedToggle();
             RadioButton selectedRadioButton = (RadioButton) toggle;
             boolean felon = false;
+            
             if(selectedRadioButton.getText().equals("Yes")) {
                felon= true;
             }
             try {
-           adopter = new Adopter(orphanage,nameTextField.getText(),Integer.parseInt(ageTextField.getText()),gender.getText(),felon,Double.parseDouble(income.getText()), dependencies.getValue());
+             adopter = new Adopter(orphanage,nameTextField.getText(),Integer.parseInt(ageTextField.getText()),gender.getText(),felon,Double.parseDouble(income.getText()), dependencies.getValue());
+             isComplete = true;
+             stage.close();
             } catch(Exception f) {
               Label labelError = new Label("Please enter proper inputs");
               labelError.setStyle("-fx-text-fill: #FFD700;");
@@ -635,6 +640,7 @@ public class OrphangeGUI extends Application {
         pane.setPrefHeight(400);
         stage.setScene(scene1);
         stage.show();
+        return isComplete;
 
     }
 

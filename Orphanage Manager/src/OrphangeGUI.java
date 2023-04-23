@@ -1,4 +1,5 @@
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +45,12 @@ public class OrphangeGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        orphanage = orphanage.deserializeOrphanage();
+        try {
+            orphanage = orphanage.deserializeOrphanage();
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            System.out.println("Yet to create a serialized file");
+        }
         if (orphanage == null) {
             System.out.println("Deserialization failed: creating a new Orphanage object.");
             orphanage = new Orphanage();
@@ -365,9 +371,9 @@ public class OrphangeGUI extends Application {
              if(!(adopter == null) && adopter.isEligableCareGiver()) {
                 possibleOrphans.get(counter).AdoptionInfo();
                 showAdoptionDetails(possibleOrphans.get(counter));
-                orphanage.serializeOrphanage();
                 orphanage.removeAdoptedChild(possibleOrphans.get(counter));
                 possibleOrphans.remove(counter);
+                orphanage.serializeOrphanage();
                 
             }
             } catch(Exception f) {

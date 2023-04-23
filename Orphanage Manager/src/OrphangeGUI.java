@@ -1,6 +1,7 @@
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Application;
@@ -648,5 +649,9 @@ public class OrphangeGUI extends Application {
 
     }
 
+    //WIP - nick
+    private void addNewOrphan(String name, String age, String gender, String skill, String languages){
+        Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), orphanage ,Arrays.asList(languages));
+    }
 
 }

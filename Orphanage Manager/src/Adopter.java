@@ -47,6 +47,8 @@ public class Adopter extends Person implements Responsible{
     public boolean isEligableCareGiver(){
         if((income/dependencies) <= 25000) {
            return false;
+        } else if(getAge() < 18) {
+            return false;
         }
 
         return (!isFelon);

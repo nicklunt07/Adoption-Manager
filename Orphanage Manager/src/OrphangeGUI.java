@@ -291,14 +291,26 @@ public class OrphangeGUI extends Application {
                 adopter = new Adopter(orphanage, nameTextField.getText(), Integer.parseInt(ageTextField.getText()),
                         gender.getText(), felon, Double.parseDouble(income.getText()), dependencies.getValue());
                 isComplete = true;
-                stage.close();
                 if (!(adopter == null) && adopter.isEligableCareGiver()) {
+                    stage.close();
                     possibleOrphans.get(counter).AdoptionInfo();
                     showAdoptionDetails(possibleOrphans.get(counter));
                     orphanage.removeAdoptedChild(possibleOrphans.get(counter));
                     possibleOrphans.remove(counter);
                     orphanage.serializeOrphanage();
 
+                } else {
+                    stage.close();
+                    Stage stage2 = new Stage();
+                    VBox box = new VBox();
+                    Scene scene = new Scene(box);
+                    Label notValid = new Label("This adopter is not valid");
+                    notValid.setStyle("-fx-text-fill: #FFD700;");
+                    notValid.setStyle("-fx-font-size: 40;");
+                    box.setStyle("-fx-background-color: #0A1C2E");
+
+                    stage2.setScene(scene);
+                    stage2.show();
                 }
             } catch (Exception f) {
                 Label labelError = new Label("Please enter proper inputs");
@@ -321,26 +333,38 @@ public class OrphangeGUI extends Application {
      */
     private void showAdoptionDetails(Orphan adoptedOrphan) {
         Stage detailsStage = new Stage();
-        VBox detailsLayout = new VBox(20);
+        VBox detailsLayout = new VBox();
         detailsLayout.setAlignment(Pos.CENTER);
         detailsLayout.setPadding(new Insets(20));
         detailsLayout.setStyle("-fx-background-color: #0A1C2E");
+        detailsLayout.setPrefHeight(250);
+        detailsLayout.setPrefWidth(250);
 
         Label title = new Label("Adoption Valid!!");
-        title.setStyle("-fx-font-size: 24;");
+        title.setStyle("-fx-font-size: 20;");
         title.setStyle("-fx-text-fill: #FFD700;");
 
-        Label detailsLabel = new Label(adoptedOrphan.toString());
-        detailsLabel.setWrapText(true);
-        detailsLabel.setMaxWidth(400);
-        detailsLabel.setStyle("-fx-text-fill: #FFD700;");
+        
+        Label name = new Label("Name: " +adoptedOrphan.getName());
+        name.setStyle("-fx-text-fill: #FFD700;");
+
+        Label age = new Label("Age: " + adoptedOrphan.getAge());
+        age.setStyle("-fx-text-fill: #FFD700;");
+
+        Label gender = new Label("Gender: " +adoptedOrphan.getGender());
+        gender.setStyle("-fx-text-fill: #FFD700;");
+
+        Label id = new Label("ID: " + adoptedOrphan.getID());
+        id.setStyle("-fx-text-fill: #FFD700;");
 
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> detailsStage.close());
 
-        detailsLayout.getChildren().addAll(title, detailsLabel, closeButton);
+        detailsLayout.getChildren().addAll(title, name, age, gender, id, closeButton);
+        VBox.setMargin(title, new Insets(20, 0, 0, 10));
 
         Scene detailsScene = new Scene(detailsLayout, 400, 300);
+        detailsLayout.setAlignment(Pos.TOP_CENTER);
         detailsStage.setScene(detailsScene);
         detailsStage.setTitle("Adoption Details");
         detailsStage.initModality(Modality.APPLICATION_MODAL);

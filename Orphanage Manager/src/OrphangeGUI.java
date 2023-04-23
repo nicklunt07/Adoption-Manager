@@ -363,7 +363,6 @@ public class OrphangeGUI extends Application {
              isComplete = true;
              stage.close();
              if(!(adopter == null) && adopter.isEligableCareGiver()) {
-                System.out.println("Ah");
                 possibleOrphans.get(counter).AdoptionInfo();
                 showAdoptionDetails(possibleOrphans.get(counter));
                 orphanage.serializeOrphanage();

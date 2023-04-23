@@ -37,10 +37,10 @@ public class Orphanage implements Serializable {
 
     public void addDefaultEmployees() {
         // I am not sure about y'all ages I am just using it test nothing else.
-        Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this, skills.get("Cooking"));
-        Employee employee2 = new Employee("Adnan Khaleeli", 20, "Male", "Founder", this, skills.get("DishWashing"));
-        Employee employee3 = new Employee("Nick Lunt", 20, "Male", "Founder", this, skills.get("Manager"));
-        Employee employee4 = new Employee("Zaire Johnson", 20, "Male", "Founder", this, skills.get("Ironing"));
+        Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this, skills.get("Cooking"), 4, "High School", false);
+        Employee employee2 = new Employee("Adnan Khaleeli", 23, "Male", "Founder", this, skills.get("DishWashing"), 3, "College", false );
+        Employee employee3 = new Employee("Nick Lunt", 25, "Male", "Founder", this, skills.get("Manager"),5,"Masters", false);
+        Employee employee4 = new Employee("Zaire Johnson", 30, "Male", "Founder", this, skills.get("Ironing"), 8, "High School", false);
 
     }
 

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +27,8 @@ public class Orphanage implements Serializable{
     private ArrayList<Orphan> orphans;
     List<Orphan> possibleOrphans;
     public static HashMap<String, Skillable> skills = new HashMap<String, Skillable>();
+    private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
+
 
     public Orphanage() {
         persons = new ArrayList<>();
@@ -83,8 +85,6 @@ public class Orphanage implements Serializable{
     public void removeAdoptedChild(Orphan child) {
         // Remove child from the persons list
         persons.remove(child);
-        // Remove child from the possibleOrphans list
-        //possibleOrphans.remove(child);
     }
     
 
@@ -225,11 +225,12 @@ public class Orphanage implements Serializable{
             out.writeObject(this);
             out.close();
             fileOut.close();
+            LOGGER.log(Level.INFO, "Orphanage serialized successfully.\n");
         } catch (IOException i) {
-            i.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during orphanage serialization.\n", i);
         }
     }
-
+    
     public static Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
@@ -238,14 +239,15 @@ public class Orphanage implements Serializable{
             deserializedOrphanage = (Orphanage) in.readObject();
             in.close();
             fileIn.close();
+            LOGGER.log(Level.INFO, "Orphanage deserialized successfully.\n");
         } catch (IOException i) {
-            System.out.println("Creating orphange");
+            LOGGER.log(Level.WARNING, "No Serialized file found during orphanage deserialization yet.\n");
         } catch (ClassNotFoundException c) {
-            c.printStackTrace();
-        } 
+            LOGGER.log(Level.SEVERE, "Class not found during orphanage deserialization.\n", c);
+        }
         return deserializedOrphanage;
     }
-
+    
     
     
     

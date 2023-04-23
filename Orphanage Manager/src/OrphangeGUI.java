@@ -1,8 +1,8 @@
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,7 +10,6 @@ import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -18,7 +17,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class OrphangeGUI extends Application {
@@ -41,6 +39,7 @@ public class OrphangeGUI extends Application {
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
     private boolean isComplete;
+    private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
 
     public static void main(String[] args) throws NoOrphanFoundException {
         launch(args);
@@ -61,10 +60,10 @@ public class OrphangeGUI extends Application {
             orphanage = deserializationTask.getValue();
     
             if (orphanage == null) {
-                System.out.println("Deserialization failed: creating a new Orphanage object.");
+                LOGGER.log(Level.WARNING, "Deserialization failed: creating a new Orphanage object.\n");
                 orphanage = new Orphanage();
             } else {
-                System.out.println("Deserialization successful.");
+                LOGGER.log(Level.INFO, "Deserialization successful.\n");
             }
     
             // Updates the UI

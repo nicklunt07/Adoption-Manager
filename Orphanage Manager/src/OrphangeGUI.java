@@ -38,6 +38,7 @@ public class OrphangeGUI extends Application {
     private Menu fileMenu = new Menu("File");
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
+    private Employee employee;
     private boolean isComplete;
 
     private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
@@ -698,15 +699,44 @@ public class OrphangeGUI extends Application {
         VBox educationLevelBox = new VBox();
         Label label2 = new Label("What is their level of experience?");
         label2.setStyle("-fx-text-fill: #FFD700;");
-        ComboBox<String> education = new ComboBox<>();
-        education.getItems().addAll("None", "Elemntary", "Middle School", "High School", "College", "Masters",
+        ComboBox<String> educationCombo = new ComboBox<>();
+        educationCombo.getItems().addAll("None", "Elemntary", "Middle School", "High School", "College", "Masters",
                 "Doctorate");
-        educationLevelBox.getChildren().addAll(label2, education);
+        educationLevelBox.getChildren().addAll(label2, educationCombo);
+
+        Button submitButton = new Button(); 
+        
 
         mainPane.getChildren().addAll(nameTextField, gender, label, yesFellon, noFellon, position, comboVBox,
-                yearsOfExperience, educationLevelBox);
+                yearsOfExperience, educationLevelBox, submitButton);
         stage.setScene(scene);
         stage.show();
+       
+        
+
+        submitButton.setOnAction(e -> {
+            
+             VBox display = new VBox();
+             Stage stage2 = new Stage(); 
+             Scene scene2 = new Scene(display);
+             display.setStyle("-fx-background-color: #0A1C2E");
+             stage2.setScene(scene2);
+
+
+             try{
+                employee = new Employee(nameTextField.getText(),Integer.parseInt(ageTextField.getText()), gender.getText(), position.getText(), orphanage, orphanage.getSkills().get(skill.getValue()), Integer.parseInt(yearsOfExperience.getText()), educationCombo.getValue(), true);
+                stage.close();
+                stage2.show();
+               }catch(Exception d) {
+                  Label label3 = new Label("Improper inputs");
+                  label2.setStyle("-fx-text-fill: #FFD700;");
+                  mainPane.getChildren().add(label3);
+               }
+
+            
+
+            
+        });
     }
 
     // WIP - nick

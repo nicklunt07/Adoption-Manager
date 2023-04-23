@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
@@ -555,7 +556,7 @@ public class OrphangeGUI extends Application {
         mainPane.setFillWidth(true);
 
         TextField textField = new TextField();
-        textField.setPrefWidth(50);
+        textField.setPrefWidth(250);
         box1.getChildren().add(textField);
         Label label = new Label("Enter the Password");
 

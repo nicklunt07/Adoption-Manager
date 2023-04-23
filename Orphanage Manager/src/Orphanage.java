@@ -230,7 +230,7 @@ public class Orphanage implements Serializable{
         }
     }
 
-    public Orphanage deserializeOrphanage() {
+    public static Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
             FileInputStream fileIn = new FileInputStream("orph.ser");
@@ -246,9 +246,6 @@ public class Orphanage implements Serializable{
         return deserializedOrphanage;
     }
 
-    public void copyFrom(Orphanage other) {
-        this.persons = other.persons;
-    }
     
     
     

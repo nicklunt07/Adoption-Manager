@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -47,20 +49,39 @@ public class OrphangeGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        orphanage = orphanage.deserializeOrphanage();
-
-        if (orphanage == null) {
-            System.out.println("Deserialization failed: creating a new Orphanage object.");
-            orphanage = new Orphanage();
-        } else {
-            System.out.println("Deserialization successful.");
-        }
-        Pane welcomePage = createWelcomePage(primaryStage);
-        Scene scene = new Scene(welcomePage, 800, 600);
-
-        primaryStage.setTitle("Orphanage Manager");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Task<Orphanage> deserializationTask = new Task<Orphanage>() {
+            @Override
+            protected Orphanage call() throws Exception {
+                Orphanage deserializedOrphanage = Orphanage.deserializeOrphanage();
+                return deserializedOrphanage;
+            }
+        };
+    
+        deserializationTask.setOnSucceeded(event -> {
+            orphanage = deserializationTask.getValue();
+    
+            if (orphanage == null) {
+                System.out.println("Deserialization failed: creating a new Orphanage object.");
+                orphanage = new Orphanage();
+            } else {
+                System.out.println("Deserialization successful.");
+            }
+    
+            // Updates the UI
+            Platform.runLater(() -> {
+                Pane welcomePage = createWelcomePage(primaryStage);
+                Scene scene = new Scene(welcomePage, 800, 600);
+    
+                primaryStage.setTitle("Orphanage Manager");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            });
+        });
+    
+        // Starts the deserialization task
+        Thread deserializationThread = new Thread(deserializationTask);
+        deserializationThread.setDaemon(true);
+        deserializationThread.start();
     }
 
     private void setupControls(VBox mainPane) {
@@ -297,7 +318,23 @@ public class OrphangeGUI extends Application {
                     showAdoptionDetails(possibleOrphans.get(counter));
                     orphanage.removeAdoptedChild(possibleOrphans.get(counter));
                     possibleOrphans.remove(counter);
-                    orphanage.serializeOrphanage();
+                    Task<Void> serializationTask = new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            orphanage.serializeOrphanage();
+                            return null;
+                        }
+                    };
+                    
+                    //Testing purposes
+                    /*serializationTask.setOnSucceeded(event -> {
+                        orphanage.removeAdoptedChild(possibleOrphans.get(counter));
+                        possibleOrphans.remove(counter);
+                    });*/
+            
+                    Thread serializationThread = new Thread(serializationTask);
+                    serializationThread.setDaemon(true);
+                    serializationThread.start();
 
                 } else {
                     stage.close();

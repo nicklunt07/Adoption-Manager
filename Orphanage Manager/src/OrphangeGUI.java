@@ -46,12 +46,9 @@ public class OrphangeGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        try {
-            orphanage = orphanage.deserializeOrphanage();
-        } catch (FileNotFoundException e) {
-            //e.printStackTrace();
-            System.out.println("Yet to create a serialized file");
-        }
+
+        orphanage = orphanage.deserializeOrphanage();
+
         if (orphanage == null) {
             System.out.println("Deserialization failed: creating a new Orphanage object.");
             orphanage = new Orphanage();
@@ -310,88 +307,78 @@ public class OrphangeGUI extends Application {
         stage.setTitle("Adopter Information");
         VBox pane = new VBox();
         Scene scene1 = new Scene(pane);
-        pane.setStyle("-fx-background-color: #0A1C2E");
-        
-        TextField nameTextField = new TextField();
-        nameTextField.setPromptText("Enter your name");
-       
+        pane.setStyle("-fx-background-color: #B0E0E6");
 
-        TextField ageTextField = new TextField(); 
+        TextField nameTextField = new TextField();
+        nameTextField.setPromptText("Enter Adopter's name");
+
+        TextField ageTextField = new TextField();
         ageTextField.setPromptText("age");
-       
 
         TextField gender = new TextField();
-        gender.setPromptText("Enter your gender");
-      
+        gender.setPromptText("Enter Adopter's gender");
 
-        ToggleGroup group = new ToggleGroup(); 
-        Label label = new Label("Are you are felon?");
+        ToggleGroup group = new ToggleGroup();
+        Label label = new Label("Are they are felon?");
         label.setStyle("-fx-text-fill: #FFD700;");
-        RadioButton yesFellon = new RadioButton("Yes"); 
+        RadioButton yesFellon = new RadioButton("Yes");
         RadioButton noFellon = new RadioButton("No");
         yesFellon.setTextFill(Paint.valueOf("#FFD700"));
         noFellon.setTextFill(Paint.valueOf("#FFD700"));
-        yesFellon.setToggleGroup(group); 
-        noFellon.setToggleGroup(group); 
+        yesFellon.setToggleGroup(group);
+        noFellon.setToggleGroup(group);
 
-        VBox felonBox = new VBox(); 
+        VBox felonBox = new VBox();
         felonBox.getChildren().addAll(label, yesFellon, noFellon);
-        
 
         TextField income = new TextField();
         income.setPromptText("Enter your gross income");
-       
 
         VBox ComboVBox = new VBox();
         Label label1 = new Label("Enter your number of dependencies");
         label1.setStyle("-fx-text-fill: #FFD700;");
         ComboBox<Integer> dependencies = new ComboBox<>();
-        dependencies.getItems().addAll(1, 2, 3,4,5,6,7,8,9,10);
-        ComboVBox.getChildren().addAll(label1,dependencies);
-       
-       
-   
-      
+        dependencies.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        ComboVBox.getChildren().addAll(label1, dependencies);
 
         Button submitButton = new Button();
         submitButton.setText("Submit");
         pane.setAlignment(Pos.TOP_CENTER);
-        pane.getChildren().addAll(nameTextField,ageTextField,gender,felonBox,income,ComboVBox, submitButton);
+        pane.getChildren().addAll(nameTextField, ageTextField, gender, felonBox, income, ComboVBox, submitButton);
         submitButton.setOnAction(e -> {
             Toggle toggle = group.getSelectedToggle();
             RadioButton selectedRadioButton = (RadioButton) toggle;
             boolean felon = false;
-            
-            if(selectedRadioButton.getText().equals("Yes")) {
-               felon= true;
+
+            if (selectedRadioButton.getText().equals("Yes")) {
+                felon = true;
             }
             try {
-             adopter = new Adopter(orphanage,nameTextField.getText(),Integer.parseInt(ageTextField.getText()),gender.getText(),felon,Double.parseDouble(income.getText()), dependencies.getValue());
-             isComplete = true;
-             stage.close();
-             if(!(adopter == null) && adopter.isEligableCareGiver()) {
-                possibleOrphans.get(counter).AdoptionInfo();
-                showAdoptionDetails(possibleOrphans.get(counter));
-                orphanage.removeAdoptedChild(possibleOrphans.get(counter));
-                possibleOrphans.remove(counter);
-                orphanage.serializeOrphanage();
-                
-            }
-            } catch(Exception f) {
-              Label labelError = new Label("Please enter proper inputs");
-              labelError.setStyle("-fx-text-fill: #FFD700;");
-              pane.getChildren().add(labelError);
+                adopter = new Adopter(orphanage, nameTextField.getText(), Integer.parseInt(ageTextField.getText()),
+                        gender.getText(), felon, Double.parseDouble(income.getText()), dependencies.getValue());
+                isComplete = true;
+                stage.close();
+                if (!(adopter == null) && adopter.isEligableCareGiver()) {
+                    possibleOrphans.get(counter).AdoptionInfo();
+                    showAdoptionDetails(possibleOrphans.get(counter));
+                    orphanage.removeAdoptedChild(possibleOrphans.get(counter));
+                    possibleOrphans.remove(counter);
+                    orphanage.serializeOrphanage();
+
+                }
+            } catch (Exception f) {
+                Label labelError = new Label("Please enter proper inputs");
+                labelError.setStyle("-fx-text-fill: #FFD700;");
+                pane.getChildren().add(labelError);
             }
         });
 
-       
-       
         stage.centerOnScreen();
         pane.setPrefHeight(100);
         pane.setPrefHeight(400);
         stage.setScene(scene1);
         stage.show();
-        
+
     }
 
     /**
@@ -407,10 +394,12 @@ public class OrphangeGUI extends Application {
 
         Label title = new Label("Adoption Valid!!");
         title.setStyle("-fx-font-size: 24;");
+        title.setStyle("-fx-text-fill: #FFD700;");
 
         Label detailsLabel = new Label(adoptedOrphan.toString());
         detailsLabel.setWrapText(true);
         detailsLabel.setMaxWidth(400);
+        detailsLabel.setStyle("-fx-text-fill: #FFD700;");
 
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> detailsStage.close());
@@ -649,9 +638,10 @@ public class OrphangeGUI extends Application {
 
     }
 
-    //WIP - nick
-    private void addNewOrphan(String name, String age, String gender, String skill, String languages){
-        Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), orphanage ,Arrays.asList(languages));
+    // WIP - nick
+    private void addNewOrphan(String name, String age, String gender, String skill, String languages) {
+        Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), orphanage,
+                Arrays.asList(languages));
     }
 
 }

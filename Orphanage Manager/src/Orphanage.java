@@ -230,7 +230,7 @@ public class Orphanage implements Serializable{
         }
     }
 
-    public Orphanage deserializeOrphanage() throws FileNotFoundException {
+    public Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
             FileInputStream fileIn = new FileInputStream("orph.ser");
@@ -239,10 +239,10 @@ public class Orphanage implements Serializable{
             in.close();
             fileIn.close();
         } catch (IOException i) {
-            i.printStackTrace();
+            System.out.println("Creating orphange");
         } catch (ClassNotFoundException c) {
             c.printStackTrace();
-        }
+        } 
         return deserializedOrphanage;
     }
 

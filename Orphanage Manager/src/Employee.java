@@ -1,7 +1,7 @@
 
 
 import javafx.scene.control.Button;
-public class Employee extends Person implements Taskable {
+public class Employee extends Person implements Taskable, Responsible {
     
     private Skillable skill;
     private String position;
@@ -16,6 +16,8 @@ public class Employee extends Person implements Taskable {
         this.id = employeeID++;
         this.position = position;
         this.skill = skill;
+        this.levelOfEducation = levelOfEducation;
+        this.yearsOfExperience = yearOfExprience;
         orphanage.addPerson(this);
     }
     public void setSkill(Skillable skill) {
@@ -76,6 +78,26 @@ public class Employee extends Person implements Taskable {
         return skill.skill();
      }
 
+     public String getCriminalRecord() {
+        return "This: " + getName() + " is a felon";
+     }
+
+     public boolean isEligableCareGiver() {
+        if(getAge() < 18) {
+           return false; 
+     } else if(getAge()-yearsOfExperience < 18) {
+  
+        return false;
+     } else if(levelOfEducation.equals("None") || levelOfEducation.equals("Elementary") || levelOfEducation.equals("Middle School")) {
+       return false;
+     } else if(yearsOfExperience < 3) {
+        return false;
+     }
+   System.out.println(isFelon +"1");
+     return !isFelon;
+
 
    
+}
+
 }

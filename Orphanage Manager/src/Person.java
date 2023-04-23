@@ -44,7 +44,5 @@ public abstract class Person implements Serializable{
 
 
     abstract long getID();
-
-
-    
+   
 }

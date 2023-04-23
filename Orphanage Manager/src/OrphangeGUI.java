@@ -19,7 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
@@ -40,7 +39,7 @@ public class OrphangeGUI extends Application {
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
     private boolean isComplete;
-    
+
     private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
 
     public static void main(String[] args) throws NoOrphanFoundException {
@@ -57,28 +56,28 @@ public class OrphangeGUI extends Application {
                 return deserializedOrphanage;
             }
         };
-    
+
         deserializationTask.setOnSucceeded(event -> {
             orphanage = deserializationTask.getValue();
-    
+
             if (orphanage == null) {
                 LOGGER.log(Level.WARNING, "Deserialization failed: creating a new Orphanage object.\n");
                 orphanage = new Orphanage();
             } else {
                 LOGGER.log(Level.INFO, "Deserialization successful.\n");
             }
-    
+
             // Updates the UI
             Platform.runLater(() -> {
                 Pane welcomePage = createWelcomePage(primaryStage);
                 Scene scene = new Scene(welcomePage, 800, 600);
-    
+
                 primaryStage.setTitle("Orphanage Manager");
                 primaryStage.setScene(scene);
                 primaryStage.show();
             });
         });
-    
+
         // Starts the deserialization task
         Thread deserializationThread = new Thread(deserializationTask);
         deserializationThread.setDaemon(true);
@@ -326,13 +325,15 @@ public class OrphangeGUI extends Application {
                             return null;
                         }
                     };
-                    
-                    //Testing purposes
-                    /*serializationTask.setOnSucceeded(event -> {
-                        orphanage.removeAdoptedChild(possibleOrphans.get(counter));
-                        possibleOrphans.remove(counter);
-                    });*/
-            
+
+                    // Testing purposes
+                    /*
+                     * serializationTask.setOnSucceeded(event -> {
+                     * orphanage.removeAdoptedChild(possibleOrphans.get(counter));
+                     * possibleOrphans.remove(counter);
+                     * });
+                     */
+
                     Thread serializationThread = new Thread(serializationTask);
                     serializationThread.setDaemon(true);
                     serializationThread.start();
@@ -382,14 +383,13 @@ public class OrphangeGUI extends Application {
         title.setStyle("-fx-font-size: 20;");
         title.setStyle("-fx-text-fill: #FFD700;");
 
-        
-        Label name = new Label("Name: " +adoptedOrphan.getName());
+        Label name = new Label("Name: " + adoptedOrphan.getName());
         name.setStyle("-fx-text-fill: #FFD700;");
 
         Label age = new Label("Age: " + adoptedOrphan.getAge());
         age.setStyle("-fx-text-fill: #FFD700;");
 
-        Label gender = new Label("Gender: " +adoptedOrphan.getGender());
+        Label gender = new Label("Gender: " + adoptedOrphan.getGender());
         gender.setStyle("-fx-text-fill: #FFD700;");
 
         Label id = new Label("ID: " + adoptedOrphan.getID());
@@ -596,9 +596,9 @@ public class OrphangeGUI extends Application {
     }
 
     private void setUpEmployeesGUI(VBox mainPane) {
-       Button addEmployeeButton = new Button();
+        Button addEmployeeButton = new Button();
 
-       addEmployeeButton.setText("Add Employee");
+        addEmployeeButton.setText("Add Employee");
 
         VBox info = new VBox();
         mainPane.getChildren().clear();
@@ -627,19 +627,17 @@ public class OrphangeGUI extends Application {
             Label breaker = new Label("-----------------------");
             breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
 
-            Button fireButton = new Button(); 
+            Button fireButton = new Button();
             fireButton.setText("Fire Employee");
             fireButton.setOnAction((e) -> {
-              orphanage.removeEmployee(employees.get(index));
-              LOGGER.log(Level.INFO, "Employee fired.\n");
-              info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
+                orphanage.removeEmployee(employees.get(index));
+                LOGGER.log(Level.INFO, "Employee fired.\n");
+                info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
             });
 
-
-
-            //Add Employee
+            // Add Employee
             addEmployeeButton.setOnAction((e) -> addEmployee());
-           
+
             info.getChildren().addAll(labelName, labelID, labelAge, skill, fireButton, breaker);
             info.setAlignment(Pos.CENTER);
             HBox box = new HBox();
@@ -653,8 +651,62 @@ public class OrphangeGUI extends Application {
     }
 
     private void addEmployee() {
-      Stage stage1 = new Stage(); 
+        Stage stage = new Stage();
+        stage.setTitle("Add Employee");
+        stage.setHeight(300);
+        stage.setWidth(400);
 
+        VBox mainPane = new VBox();
+        Scene scene = new Scene(mainPane);
+        mainPane.setStyle("-fx-background-color: #0A1C2E");
+
+        TextField nameTextField = new TextField();
+        nameTextField.setPromptText("Enter Employee's name");
+
+        TextField ageTextField = new TextField();
+        ageTextField.setPromptText("age");
+
+        TextField gender = new TextField();
+        gender.setPromptText("Enter Employee's gender");
+
+        ToggleGroup group = new ToggleGroup();
+        Label label = new Label("Are they are felon?");
+        label.setStyle("-fx-text-fill: #FFD700;");
+        RadioButton yesFellon = new RadioButton("Yes");
+        RadioButton noFellon = new RadioButton("No");
+        yesFellon.setTextFill(Paint.valueOf("#FFD700"));
+        noFellon.setTextFill(Paint.valueOf("#FFD700"));
+        yesFellon.setToggleGroup(group);
+        noFellon.setToggleGroup(group);
+
+        TextField position = new TextField();
+        position.setPromptText("Position of Employee");
+
+        VBox comboVBox = new VBox();
+        Label label1 = new Label("What is their skill");
+        label1.setStyle("-fx-text-fill: #FFD700;");
+        ComboBox<String> skill = new ComboBox<>();
+        for (String skills : Orphanage.skills.keySet()) {
+            skill.getItems().add(skills);
+        }
+
+        comboVBox.getChildren().addAll(label1, skill);
+
+        TextField yearsOfExperience = new TextField();
+        position.setPromptText("Years of Experience");
+
+        VBox educationLevelBox = new VBox();
+        Label label2 = new Label("What is their level of experience?");
+        label2.setStyle("-fx-text-fill: #FFD700;");
+        ComboBox<String> education = new ComboBox<>();
+        education.getItems().addAll("None", "Elemntary", "Middle School", "High School", "College", "Masters",
+                "Doctorate");
+        educationLevelBox.getChildren().addAll(label2, education);
+
+        mainPane.getChildren().addAll(nameTextField, gender, label, yesFellon, noFellon, position, comboVBox,
+                yearsOfExperience, educationLevelBox);
+        stage.setScene(scene);
+        stage.show();
     }
 
     // WIP - nick

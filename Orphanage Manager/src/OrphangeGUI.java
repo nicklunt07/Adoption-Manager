@@ -596,6 +596,10 @@ public class OrphangeGUI extends Application {
     }
 
     private void setUpEmployeesGUI(VBox mainPane) {
+       Button addEmployeeButton = new Button();
+
+       addEmployeeButton.setText("Add Employee");
+
         VBox info = new VBox();
         mainPane.getChildren().clear();
         tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
@@ -631,6 +635,10 @@ public class OrphangeGUI extends Application {
               info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
             });
 
+
+
+            //Add Employee
+            addEmployeeButton.setOnAction((e) -> addEmployee());
            
             info.getChildren().addAll(labelName, labelID, labelAge, skill, fireButton, breaker);
             info.setAlignment(Pos.CENTER);
@@ -640,6 +648,12 @@ public class OrphangeGUI extends Application {
             mainPane.getChildren().add(box);
 
         }
+        mainPane.getChildren().add(addEmployeeButton);
+
+    }
+
+    private void addEmployee() {
+      Stage stage1 = new Stage(); 
 
     }
 

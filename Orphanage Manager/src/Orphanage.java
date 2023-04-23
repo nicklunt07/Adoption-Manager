@@ -245,6 +245,11 @@ public class Orphanage implements Serializable{
         }
         return deserializedOrphanage;
     }
+
+    public void copyFrom(Orphanage other) {
+        this.persons = other.persons;
+    }
+    
     
     
 

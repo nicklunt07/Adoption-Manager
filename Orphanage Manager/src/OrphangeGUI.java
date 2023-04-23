@@ -596,6 +596,7 @@ public class OrphangeGUI extends Application {
     }
 
     private void setUpEmployeesGUI(VBox mainPane) {
+        VBox info = new VBox();
         mainPane.getChildren().clear();
         tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
         mainPane.getChildren().addAll(menuBar, tabPane);
@@ -627,9 +628,10 @@ public class OrphangeGUI extends Application {
             fireButton.setOnAction((e) -> {
               orphanage.removeEmployee(employees.get(index));
               LOGGER.log(Level.INFO, "Employee fired.\n");
+              info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
             });
 
-            VBox info = new VBox();
+           
             info.getChildren().addAll(labelName, labelID, labelAge, skill, fireButton, breaker);
             info.setAlignment(Pos.CENTER);
             HBox box = new HBox();

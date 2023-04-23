@@ -40,6 +40,7 @@ public class OrphangeGUI extends Application {
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
     private boolean isComplete;
+    
     private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
 
     public static void main(String[] args) throws NoOrphanFoundException {
@@ -605,7 +606,7 @@ public class OrphangeGUI extends Application {
         Label label1 = new Label("Employees");
         label1.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         for (int i = 0; i < employees.size(); i++) {
-
+            int index = i;
             Label labelName = new Label(employees.get(i).getName());
             labelName.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
 
@@ -621,8 +622,15 @@ public class OrphangeGUI extends Application {
             Label breaker = new Label("-----------------------");
             breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
 
+            Button fireButton = new Button(); 
+            fireButton.setText("Fire Employee");
+            fireButton.setOnAction((e) -> {
+              orphanage.removeEmployee(employees.get(index));
+              LOGGER.log(Level.INFO, "Employee fired.\n");
+            });
+
             VBox info = new VBox();
-            info.getChildren().addAll(labelName, labelID, labelAge, skill, breaker);
+            info.getChildren().addAll(labelName, labelID, labelAge, skill, fireButton, breaker);
             info.setAlignment(Pos.CENTER);
             HBox box = new HBox();
             box.setAlignment(Pos.CENTER);

@@ -693,8 +693,10 @@ public class OrphangeGUI extends Application {
 
         comboVBox.getChildren().addAll(label1, skill);
 
+        Label yearsOfExperienceLabel = new Label("Enter the employees years of experience");
         TextField yearsOfExperience = new TextField();
         position.setPromptText("Years of Experience");
+        yearsOfExperienceLabel.setStyle("-fx-text-fill: #FFD700;");
 
         VBox educationLevelBox = new VBox();
         Label label2 = new Label("What is their level of experience?");
@@ -705,9 +707,10 @@ public class OrphangeGUI extends Application {
         educationLevelBox.getChildren().addAll(label2, educationCombo);
 
         Button submitButton = new Button(); 
+        submitButton.setText("Submit");
         
 
-        mainPane.getChildren().addAll(nameTextField, gender, label, yesFellon, noFellon, position, comboVBox,
+        mainPane.getChildren().addAll(nameTextField, gender, label, yesFellon, noFellon, position, comboVBox,yearsOfExperienceLabel,
                 yearsOfExperience, educationLevelBox, submitButton);
         stage.setScene(scene);
         stage.show();
@@ -729,7 +732,7 @@ public class OrphangeGUI extends Application {
                 stage2.show();
                }catch(Exception d) {
                   Label label3 = new Label("Improper inputs");
-                  label2.setStyle("-fx-text-fill: #FFD700;");
+                  label3.setStyle("-fx-text-fill: #FFD700;");
                   mainPane.getChildren().add(label3);
                }
 

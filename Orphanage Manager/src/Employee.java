@@ -7,6 +7,9 @@ public class Employee extends Person implements Taskable {
     private String position;
     private static long employeeID = 300001;
     private long id;
+    private int yearsOfExperience; 
+    private String levelOfEducation; 
+    private boolean isFelon;
 
     public Employee(String name, int age, String gender, String position,Orphanage orphanage, Skillable skill, int yearOfExprience, String levelOfEducation, boolean isFelon) {
         super(name,age,gender);
@@ -41,6 +44,18 @@ public class Employee extends Person implements Taskable {
     protected long getID(){
         
         return id;
+    }
+
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public String getlevelOfEducation() {
+        return levelOfEducation;
+    }
+
+    public boolean getIsFelon() {
+        return isFelon;
     }
 
     

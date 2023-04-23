@@ -781,6 +781,9 @@ public class OrphangeGUI extends Application {
                 update.setOnAction(f -> {
                     stage2.close();
                 });
+                display.setAlignment(Pos.CENTER);
+                display.getChildren().add(update);
+
 
             } else {
                 Label title = new Label("Not eligable to work in an orphanage");

@@ -53,7 +53,7 @@ public class Orphanage implements Serializable{
         Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", skills.get("Circle"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", skills.get("Running"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan5 = new Orphan("Barnaby Kane", 1, "Male", skills.get("Skateboarding"),this);
-        //Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
+        Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"),this,Arrays.asList("English"));
         Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"),this,Arrays.asList("Spanish", "English"));
         Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"),this, Arrays.asList("English"));
         Orphan orphan9 = new Orphan("Andrea Elizabeth", 0, "Female", skills.get("Gardening"),this);

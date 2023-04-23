@@ -241,7 +241,7 @@ public class OrphangeGUI extends Application {
         stage.setTitle("Adopter Information");
         VBox pane = new VBox();
         Scene scene1 = new Scene(pane);
-        pane.setStyle("-fx-background-color: #B0E0E6");
+        pane.setStyle("-fx-background-color: #0A1C2E");
 
         TextField nameTextField = new TextField();
         nameTextField.setPromptText("Enter Adopter's name");
@@ -324,7 +324,7 @@ public class OrphangeGUI extends Application {
         VBox detailsLayout = new VBox(20);
         detailsLayout.setAlignment(Pos.CENTER);
         detailsLayout.setPadding(new Insets(20));
-        detailsLayout.setStyle("-fx-background-color: #B0E0E6");
+        detailsLayout.setStyle("-fx-background-color: #0A1C2E");
 
         Label title = new Label("Adoption Valid!!");
         title.setStyle("-fx-font-size: 24;");

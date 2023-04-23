@@ -17,7 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
@@ -44,7 +43,7 @@ public class OrphangeGUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         orphanage = orphanage.deserializeOrphanage();
         if (orphanage == null) {
             System.out.println("Deserialization failed: creating a new Orphanage object.");
@@ -52,20 +51,6 @@ public class OrphangeGUI extends Application {
         } else {
             System.out.println("Deserialization successful.");
         }
-        /*DeserializationThread deserializationThread = new DeserializationThread(orphanage);
-        deserializationThread.start();
-        try {
-            deserializationThread.join(); 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (!deserializationThread.isSuccessful()) {
-            System.out.println("Deserialization failed: creating a new Orphanage object.");
-            orphanage = new Orphanage();
-        } else {
-            System.out.println("Deserialization successful.");
-        }*/
         Pane welcomePage = createWelcomePage(primaryStage);
         Scene scene = new Scene(welcomePage, 800, 600);
 
@@ -381,13 +366,6 @@ public class OrphangeGUI extends Application {
                 System.out.println("Ah");
                 possibleOrphans.get(counter).AdoptionInfo();
                 showAdoptionDetails(possibleOrphans.get(counter));
-                /*SerializationThread serializationThread = new SerializationThread(orphanage);
-                serializationThread.start();
-                try {
-                    serializationThread.join();
-                } catch (InterruptedException f) {
-                    f.printStackTrace();
-                }*/
                 orphanage.serializeOrphanage();
                 orphanage.removeAdoptedChild(possibleOrphans.get(counter));
                 possibleOrphans.remove(counter);

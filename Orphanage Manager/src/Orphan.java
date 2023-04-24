@@ -6,6 +6,9 @@ import java.util.*;
 
 import javafx.scene.control.Button;
 
+/**
+ * 
+ */
 public class Orphan extends Person implements Taskable{
    
    Skillable orphanSkill;

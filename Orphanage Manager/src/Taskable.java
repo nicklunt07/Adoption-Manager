@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 
 /**
  * This interface models the behavior of someone taskable
+ * @author Adnan Khaleeli
+ * @verion April 24, 2023
  */
 public interface Taskable extends Serializable{
     /**

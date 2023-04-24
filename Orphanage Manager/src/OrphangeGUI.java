@@ -918,23 +918,13 @@ public class OrphangeGUI extends Application {
         languageField.setPromptText("Enter child's language");
 
         Button submitButton = new Button("Submit");
-        try {
+        
             submitButton.setOnAction(submitEvent -> {
                 orphanage.createNewOrphan(nameField.getText(), ageField.getText(), genderField.getText(),
                         skillField.getText(), languageField.getText());
                 popupStage.close();
             });
-        } catch (Exception e) {
-            Stage warningStage = new Stage();
-            Label warningLabel = new Label("One or more field is invalid, try again!");
-            VBox warningBox = new VBox(10, warningLabel);
-            warningBox.setPadding(new Insets(10));
-            warningBox.setAlignment(Pos.CENTER);
-            Scene warningScene = new Scene(warningBox, 200, 200);
-            warningStage.setScene(warningScene);
-            warningStage.setTitle("Invalid Information");
-            warningStage.show();
-        }
+       
 
         VBox popupRoot = new VBox(10, nameField, ageField, genderField, skillField, languageField, submitButton);
         popupRoot.setPadding(new Insets(10));

@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -196,6 +199,7 @@ public class Orphanage implements Serializable {
         skills.put("BottleFlip", () -> createButton("Orphanage Manager/Assets/BottleFlip.mp4", "orphan"));
         skills.put("BasketBall", () -> createButton("Orphanage Manager/Assets/Basketball.mp4", "orphan"));
         skills.put("Soccer", () -> createButton("Orphanage Manager/Assets/Soccer.mp4", "orphan"));
+        
 
     }
 
@@ -297,8 +301,21 @@ public class Orphanage implements Serializable {
      * @param String languages
      */
     public void createNewOrphan(String name, String age, String gender, String skill, String languages) {
+        try{
         Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), this,
                 Arrays.asList(languages));
+
+        }catch(Exception e) {
+            Stage warningStage = new Stage();
+            Label warningLabel = new Label("One or more field is invalid, try again!");
+            VBox warningBox = new VBox(10, warningLabel);
+            warningBox.setPadding(new Insets(10));
+            warningBox.setAlignment(Pos.CENTER);
+            Scene warningScene = new Scene(warningBox, 200, 200);
+            warningStage.setScene(warningScene);
+            warningStage.setTitle("Invalid Information");
+            warningStage.show();
+        }
     }
 
 }

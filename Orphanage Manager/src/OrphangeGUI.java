@@ -929,6 +929,8 @@ public class OrphangeGUI extends Application {
                 orphanage.createNewOrphan(nameField.getText(), ageField.getText(), genderField.getText(),
                         skill.getValue(), languageField.getText());
                 popupStage.close();
+                MenuItem refreshItem = helpMenu.getItems().get(0);
+                refreshItem.fire();
             });
        
 

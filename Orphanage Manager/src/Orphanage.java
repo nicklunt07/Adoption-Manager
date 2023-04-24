@@ -250,4 +250,9 @@ public class Orphanage implements Serializable {
         return deserializedOrphanage;
     }
 
+    public void createNewOrphan(String name, String age, String gender, String skill, String languages) {
+        Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), this,
+                Arrays.asList(languages));
+    }
+
 }

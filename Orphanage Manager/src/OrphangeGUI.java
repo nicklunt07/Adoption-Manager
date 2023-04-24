@@ -523,6 +523,11 @@ public class OrphangeGUI extends Application {
             }
         });
 
+        Button addNewOrphanButton = new Button("Add Child");
+        addNewOrphanButton.setOnAction(event -> {
+            addNewOrphan();
+        });
+
         bottom.setSpacing(100);
 
         top.setAlignment(Pos.CENTER);
@@ -536,7 +541,7 @@ public class OrphangeGUI extends Application {
         VBox.setVgrow(mainPane, Priority.ALWAYS);
         bottom.setAlignment(Pos.CENTER);
 
-        top.getChildren().addAll(radioButton, ageBox, LanguageBox);
+        top.getChildren().addAll(radioButton, ageBox, LanguageBox, addNewOrphanButton);
         bottom.getChildren().addAll(reveal);
         mainPane.setAlignment(Pos.CENTER);
         mainPane.getChildren().addAll(title, top, bottom);
@@ -640,30 +645,30 @@ public class OrphangeGUI extends Application {
             // Add Employee
             addEmployeeButton.setOnAction((e) -> {
                 boolean update = addEmployee();
-                if(update) {
+                if (update) {
                     Label labelName1 = new Label(employee.getName());
-            labelName.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
+                    labelName.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
 
-            Label labelAge1 = new Label("Age:" + employee.getAge());
-            labelAge.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
+                    Label labelAge1 = new Label("Age:" + employee.getAge());
+                    labelAge.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
 
-            Label labelID1 = new Label("ID:" + employee);
-            labelID.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
+                    Label labelID1 = new Label("ID:" + employee);
+                    labelID.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 15px;");
 
-            Button skill1 = employee.performTask();
-            skill.setText("Skill");
+                    Button skill1 = employee.performTask();
+                    skill.setText("Skill");
 
-            Label breaker1 = new Label("-----------------------");
-            breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
+                    Label breaker1 = new Label("-----------------------");
+                    breaker.setStyle("-fx-text-fill: #000000; -fx-font-size: 15px;");
 
-            Button fireButton1 = new Button();
-            fireButton.setText("Fire Employee");
-            fireButton.setOnAction((f) -> {
-                orphanage.removeEmployee(employees.get(index));
-                LOGGER.log(Level.INFO, "Employee fired.\n");
-                info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
-            });
-            info.getChildren().addAll(labelName1, labelID1, labelAge1, skill1, fireButton1, breaker1);
+                    Button fireButton1 = new Button();
+                    fireButton.setText("Fire Employee");
+                    fireButton.setOnAction((f) -> {
+                        orphanage.removeEmployee(employees.get(index));
+                        LOGGER.log(Level.INFO, "Employee fired.\n");
+                        info.getChildren().removeAll(labelName, labelAge, labelID, skill, breaker, fireButton);
+                    });
+                    info.getChildren().addAll(labelName1, labelID1, labelAge1, skill1, fireButton1, breaker1);
                 }
             });
 
@@ -680,7 +685,7 @@ public class OrphangeGUI extends Application {
     }
 
     private boolean addEmployee() {
-      
+
         Stage stage = new Stage();
         stage.setTitle("Add Employee");
         stage.setHeight(350);
@@ -738,7 +743,8 @@ public class OrphangeGUI extends Application {
         Button submitButton = new Button();
         submitButton.setText("Submit");
 
-        mainPane.getChildren().addAll(nameTextField, ageTextField, gender, label, yesFellon, noFellon, position, comboVBox,
+        mainPane.getChildren().addAll(nameTextField, ageTextField, gender, label, yesFellon, noFellon, position,
+                comboVBox,
                 yearsOfExperienceLabel,
                 yearsOfExperience, educationLevelBox, submitButton);
         stage.setScene(scene);
@@ -768,53 +774,87 @@ public class OrphangeGUI extends Application {
 
             }
 
-            if(employee != null) {
-            if (employee.isEligableCareGiver() == true) {
-                Label title = new Label("Employee Added!");
-                title.setStyle("-fx-font-size: 20;");
-                title.setStyle("-fx-text-fill: #FFD700;");
-                result = true;
-                display.getChildren().add(title);
-                Button update = new Button();
-                update.setText("Exit");
+            if (employee != null) {
+                if (employee.isEligableCareGiver() == true) {
+                    Label title = new Label("Employee Added!");
+                    title.setStyle("-fx-font-size: 20;");
+                    title.setStyle("-fx-text-fill: #FFD700;");
+                    result = true;
+                    display.getChildren().add(title);
+                    Button update = new Button();
+                    update.setText("Exit");
 
-                update.setOnAction(f -> {
-                    stage2.close();
-                });
-                display.setAlignment(Pos.CENTER);
-                display.getChildren().add(update);
+                    update.setOnAction(f -> {
+                        stage2.close();
+                    });
+                    display.setAlignment(Pos.CENTER);
+                    display.getChildren().add(update);
 
+                } else {
+                    Label title = new Label("Not eligable to work in an orphanage");
+                    title.setStyle("-fx-font-size: 20;");
+                    title.setStyle("-fx-text-fill: #FFD700;");
+                    orphanage.removeEmployee(employee);
 
-            } else {
-                Label title = new Label("Not eligable to work in an orphanage");
-                title.setStyle("-fx-font-size: 20;");
-                title.setStyle("-fx-text-fill: #FFD700;");
-                orphanage.removeEmployee(employee);
+                    display.getChildren().add(title);
 
-                display.getChildren().add(title);
+                    Button update = new Button();
+                    update.setText("Exit");
 
-                Button update = new Button();
-                update.setText("Exit");
+                    update.setOnAction(f -> {
+                        stage2.close();
+                    });
+                }
 
-                update.setOnAction(f -> {
-                    stage2.close();
-                });
             }
-
-        }
-          
 
         });
         return result;
 
-       
-
     }
 
-    // WIP - nick
-    private void addNewOrphan(String name, String age, String gender, String skill, String languages) {
-        Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), orphanage,
-                Arrays.asList(languages));
+    /**
+     * 
+     */
+    private void addNewOrphan() {
+        Stage popupStage = new Stage();
+        TextField nameField = new TextField();
+        nameField.setPromptText("Enter child's name");
+        TextField ageField = new TextField();
+        ageField.setPromptText("Enter child's age");
+        TextField genderField = new TextField();
+        genderField.setPromptText("Enter child's gender");
+        TextField skillField = new TextField();
+        skillField.setPromptText("Enter child's skill");
+        TextField languageField = new TextField();
+        languageField.setPromptText("Enter child's language");
+
+        Button submitButton = new Button("Submit");
+        try {
+            submitButton.setOnAction(submitEvent -> {
+                orphanage.createNewOrphan(nameField.getText(), ageField.getText(), genderField.getText(),
+                        skillField.getText(), languageField.getText());
+                popupStage.close();
+            });
+        } catch (Exception e) {
+            Stage warningStage = new Stage();
+            Label warningLabel = new Label("One or more field is invalid, try again!");
+            VBox warningBox = new VBox(10, warningLabel);
+            warningBox.setPadding(new Insets(10));
+            warningBox.setAlignment(Pos.CENTER);
+            Scene warningScene = new Scene(warningBox, 200, 200);
+            warningStage.setScene(warningScene);
+            warningStage.setTitle("Invalid Information");
+        }
+
+        VBox popupRoot = new VBox(10, nameField, ageField, genderField, skillField, languageField, submitButton);
+        popupRoot.setPadding(new Insets(10));
+        popupRoot.setAlignment(Pos.CENTER);
+
+        Scene popupScene = new Scene(popupRoot, 300, 300);
+        popupStage.setScene(popupScene);
+        popupStage.setTitle("Enter Child's Info");
+        popupStage.show();
     }
 
 }

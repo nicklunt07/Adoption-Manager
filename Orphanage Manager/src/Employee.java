@@ -1,13 +1,7 @@
 
-import java.io.File;
 import java.util.HashMap;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 public class Employee extends Person implements Taskable, Responsible {
 

@@ -650,6 +650,7 @@ public class OrphangeGUI extends Application {
             }
         });
 
+       
         // Adjust the positioning of the elements using setLayoutX() and setLayoutY()
         label.setLayoutX(300);
         label.setLayoutY(50);
@@ -662,6 +663,7 @@ public class OrphangeGUI extends Application {
         error.setLayoutX(300);
         error.setLayoutY(200);
 
+       
         mainPane.getChildren().addAll(label, box1, submitButton);
     }
 
@@ -873,7 +875,7 @@ public class OrphangeGUI extends Application {
                 } else {
                     Label title = new Label(
                             "Not eligable to work in an orphanage\nMust be older than 18\nMust be High School grad or above\nMust have at least 3 years of experience");
-                    title.setStyle("-fx-font-size: 20;");
+                    title.setStyle("-fx-font-size: 30;");
                     title.setStyle("-fx-text-fill: #FFD700;");
                     orphanage.removeEmployee(employee);
 

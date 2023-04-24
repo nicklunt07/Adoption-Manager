@@ -40,7 +40,6 @@ public class Employee extends Person implements Taskable, Responsible {
     }
 
     public static void addEmployeeSkillable(String key, Skillable skill) {
-        Orphanage.skills.put(key, skill);
         employeeSkills.put(key, skill);
     }
 

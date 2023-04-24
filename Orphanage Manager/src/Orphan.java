@@ -87,7 +87,6 @@ public class Orphan extends Person implements Taskable{
    }
 
    public static void addOrphanSkillable(String key, Skillable skill) {
-      Orphanage.skills.put(key, skill);
       orphanSkills.put(key, skill);
   }
 

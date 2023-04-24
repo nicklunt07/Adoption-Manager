@@ -307,11 +307,12 @@ public class Orphanage implements Serializable {
 
         }catch(Exception e) {
             Stage warningStage = new Stage();
+            warningStage.setWidth(250);
             Label warningLabel = new Label("One or more field is invalid, try again!");
-            VBox warningBox = new VBox(10, warningLabel);
-            warningBox.setPadding(new Insets(10));
+            VBox warningBox = new VBox( warningLabel);
+            warningBox.setPadding(new Insets(20));
             warningBox.setAlignment(Pos.CENTER);
-            Scene warningScene = new Scene(warningBox, 200, 200);
+            Scene warningScene = new Scene(warningBox, 200, 300);
             warningStage.setScene(warningScene);
             warningStage.setTitle("Invalid Information");
             warningStage.show();

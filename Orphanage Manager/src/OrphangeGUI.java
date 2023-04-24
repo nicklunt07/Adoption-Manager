@@ -32,7 +32,6 @@ public class OrphangeGUI extends Application {
     private TabPane tabPane = new TabPane();
     private Tab childrenTab = new Tab("Children");
     private Tab staffTab = new Tab("Staff");
-    private Tab roomsTab = new Tab("Rooms");
     private final int PASSWORD = 123456;
     private MenuBar menuBar = new MenuBar();
     private Menu fileMenu = new Menu("File");
@@ -41,6 +40,7 @@ public class OrphangeGUI extends Application {
     private Employee employee;
     private boolean exceptionThrown;
     boolean result = false;
+    private int counter1 = 0;
 
     private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
 
@@ -88,18 +88,19 @@ public class OrphangeGUI extends Application {
 
     /**
      * sets up main controls for GUI
+     * 
      * @param mainPane
      */
     private void setupControls(Pane mainPane) {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> System.exit(0));
-    
+
         MenuItem refreshItem = new MenuItem("Refresh");
-    
+
         refreshItem.setOnAction(e -> {
             SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
             Tab currentTab = selectionModel.getSelectedItem();
-    
+
             if (currentTab == childrenTab) {
                 pressed = false;
                 orphanBox.getChildren().clear();
@@ -107,14 +108,14 @@ public class OrphangeGUI extends Application {
             } else {
                 setEmployeeContent(mainPane);
             }
-    
+
         });
-    
+
         fileMenu.getItems().addAll(exitItem);
         helpMenu.getItems().add(refreshItem);
         menuBar.getMenus().addAll(fileMenu, helpMenu);
         setChilrenContent(mainPane);
-    
+
         childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 mainPane.getChildren().remove(menuBar);
@@ -128,9 +129,8 @@ public class OrphangeGUI extends Application {
                 setEmployeeContent(mainPane);
             }
         });
-    
+
     }
-    
 
     /**
      * 
@@ -141,38 +141,39 @@ public class OrphangeGUI extends Application {
         Pane welcomeLayout = new Pane();
         welcomeLayout.setPrefSize(800, 600);
         welcomeLayout.setStyle("-fx-background-color: #B0E0E6;");
-    
+
         Label nameLabel = new Label("Orphanage Name");
         nameLabel.setStyle("-fx-font-size: 24;");
         nameLabel.setLayoutX(300);
         nameLabel.setLayoutY(200);
-    
+
         Label motiveLabel = new Label(
                 "An orphanage is a place where the cries of the innocent are heard, and the love of the forgotten is felt. - Anthony T. Hincks");
         motiveLabel.setWrapText(true);
         motiveLabel.setMaxWidth(400);
         motiveLabel.setLayoutX(200);
         motiveLabel.setLayoutY(300);
-    
+
         Button enterButton = new Button("Enter");
         enterButton.setLayoutX(375);
         enterButton.setLayoutY(400);
-    
-        // Add an event listener to the button to navigate to the main application window
+
+        // Add an event listener to the button to navigate to the main application
+        // window
         enterButton.setOnAction(e -> {
             VBox root = new VBox();
             setupControls(root);
             primaryStage.setScene(new Scene(root, 800, 600));
         });
-    
+
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
-    
+
         return welcomeLayout;
     }
-    
 
     /**
      * displays orphans one by one with button controls to view them
+     * 
      * @param bottom
      */
     private void displayOrphans(Pane bottom, Button reveal) {
@@ -183,11 +184,11 @@ public class OrphangeGUI extends Application {
             Button backward = new Button();
             backward.setText("Previous Orphan");
             backward.relocate(50, 250);
-    
+
             Button forward = new Button();
             forward.setText("Next orphan");
             forward.relocate(250, 250);
-    
+
             forward.setOnAction(e -> {
                 if (counter < possibleOrphans.size() - 1 && counter >= 0 && pressed == true) {
                     counter++;
@@ -196,13 +197,13 @@ public class OrphangeGUI extends Application {
                     Button childSkill = possibleOrphans.get(counter).performTask();
                     childSkill.setText("Skill");
                     childSkill.relocate(250, 200);
-    
+
                     Button button = new Button("Adopt");
                     button.setOnAction(event -> {
                         adopt();
                     });
                     button.relocate(150, 200);
-    
+
                     Label label10 = new Label(possibleOrphans.get(counter).toString());
                     label10.setTextFill(Paint.valueOf("#FFD700"));
                     label10.relocate(50, 100);
@@ -210,7 +211,7 @@ public class OrphangeGUI extends Application {
                     bottom.getChildren().addAll(orphanBox, forward, backward);
                 }
             });
-    
+
             backward.setOnAction(e -> {
                 if (counter <= possibleOrphans.size() - 1 && counter > 0 && pressed == true) {
                     try {
@@ -220,36 +221,36 @@ public class OrphangeGUI extends Application {
                         Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                         childSkill.setText("Skill");
                         childSkill.relocate(250, 200);
-    
+
                         Button button = new Button("Adopt");
                         button.setOnAction(event -> {
                             adopt();
                         });
-                        button.relocate(250, 200);
+                        button.relocate(150, 200);
     
                         Label label10 = new Label(possibleOrphans.get(counter).toString());
                         label10.setTextFill(Paint.valueOf("#FFD700"));
                         label10.relocate(50, 100);
                         orphanBox.getChildren().addAll(label10, button, childSkill);
                         bottom.getChildren().addAll(orphanBox, forward, backward);
-    
+
                     } catch (Exception f) {
-    
+
                     }
                 }
             });
-    
+
             if (pressed == false) {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
                 childSkill.relocate(250, 200);
-    
+
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
                     adopt();
                 });
                 button.relocate(150, 200);
-    
+
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));
                 label10.relocate(50, 100);
@@ -266,9 +267,8 @@ public class OrphangeGUI extends Application {
                 System.out.println("No filters applied");
             }
         }
-    
+
     }
-    
 
     /**
      * filters orphans based on GUI controls
@@ -278,9 +278,10 @@ public class OrphangeGUI extends Application {
                 .filter(person -> person instanceof Orphan)
                 .map((person -> (Orphan) person))
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge)
-                //.filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
+                // .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge()
+                // + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
-                //.filter(orphan -> orphan.speaksLanguage(languages))
+                // .filter(orphan -> orphan.speaksLanguage(languages))
                 .collect(Collectors.toList());
         if (possibleOrphans.size() == 0) {
 
@@ -403,6 +404,7 @@ public class OrphangeGUI extends Application {
 
     /**
      * creates adoption pop-up pane for adoption
+     * 
      * @param adoptedOrphan
      */
     private void showAdoptionDetails(Orphan adoptedOrphan) {
@@ -446,6 +448,7 @@ public class OrphangeGUI extends Application {
 
     /**
      * sets up GUI controls for orphans tab
+     * 
      * @param mainPane
      */
     private void setChilrenContent(Pane mainPane) {
@@ -455,9 +458,9 @@ public class OrphangeGUI extends Application {
 
         childrenTab.setClosable(false);
         staffTab.setClosable(false);
-        roomsTab.setClosable(false);
+  
 
-        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+        tabPane.getTabs().addAll(childrenTab, staffTab);
 
         // Add the menu bar and tab pane to the mainPane (VBox)
         mainPane.getChildren().addAll(menuBar, tabPane);
@@ -497,7 +500,7 @@ public class OrphangeGUI extends Application {
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
 
-        //gender.selectToggle(male);
+        // gender.selectToggle(male);
         gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
             RadioButton buttonGender = (RadioButton) gender.getSelectedToggle();
             sex = buttonGender.getText();
@@ -597,27 +600,28 @@ public class OrphangeGUI extends Application {
 
     /**
      * helper method for creating employees
+     * 
      * @param mainPane
      */
     private void setEmployeeContent(Pane mainPane) {
         mainPane.getChildren().clear();
         mainPane.getChildren().addAll(menuBar, tabPane);
-    
+
         mainPane.setStyle("-fx-background-color: #0A1C2E");
-    
+
         HBox box1 = new HBox(1000);
         box1.setAlignment(Pos.CENTER);
-    
+
         TextField textField = new TextField();
         textField.setPrefWidth(250);
         box1.getChildren().add(textField);
         Label label = new Label("Enter the Password");
-    
+
         Label error = new Label("Enter a valid password");
         Label incorrect = new Label("Wrong password entered, try again");
         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         Button submitButton = new Button("Submit");
-    
+
         submitButton.setOnAction((e) -> {
             String text = textField.getText();
             if (mainPane.getChildren().contains(error)) {
@@ -634,14 +638,14 @@ public class OrphangeGUI extends Application {
                     incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                     mainPane.getChildren().add(incorrect);
                 }
-    
+
             } catch (Exception f) {
                 error.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                 mainPane.getChildren().add(error);
-    
+
             }
         });
-    
+
         // Adjust the positioning of the elements using setLayoutX() and setLayoutY()
         label.setLayoutX(300);
         label.setLayoutY(50);
@@ -653,13 +657,13 @@ public class OrphangeGUI extends Application {
         incorrect.setLayoutY(200);
         error.setLayoutX(300);
         error.setLayoutY(200);
-    
+
         mainPane.getChildren().addAll(label, box1, submitButton);
     }
-    
 
     /**
      * creates employees section of GUI
+     * 
      * @param mainPane
      */
     private void setUpEmployeesGUI(Pane mainPane) {
@@ -669,7 +673,7 @@ public class OrphangeGUI extends Application {
 
         VBox info = new VBox();
         mainPane.getChildren().clear();
-        tabPane.getTabs().addAll(childrenTab, staffTab, roomsTab);
+        tabPane.getTabs().addAll(childrenTab, staffTab);
         mainPane.getChildren().addAll(menuBar, tabPane);
         List<Employee> employees = orphanage.getPersons().parallelStream()
                 .filter(person -> person instanceof Employee)
@@ -746,7 +750,8 @@ public class OrphangeGUI extends Application {
 
     /**
      * adds new employee outside of the defaults
-     * @return 
+     * 
+     * @return
      */
     private boolean addEmployee() {
 
@@ -830,10 +835,19 @@ public class OrphangeGUI extends Application {
                 LOGGER.log(Level.INFO, "Employee Object Created.\n");
                 stage.close();
                 stage2.show();
+
             } catch (Exception d) {
+
                 Label label3 = new Label("Improper inputs");
+
+                if (counter1 == 0) {
+                    System.out.println(counter1);
+                    mainPane.getChildren().add(label3);
+
+                }
+
                 label3.setStyle("-fx-text-fill: #FFD700;");
-                mainPane.getChildren().add(label3);
+
                 exceptionThrown = true;
 
             }
@@ -878,7 +892,8 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * pop-up window that allows user to add a new orphan to the arraylist of orphans
+     * pop-up window that allows user to add a new orphan to the arraylist of
+     * orphans
      */
     private void addNewOrphan() {
         Stage popupStage = new Stage();
@@ -909,6 +924,7 @@ public class OrphangeGUI extends Application {
             Scene warningScene = new Scene(warningBox, 200, 200);
             warningStage.setScene(warningScene);
             warningStage.setTitle("Invalid Information");
+            warningStage.show();
         }
 
         VBox popupRoot = new VBox(10, nameField, ageField, genderField, skillField, languageField, submitButton);

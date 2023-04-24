@@ -90,16 +90,16 @@ public class OrphangeGUI extends Application {
      * sets up main controls for GUI
      * @param mainPane
      */
-    private void setupControls(VBox mainPane) {
+    private void setupControls(Pane mainPane) {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> System.exit(0));
-
+    
         MenuItem refreshItem = new MenuItem("Refresh");
-
+    
         refreshItem.setOnAction(e -> {
             SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
             Tab currentTab = selectionModel.getSelectedItem();
-
+    
             if (currentTab == childrenTab) {
                 pressed = false;
                 orphanBox.getChildren().clear();
@@ -107,14 +107,14 @@ public class OrphangeGUI extends Application {
             } else {
                 setEmployeeContent(mainPane);
             }
-
+    
         });
-
+    
         fileMenu.getItems().addAll(exitItem);
         helpMenu.getItems().add(refreshItem);
         menuBar.getMenus().addAll(fileMenu, helpMenu);
         setChilrenContent(mainPane);
-
+    
         childrenTab.selectedProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal) {
                 mainPane.getChildren().remove(menuBar);
@@ -128,8 +128,9 @@ public class OrphangeGUI extends Application {
                 setEmployeeContent(mainPane);
             }
         });
-
+    
     }
+    
 
     /**
      * 
@@ -432,7 +433,7 @@ public class OrphangeGUI extends Application {
      * sets up GUI controls for orphans tab
      * @param mainPane
      */
-    private void setChilrenContent(VBox mainPane) {
+    private void setChilrenContent(Pane mainPane) {
         mainPane.getChildren().clear();
         Button reveal = new Button("Click to Reveal Orphans under Filters");
         mainPane.setStyle("-fx-background-color: #0A1C2E");
@@ -564,7 +565,12 @@ public class OrphangeGUI extends Application {
 
         top.getChildren().addAll(radioButton, ageBox, LanguageBox, addNewOrphanButton);
         bottom.getChildren().addAll(reveal);
-        mainPane.setAlignment(Pos.CENTER);
+        title.setLayoutX(100);
+        title.setLayoutY(20);
+        top.setLayoutX(100);
+        top.setLayoutY(60);
+        bottom.setLayoutX(100);
+        bottom.setLayoutY(200);
         mainPane.getChildren().addAll(title, top, bottom);
 
         reveal.setOnAction(event -> {
@@ -578,28 +584,25 @@ public class OrphangeGUI extends Application {
      * helper method for creating employees
      * @param mainPane
      */
-    private void setEmployeeContent(VBox mainPane) {
+    private void setEmployeeContent(Pane mainPane) {
         mainPane.getChildren().clear();
         mainPane.getChildren().addAll(menuBar, tabPane);
-
-        mainPane.setAlignment(Pos.TOP_CENTER);
-        mainPane.setPrefWidth(1000);
+    
+        mainPane.setStyle("-fx-background-color: #0A1C2E");
+    
         HBox box1 = new HBox(1000);
         box1.setAlignment(Pos.CENTER);
-        mainPane.setFillWidth(true);
-
+    
         TextField textField = new TextField();
         textField.setPrefWidth(250);
         box1.getChildren().add(textField);
         Label label = new Label("Enter the Password");
-
-        VBox.setMargin(label, new Insets(100, 0, 0, 0));
-        VBox.setMargin(textField, new Insets(10, 0, 0, 0));
-        Label error = new Label("Enter a valid passward");
-        Label incorrect = new Label("Wrong passward entered, try again");
+    
+        Label error = new Label("Enter a valid password");
+        Label incorrect = new Label("Wrong password entered, try again");
         label.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 40px;");
         Button submitButton = new Button("Submit");
-        VBox.setMargin(submitButton, new Insets(10, 0, 0, 0));
+    
         submitButton.setOnAction((e) -> {
             String text = textField.getText();
             if (mainPane.getChildren().contains(error)) {
@@ -616,22 +619,35 @@ public class OrphangeGUI extends Application {
                     incorrect.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                     mainPane.getChildren().add(incorrect);
                 }
-
+    
             } catch (Exception f) {
                 error.setStyle("-fx-text-fill: #FFD700; -fx-font-size: 20px;");
                 mainPane.getChildren().add(error);
-
+    
             }
         });
+    
+        // Adjust the positioning of the elements using setLayoutX() and setLayoutY()
+        label.setLayoutX(300);
+        label.setLayoutY(50);
+        box1.setLayoutX(300);
+        box1.setLayoutY(100);
+        submitButton.setLayoutX(350);
+        submitButton.setLayoutY(150);
+        incorrect.setLayoutX(300);
+        incorrect.setLayoutY(200);
+        error.setLayoutX(300);
+        error.setLayoutY(200);
+    
         mainPane.getChildren().addAll(label, box1, submitButton);
-
     }
+    
 
     /**
      * creates employees section of GUI
      * @param mainPane
      */
-    private void setUpEmployeesGUI(VBox mainPane) {
+    private void setUpEmployeesGUI(Pane mainPane) {
         Button addEmployeeButton = new Button();
 
         addEmployeeButton.setText("Add Employee");

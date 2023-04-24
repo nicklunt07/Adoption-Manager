@@ -225,7 +225,7 @@ public class OrphangeGUI extends Application {
                         button.setOnAction(event -> {
                             adopt();
                         });
-                        button.relocate(150, 200);
+                        button.relocate(250, 200);
     
                         Label label10 = new Label(possibleOrphans.get(counter).toString());
                         label10.setTextFill(Paint.valueOf("#FFD700"));
@@ -259,7 +259,12 @@ public class OrphangeGUI extends Application {
             }
         } catch (Exception e) {
             System.err.println("Custom Exception:");
-            throw new NoOrphanFoundException("No orphan was found for your given inputs");
+            try {
+                throw new NoOrphanFoundException("No orphan was found for your given inputs");
+            } catch (NoOrphanFoundException e1) {
+                //e1.printStackTrace();
+                System.out.println("No filters applied");
+            }
         }
     
     }

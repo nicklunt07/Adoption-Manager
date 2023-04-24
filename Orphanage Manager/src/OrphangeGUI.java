@@ -482,15 +482,21 @@ public class OrphangeGUI extends Application {
         top.setFillHeight(true);
         bottom.setFillHeight(true);
 
+        HBox outerTitleBox = new HBox();
         HBox titleBox = new HBox();
         Label title = new Label("Adoption Selection");
         title.setFont(font);
         title.setAlignment(Pos.CENTER);
-        titleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-        // title.setStyle("-fx-background-color: #B15B37;");
         title.setTextFill(Paint.valueOf("#FFD700"));
+
+        outerTitleBox.getChildren().add(titleBox);
+        outerTitleBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        outerTitleBox.setAlignment(Pos.CENTER);
+
+        outerTitleBox.setLayoutX(50);
+        
 
         VBox radioButton = new VBox();
         Label label = new Label("Orphan's Sex: ");
@@ -589,13 +595,13 @@ public class OrphangeGUI extends Application {
 
         top.getChildren().addAll(radioButton, ageBox, LanguageBox, addNewOrphanButton);
         bottom.getChildren().addAll(reveal);
-        title.setLayoutX(100);
+        title.setLayoutX(200);
         title.setLayoutY(20);
         top.setLayoutX(100);
         top.setLayoutY(60);
         bottom.setLayoutX(100);
         bottom.setLayoutY(200);
-        mainPane.getChildren().addAll(title, top, bottom);
+        mainPane.getChildren().addAll(outerTitleBox, top, bottom);
 
         reveal.setOnAction(event -> {
             setOrphans();

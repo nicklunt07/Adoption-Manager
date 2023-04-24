@@ -201,6 +201,26 @@ public class Orphanage implements Serializable {
         skills.put("BasketBall", () -> createButton("Orphanage Manager/Assets/Basketball.mp4", "orphan"));
         skills.put("Soccer", () -> createButton("Orphanage Manager/Assets/Soccer.mp4", "orphan"));
         
+        skills.put("None", () -> {
+           Button skill = new Button();
+           skill.setOnAction((e) -> {
+             Stage stage = new Stage();
+             stage.setHeight(250);
+             stage.setWidth(250);
+
+             VBox mainPane = new VBox(); 
+             Scene scene = new Scene(mainPane); 
+             stage.setScene(scene);
+
+             mainPane.setAlignment(Pos.CENTER);
+             stage.setTitle("No Skill");
+             Label label = new Label("This orphen has no skill, too young");
+             mainPane.getChildren().add(label);
+
+             stage.show();
+           });
+           return skill;
+        });
 
     }
 

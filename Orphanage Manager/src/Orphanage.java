@@ -28,7 +28,6 @@ import javafx.stage.Stage;
  * @version April 23, 2023
  */
 public class Orphanage implements Serializable {
-    // private String orphanageName;
     private ArrayList<Person> persons;
 
     List<Orphan> possibleOrphans;
@@ -64,23 +63,23 @@ public class Orphanage implements Serializable {
     private void addDefaultOrphans() {
         Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", skills.get("Math"), this,
                 Arrays.asList("Spanish", "English"));
-        Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"), this, Arrays.asList("English"));
-        Orphan orphan3 = new Orphan("Howard Craig", 7, "Male", skills.get("Circle"), this,
-                Arrays.asList("Spanish", "English"));
-        Orphan orphan4 = new Orphan("Keanu Hardin", 5, "Male", skills.get("Running"), this,
-                Arrays.asList("Spanish", "English"));
-        Orphan orphan5 = new Orphan("Barnaby Kane", 1, "Male", skills.get("Skateboarding"), this);
-        Orphan orphan6 = new Orphan("Safia Palmer", 10, "Female", skills.get("Biking"), this, Arrays.asList("English"));
-        Orphan orphan7 = new Orphan("Mattie Odom", 11, "Female", skills.get("JumpRoping"), this,
+        Orphan orphan2 = new Orphan("Mary Cooper ", 3, "Female", skills.get("Painting"), this, Arrays.asList("English"));
+        Orphan orphan3 = new Orphan("Howard Craig ", 7, "Male", skills.get("Circle"), this,
+                Arrays.asList("Spanish", "English "));
+        Orphan orphan4 = new Orphan("Keanu Hardin ", 5, "Male", skills.get("Running"), this,
+                Arrays.asList("Spanish", "English "));
+        Orphan orphan5 = new Orphan("Barnaby Kane ", 1, "Male", skills.get("None"), this);
+        Orphan orphan6 = new Orphan("Safia Palmer ", 10, "Female", skills.get("Biking"), this, Arrays.asList("English"));
+        Orphan orphan7 = new Orphan("Mattie Odom ", 11, "Female", skills.get("JumpRoping"), this,
                 Arrays.asList("Spanish", "English"));
         Orphan orphan8 = new Orphan("Dale Byrne", 16, "Male", skills.get("BottleFlip"), this, Arrays.asList("English"));
-        Orphan orphan9 = new Orphan("Andrea Elizabeth", 0, "Female", skills.get("Gardening"), this);
-        Orphan orphan10 = new Orphan("Kenneth Holman", 4, "Male", skills.get("BasketBall"), this,
+        Orphan orphan9 = new Orphan("Andrea Elizabeth ", 0, "Female", skills.get("None"), this);
+        Orphan orphan10 = new Orphan("Kenneth Holman ", 4, "Male", skills.get("BasketBall"), this,
                 Arrays.asList("English", "Spanish"));
-        Orphan orphan11 = new Orphan("Sidney Gaines", 16, "Female", skills.get("Soccer"), this,
+        Orphan orphan11 = new Orphan("Sidney Gaines ", 16, "Female", skills.get("Soccer"), this,
                 Arrays.asList("English", "Spanish"));
-        // Orphan orphan12 = new Orphan("Nettie Nash", 17, "Female", null,this);
-        // Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
+        Orphan orphan12 = new Orphan("Nettie Nash ", 17, "Female", skills.get("Gardening"),this, Arrays.asList("Spanish", "English"));
+        Orphan orphan13 = new Orphan("Alisssa Newton ", 8, "Female", skills.get("Skateboarding"),this, Arrays.asList("Spanish", "English"));
     }
 
   
@@ -203,6 +202,26 @@ public class Orphanage implements Serializable {
         skills.put("BasketBall", () -> createButton("Orphanage Manager/Assets/Basketball.mp4", "orphan"));
         skills.put("Soccer", () -> createButton("Orphanage Manager/Assets/Soccer.mp4", "orphan"));
         
+        skills.put("None", () -> {
+           Button skill = new Button();
+           skill.setOnAction((e) -> {
+             Stage stage = new Stage();
+             stage.setHeight(250);
+             stage.setWidth(250);
+
+             VBox mainPane = new VBox(); 
+             Scene scene = new Scene(mainPane); 
+             stage.setScene(scene);
+
+             mainPane.setAlignment(Pos.CENTER);
+             stage.setTitle("No Skill");
+             Label label = new Label("This orphen has no skill, too young");
+             mainPane.getChildren().add(label);
+
+             stage.show();
+           });
+           return skill;
+        });
 
     }
 

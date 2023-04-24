@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 import javafx.scene.control.Button;
 
+/**
+ * This class models an Employee
+ * @author Adnan Khaleeli(interface), Sushanth Ambati
+ */
 public class Employee extends Person implements Taskable, Responsible {
 
     private Skillable skill;
@@ -16,6 +20,18 @@ public class Employee extends Person implements Taskable, Responsible {
     private boolean isFelon;
     public static HashMap<String, Skillable> employeeSkills = new HashMap<>();
 
+    /**
+     * Creates an employee object
+     * @param String name
+     * @param int age
+     * @param String gender
+     * @param String position
+     * @param orphanage
+     * @param skill
+     * @param yearOfExprience
+     * @param levelOfEducation
+     * @param isFelon
+     */
     public Employee(String name, int age, String gender, String position, Orphanage orphanage, Skillable skill,
             int yearOfExprience, String levelOfEducation, boolean isFelon) {
         super(name, age, gender);

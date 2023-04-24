@@ -43,7 +43,7 @@ public class Adopter extends Person implements Responsible{
         this.dependencies = dependencies;
     }
 
-    // to be implemented later
+    
     public boolean isEligableCareGiver(){
         if((income/dependencies) <= 25000) {
            return false;

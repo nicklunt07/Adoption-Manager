@@ -2,11 +2,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+/**
+ * Models an adopter object
+ * @author Nick Lunt
+ * @version Aprul 24, 2023
+ */
 public class Adopter extends Person implements Responsible{
     
     private boolean isFelon;
-    private boolean isSingle;
     private double income;
     private static long adopterID = 500001;
     private int dependencies;
@@ -17,13 +20,6 @@ public class Adopter extends Person implements Responsible{
        this.dependencies = dependencies;
        //addPerson(this);
        orphanage.addPerson(this);
-    }
-
-
-   
-
-    public boolean isIsSingle() {
-        return this.isSingle;
     }
 
 

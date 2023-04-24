@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 /**
  * This class models an Employee
  * @author Adnan Khaleeli(interface), Sushanth Ambati
+ * @version April 24, 2023
  */
 public class Employee extends Person implements Taskable, Responsible {
 

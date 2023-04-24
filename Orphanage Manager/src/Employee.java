@@ -1,3 +1,4 @@
+
 /**
  * Employee class
  */
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 
 /**
  * This class models an Employee
+ * 
  * @author Adnan Khaleeli(interface), Sushanth Ambati
  * @version April 24, 2023
  */
@@ -23,10 +25,11 @@ public class Employee extends Person implements Taskable, Responsible {
 
     /**
      * Creates an employee object
-     * @param String name
-     * @param int age
-     * @param String gender
-     * @param String position
+     * 
+     * @param String           name
+     * @param int              age
+     * @param String           gender
+     * @param String           position
      * @param orphanage
      * @param skill
      * @param yearOfExprience
@@ -44,22 +47,37 @@ public class Employee extends Person implements Taskable, Responsible {
         orphanage.addPerson(this);
     }
 
+    /**
+     * Set skill
+     * 
+     * @param skill
+     */
     public void setSkill(Skillable skill) {
         this.skill = skill;
     }
 
+    /**
+     * set the position of employee
+     * 
+     * @param position
+     */
     public void setPosition(String position) {
         this.position = position;
     }
 
+    /**
+     * Adds to the employee skill Hashmap
+     * 
+     * @param key
+     * @param skill
+     */
     public static void addEmployeeSkillable(String key, Skillable skill) {
         employeeSkills.put(key, skill);
     }
 
-    public long getId() {
-        return this.id;
-    }
-
+    /*
+     * 
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -72,44 +90,88 @@ public class Employee extends Person implements Taskable, Responsible {
         return this.position;
     }
 
+    /**
+     * Returns the ID of employee
+     * 
+     * @return long id
+     */
     protected long getID() {
 
         return id;
     }
 
+    /**
+     * returns years of experience
+     * 
+     * @return int yearsOfExperience
+     */
     public int getYearsOfExperience() {
         return yearsOfExperience;
     }
 
+    /**
+     * Retruns level of education
+     * 
+     * @return String levelOfEducation
+     */
     public String getlevelOfEducation() {
         return levelOfEducation;
     }
 
+    /**
+     * Returns isFelon
+     * 
+     * @return boolean
+     */
     public boolean getIsFelon() {
         return isFelon;
     }
 
     @Override
+    /**
+     * Returns String of object
+     * @return String
+     */
     public String toString() {
         return super.toString() + "\tID: " + getID() + "\tPosition: " + getPosition();
     }
 
+    /**
+     * Assigns Tasks
+     * @return Skillable skill
+     */
     public void assignTask(Skillable skill) {
         this.skill = skill;
     }
 
+    /**
+     * Returns Skillable 
+     * @return Skillable skill
+     */
     public Skillable getSkill() {
         return skill;
     }
 
+    /**
+     * Performs the tasks of the employee
+     * @return Button
+     */
     public Button performTask() {
         return skill.skill();
     }
 
+    /**
+     * Returns criminal record
+     * @return String
+     */
     public String getCriminalRecord() {
         return "This: " + getName() + " is a felon";
     }
 
+    /**
+     * Returns if the employee is valid
+     * @return boolean
+     */
     public boolean isEligableCareGiver() {
         if (getAge() < 18) {
             return false;

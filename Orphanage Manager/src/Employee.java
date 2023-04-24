@@ -1,4 +1,6 @@
-
+/**
+ * Employee class
+ */
 import java.util.HashMap;
 
 import javafx.scene.control.Button;

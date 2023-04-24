@@ -86,6 +86,7 @@ public class Orphanage implements Serializable {
   
     
     /**
+     * @author Sushanth Ambati
      * Adding any person to the polymorphic collection
      * @param Person pers: The Person
      */
@@ -94,6 +95,7 @@ public class Orphanage implements Serializable {
     }
 
     /**
+     * @author Sushanth Ambati
      * Removes adpted Child from the polymorphic collection
      * @param child
      */

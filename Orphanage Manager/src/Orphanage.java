@@ -42,6 +42,7 @@ public class Orphanage implements Serializable {
         persons = new ArrayList<>();
         addDefaultEmployees();
         addDefaultOrphans();
+        createSkills();
     }
 
     /**
@@ -178,7 +179,7 @@ public class Orphanage implements Serializable {
      * Adding skills.
      * @author Adnan Khaleeli
      */
-    static {
+    public static void createSkills() {
 
         // Some Employee Skills
         skills.put("DishWashing", () -> createButton("Orphanage Manager/Assets/DishWashing.mp4", "employee"));
@@ -239,6 +240,7 @@ public class Orphanage implements Serializable {
             stage.show();
 
         });
+       
         String[] parts = filename.split("/");
             String fileNameWithExtension = parts[parts.length - 1];
             String fileNameWithoutExtension = fileNameWithExtension.split("\\.")[0];
@@ -247,6 +249,7 @@ public class Orphanage implements Serializable {
           
           Employee.addEmployeeSkillable(fileNameWithoutExtension, skill);
         } else {
+           
             Orphan.addOrphanSkillable(fileNameWithoutExtension, skill);
         }
         return button;

@@ -38,13 +38,13 @@ public class Orphan extends Person implements Taskable{
 
    
 
+   
+
    public Skillable getSkill() {
       return orphanSkill;
    }
 
-   public void makeVideoSkill(String filename) {
-
-   }
+   
 
    protected long getID(){
       return id;

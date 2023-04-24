@@ -67,6 +67,7 @@ public class OrphangeGUI extends Application {
                 return deserializedOrphanage;
             }
         };
+        Orphanage.createSkills();
 
         deserializationTask.setOnSucceeded(event -> {
             orphanage = deserializationTask.getValue();
@@ -912,8 +913,13 @@ public class OrphangeGUI extends Application {
         ageField.setPromptText("Enter child's age");
         TextField genderField = new TextField();
         genderField.setPromptText("Enter child's gender");
-        TextField skillField = new TextField();
-        skillField.setPromptText("Enter child's skill");
+
+        Label label = new Label("Enter orphan's skill");
+        ComboBox<String> skill = new ComboBox<>();
+        for (String skills : Orphanage.skills.keySet()) {
+            skill.getItems().add(skills);
+        }
+
         TextField languageField = new TextField();
         languageField.setPromptText("Enter child's language");
 
@@ -921,12 +927,12 @@ public class OrphangeGUI extends Application {
         
             submitButton.setOnAction(submitEvent -> {
                 orphanage.createNewOrphan(nameField.getText(), ageField.getText(), genderField.getText(),
-                        skillField.getText(), languageField.getText());
+                        skill.getValue(), languageField.getText());
                 popupStage.close();
             });
        
 
-        VBox popupRoot = new VBox(10, nameField, ageField, genderField, skillField, languageField, submitButton);
+        VBox popupRoot = new VBox(10, nameField, ageField, genderField, label, skill, languageField, submitButton);
         popupRoot.setPadding(new Insets(10));
         popupRoot.setAlignment(Pos.CENTER);
 

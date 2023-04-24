@@ -153,9 +153,9 @@ public class OrphangeGUI extends Application {
         welcomeLayout.setPrefSize(800, 600);
         welcomeLayout.setStyle("-fx-background-color: #B0E0E6;");
 
-        Label nameLabel = new Label("Orphanage Name");
+        Label nameLabel = new Label("The Giggle House: A Home for Smiles and Laughter");
         nameLabel.setStyle("-fx-font-size: 24;");
-        nameLabel.setLayoutX(300);
+        nameLabel.setLayoutX(175);
         nameLabel.setLayoutY(200);
 
         Label motiveLabel = new Label(

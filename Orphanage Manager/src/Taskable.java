@@ -7,5 +7,6 @@ public interface Taskable extends Serializable{
     public Skillable getSkill(); 
     public void assignTask(Skillable skill); 
     public Button performTask();
+    
    
 }

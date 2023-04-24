@@ -1,18 +1,28 @@
 
+import java.io.File;
+import java.util.HashMap;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
 public class Employee extends Person implements Taskable, Responsible {
-    
+
     private Skillable skill;
     private String position;
     private static long employeeID = 300001;
     private long id;
-    private int yearsOfExperience; 
-    private String levelOfEducation; 
+    private int yearsOfExperience;
+    private String levelOfEducation;
     private boolean isFelon;
+    public static HashMap<String, Skillable> employeeSkills = new HashMap<>();
 
-    public Employee(String name, int age, String gender, String position,Orphanage orphanage, Skillable skill, int yearOfExprience, String levelOfEducation, boolean isFelon) {
-        super(name,age,gender);
+    public Employee(String name, int age, String gender, String position, Orphanage orphanage, Skillable skill,
+            int yearOfExprience, String levelOfEducation, boolean isFelon) {
+        super(name, age, gender);
         this.id = employeeID++;
         this.position = position;
         this.skill = skill;
@@ -20,11 +30,18 @@ public class Employee extends Person implements Taskable, Responsible {
         this.yearsOfExperience = yearOfExprience;
         orphanage.addPerson(this);
     }
+
     public void setSkill(Skillable skill) {
         this.skill = skill;
     }
+
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public static void addEmployeeSkillable(String key, Skillable skill) {
+        Orphanage.skills.put(key, skill);
+        employeeSkills.put(key, skill);
     }
 
     public long getId() {
@@ -39,12 +56,12 @@ public class Employee extends Person implements Taskable, Responsible {
      * @author Sushanth Ambati
      * @return position
      */
-    protected String getPosition(){
+    protected String getPosition() {
         return this.position;
     }
 
-    protected long getID(){
-        
+    protected long getID() {
+
         return id;
     }
 
@@ -60,44 +77,42 @@ public class Employee extends Person implements Taskable, Responsible {
         return isFelon;
     }
 
-    
-
     @Override
     public String toString() {
         return super.toString() + "\tID: " + getID() + "\tPosition: " + getPosition();
     }
 
     public void assignTask(Skillable skill) {
-       this.skill = skill;
+        this.skill = skill;
     }
 
     public Skillable getSkill() {
         return skill;
     }
+
     public Button performTask() {
         return skill.skill();
-     }
+    }
 
-     public String getCriminalRecord() {
+    public String getCriminalRecord() {
         return "This: " + getName() + " is a felon";
-     }
+    }
 
-     public boolean isEligableCareGiver() {
-        if(getAge() < 18) {
-           return false; 
-     } else if(getAge()-yearsOfExperience < 14) {
-  
-        return false;
-     } else if(levelOfEducation.equals("None") || levelOfEducation.equals("Elementary") || levelOfEducation.equals("Middle School")) {
-       return false;
-     } else if(yearsOfExperience < 3) {
-        return false;
-     }
-   System.out.println(isFelon +"1");
-     return !isFelon;
+    public boolean isEligableCareGiver() {
+        if (getAge() < 18) {
+            return false;
+        } else if (getAge() - yearsOfExperience < 14) {
 
+            return false;
+        } else if (levelOfEducation.equals("None") || levelOfEducation.equals("Elementary")
+                || levelOfEducation.equals("Middle School")) {
+            return false;
+        } else if (yearsOfExperience < 3) {
+            return false;
+        }
+        System.out.println(isFelon + "1");
+        return !isFelon;
 
-   
-}
+    }
 
 }

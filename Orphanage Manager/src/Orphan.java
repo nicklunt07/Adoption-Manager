@@ -13,6 +13,7 @@ public class Orphan extends Person implements Taskable{
    private long id;
    private List<String> languages;
    private boolean spoken = false;
+   public static HashMap<String, Skillable> orphanSkills = new HashMap<>();
    public Orphan(String name, int age, String gender, Skillable skill, Orphanage orphanage, List<String> languages) {
       super(name, age, gender);
       this.id = orphanID++;
@@ -84,6 +85,11 @@ public class Orphan extends Person implements Taskable{
    public Button performTask() {
       return orphanSkill.skill();
    }
+
+   public static void addOrphanSkillable(String key, Skillable skill) {
+      Orphanage.skills.put(key, skill);
+      orphanSkills.put(key, skill);
+  }
 
 
 }

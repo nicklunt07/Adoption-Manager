@@ -794,7 +794,7 @@ public class OrphangeGUI extends Application {
         Label label1 = new Label("What is their skill");
         label1.setStyle("-fx-text-fill: #FFD700;");
         ComboBox<String> skill = new ComboBox<>();
-        for (String skills : Orphanage.skills.keySet()) {
+        for (String skills : Employee.employeeSkills.keySet()) {
             skill.getItems().add(skills);
         }
 

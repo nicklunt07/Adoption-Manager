@@ -178,24 +178,24 @@ public class Orphanage implements Serializable {
     static {
 
         // Some Employee Skills
-        skills.put("DishWashing", () -> createButton("Orphanage Manager/Assets/DishWashing.mp4"));
-        skills.put("Cooking", () -> createButton("Orphanage Manager/Assets/Cooking.mp4"));
-        skills.put("Ironing", () -> createButton("Orphanage Manager/Assets/Ironing.mp4"));
-        skills.put("Manager", () -> createButton("Orphanage Manager/Assets/Manager.mp4"));
+        skills.put("DishWashing", () -> createButton("Orphanage Manager/Assets/DishWashing.mp4", "employee"));
+        skills.put("Cooking", () -> createButton("Orphanage Manager/Assets/Cooking.mp4","employee"));
+        skills.put("Ironing", () -> createButton("Orphanage Manager/Assets/Ironing.mp4", "employee"));
+        skills.put("Manager", () -> createButton("Orphanage Manager/Assets/Manager.mp4", "employee"));
         // End of the employee skills
 
         // Some orphan skills
-        skills.put("Math", () -> createButton("Orphanage Manager/Assets/Math.mp4"));
-        skills.put("Skateboarding", () -> createButton("Orphanage Manager/Assets/Skateboarding.mp4"));
-        skills.put("Biking", () -> createButton("Orphanage Manager/Assets/Biking.mp4"));
-        skills.put("Gardening", () -> createButton("Orphanage Manager/Assets/Gardening.mp4"));
-        skills.put("JumpRoping", () -> createButton("Orphanage Manager/Assets/JumpRoping.mp4"));
-        skills.put("Painting", () -> createButton("Orphanage Manager/Assets/Painting.mp4"));
-        skills.put("Running", () -> createButton("Orphanage Manager/Assets/Running.mp4"));
-        skills.put("Circle", () -> createButton("Orphanage Manager/Assets/Circle.mp4"));
-        skills.put("BottleFlip", () -> createButton("Orphanage Manager/Assets/BottleFlip.mp4"));
-        skills.put("BasketBall", () -> createButton("Orphanage Manager/Assets/Basketball.mp4"));
-        skills.put("Soccer", () -> createButton("Orphanage Manager/Assets/Soccer.mp4"));
+        skills.put("Math", () -> createButton("Orphanage Manager/Assets/Math.mp4", "orphan"));
+        skills.put("Skateboarding", () -> createButton("Orphanage Manager/Assets/Skateboarding.mp4" , "orphan"));
+        skills.put("Biking", () -> createButton("Orphanage Manager/Assets/Biking.mp4", "orphan"));
+        skills.put("Gardening", () -> createButton("Orphanage Manager/Assets/Gardening.mp4", "orphan"));
+        skills.put("JumpRoping", () -> createButton("Orphanage Manager/Assets/JumpRoping.mp4", "orphan"));
+        skills.put("Painting", () -> createButton("Orphanage Manager/Assets/Painting.mp4", "orphan"));
+        skills.put("Running", () -> createButton("Orphanage Manager/Assets/Running.mp4", "orphan"));
+        skills.put("Circle", () -> createButton("Orphanage Manager/Assets/Circle.mp4", "orphan"));
+        skills.put("BottleFlip", () -> createButton("Orphanage Manager/Assets/BottleFlip.mp4", "orphan"));
+        skills.put("BasketBall", () -> createButton("Orphanage Manager/Assets/Basketball.mp4", "orphan"));
+        skills.put("Soccer", () -> createButton("Orphanage Manager/Assets/Soccer.mp4", "orphan"));
 
     }
 
@@ -205,7 +205,7 @@ public class Orphanage implements Serializable {
      * @param String filename
      * @return Button
      */
-    public static Button createButton(String filename) {
+    public static Button createButton(String filename, String type) {
 
         Button button = new Button("Skill");
 
@@ -235,7 +235,16 @@ public class Orphanage implements Serializable {
             stage.show();
 
         });
-
+        String[] parts = filename.split("/");
+            String fileNameWithExtension = parts[parts.length - 1];
+            String fileNameWithoutExtension = fileNameWithExtension.split("\\.")[0];
+            Skillable skill = ()-> button; 
+        if(type.equals("employee")) {
+          
+          Employee.addEmployeeSkillable(fileNameWithoutExtension, skill);
+        } else {
+            Orphan.addOrphanSkillable(fileNameWithoutExtension, skill);
+        }
         return button;
     }
 

@@ -137,34 +137,38 @@ public class OrphangeGUI extends Application {
      * @return welcome screen
      */
     private Pane createWelcomePage(Stage primaryStage) {
-        VBox welcomeLayout = new VBox(20);
-        welcomeLayout.setAlignment(Pos.CENTER);
-        welcomeLayout.setPadding(new Insets(20));
+        Pane welcomeLayout = new Pane();
+        welcomeLayout.setPrefSize(800, 600);
         welcomeLayout.setStyle("-fx-background-color: #B0E0E6;");
-
+    
         Label nameLabel = new Label("Orphanage Name");
         nameLabel.setStyle("-fx-font-size: 24;");
-
+        nameLabel.setLayoutX(300);
+        nameLabel.setLayoutY(200);
+    
         Label motiveLabel = new Label(
                 "An orphanage is a place where the cries of the innocent are heard, and the love of the forgotten is felt. - Anthony T. Hincks");
         motiveLabel.setWrapText(true);
         motiveLabel.setMaxWidth(400);
-
+        motiveLabel.setLayoutX(200);
+        motiveLabel.setLayoutY(300);
+    
         Button enterButton = new Button("Enter");
-
-        // Add an event listener to the button to navigate to the main application
-        // window
+        enterButton.setLayoutX(375);
+        enterButton.setLayoutY(400);
+    
+        // Add an event listener to the button to navigate to the main application window
         enterButton.setOnAction(e -> {
             VBox root = new VBox();
             setupControls(root);
             primaryStage.setScene(new Scene(root, 800, 600));
-
         });
-
+    
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
-
+    
         return welcomeLayout;
     }
+    
 
     /**
      * displays orphans one by one with button controls to view them

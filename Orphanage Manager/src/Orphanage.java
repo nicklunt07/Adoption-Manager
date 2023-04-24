@@ -19,6 +19,11 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+/** 
+ * This class models an Orphange and various attributes and operations
+ * @author Adnan Khaleeli, Nick Lunt, Sushanth Ambati
+ * @version April 23, 2023
+ */
 public class Orphanage implements Serializable {
     // private String orphanageName;
     private ArrayList<Person> persons;
@@ -27,16 +32,20 @@ public class Orphanage implements Serializable {
     public static HashMap<String, Skillable> skills = new HashMap<String, Skillable>();
     private static final Logger LOGGER = Logger.getLogger(Orphanage.class.getName());
 
+    /**
+     * Constructor for Orphanage 
+     */
     public Orphanage() {
         persons = new ArrayList<>();
-
         addDefaultEmployees();
         addDefaultOrphans();
-        addDefaultAdopters();
     }
 
-    public void addDefaultEmployees() {
-        // I am not sure about y'all ages I am just using it test nothing else.
+    /**
+     * Adds default Employees
+     * @author Sushanth Ambati
+     */
+    private void addDefaultEmployees() {
         Employee employee1 = new Employee("Sushanth Ambati", 20, "Male", "Founder", this, skills.get("Cooking"), 4, "High School", false);
         Employee employee2 = new Employee("Adnan Khaleeli", 23, "Male", "Founder", this, skills.get("DishWashing"), 3, "College", false );
         Employee employee3 = new Employee("Nick Lunt", 25, "Male", "Founder", this, skills.get("Manager"),5,"Masters", false);
@@ -44,7 +53,11 @@ public class Orphanage implements Serializable {
 
     }
 
-    public void addDefaultOrphans() {
+    /**
+     * Adding default orphans 
+     * @author Sushanth Ambati and Adnan Khaleeli
+     */
+    private void addDefaultOrphans() {
         Orphan orphan1 = new Orphan("Kevin Geiger", 7, "Male", skills.get("Math"), this,
                 Arrays.asList("Spanish", "English"));
         Orphan orphan2 = new Orphan("Mary Cooper", 3, "Female", skills.get("Painting"), this, Arrays.asList("English"));
@@ -66,43 +79,36 @@ public class Orphanage implements Serializable {
         // Orphan orphan13 = new Orphan("Rajan O'Quinn", 8, "Male", null,this);
     }
 
-    public void addDefaultAdopters() {
-        Adopter adopter1 = new Adopter(this, "Kevin Koett", 27, "Male", false, 100000, 3);
-        Adopter adopter2 = new Adopter(this, "Kevin Carr", 37, "Male", true, 60000, 2);
-        Adopter adopter3 = new Adopter(this, "Kevin Hof", 30, "Male", false, 100000, 5);
-    }
-
-    // Testing purposes, please dont delete this
-    /*
-     * public void createAndAddEmployee(String name, int age, String gender, String
-     * role) {
-     * Employee newEmployee = new Employee(name, age, gender, role, this);
-     * employees.add(newEmployee);
-     * }
+  
+    
+    /**
+     * Adding any person to the polymorphic collection
+     * @param Person pers: The Person
      */
-
     public void addPerson(Person pers) {
         persons.add(pers);
     }
 
+    /**
+     * Removes adpted Child from the polymorphic collection
+     * @param child
+     */
     public void removeAdoptedChild(Orphan child) {
         // Remove child from the persons list
         persons.remove(child);
     }
 
     /**
-     * remvoing employee wihtout using ID
-     * 
-     * @param employee
+     * Remvoing employee wihtout using ID
+     * @param Employee employee
      */
     public void removeEmployee(Employee employee) {
         persons.remove(employee);
     }
 
     /**
-     * removing orphans wihtout using ID
-     * 
-     * @param orphan
+     * Removing orphans wihtout using ID
+     * @param Orphan orphan
      */
     public void removeOrphan(Orphan orphan) {
         persons.remove(orphan);
@@ -110,8 +116,7 @@ public class Orphanage implements Serializable {
 
     /**
      * removing adopters without using ID
-     * 
-     * @param adopter
+     * @param Adopter adopter
      */
     public void removeAdopter(Adopter adopter) {
         persons.remove(adopter);
@@ -119,8 +124,7 @@ public class Orphanage implements Serializable {
 
     /**
      * removing employees using the ID
-     * 
-     * @param id
+     * @param int id
      */
     public void removeEmployeeById(int id) {
 
@@ -129,8 +133,7 @@ public class Orphanage implements Serializable {
 
     /**
      * removing adopters using the ID
-     * 
-     * @param id
+     * @param int id
      */
     public void removeAdopterById(int id) {
         persons.removeIf(adopter -> adopter.getID() == id);
@@ -138,30 +141,40 @@ public class Orphanage implements Serializable {
 
     /**
      * removing orphans using the ID
-     * 
-     * @param id
+     * @param int id
      */
     public void removeOrphanById(int id) {
         persons.removeIf(orphan -> orphan.getID() == id);
     }
 
     /**
-     * getting employees
-     * 
+     * Getting employees
      * @return employees
      */
     public ArrayList<Person> getPersons() {
         return persons;
     }
 
+    /**
+     * Returning the orphanage
+     * @return this
+     */
     public Orphanage getOrphanage() {
         return this;
     }
 
+    /**
+     * Returning the HashMap of possible skills
+     * @return HashMap<String, Skillable> 
+     */
     public HashMap<String, Skillable> getSkills() {
         return skills;
     }
 
+    /**
+     * Adding skills.
+     * @author Adnan Khaleeli
+     */
     static {
 
         // Some Employee Skills
@@ -186,6 +199,12 @@ public class Orphanage implements Serializable {
 
     }
 
+    /**
+     * Creating the skillables
+     * @author Adnan Khaleeli
+     * @param String filename
+     * @return Button
+     */
     public static Button createButton(String filename) {
 
         Button button = new Button("Skill");
@@ -220,6 +239,10 @@ public class Orphanage implements Serializable {
         return button;
     }
 
+    /**
+     * Serializing the orphanage
+     * @author Sushanth Ambati
+     */
     public void serializeOrphanage() {
         try {
             FileOutputStream fileOut = new FileOutputStream("orph.ser");
@@ -233,6 +256,11 @@ public class Orphanage implements Serializable {
         }
     }
 
+    /**
+     * Deseralizing the orphanage
+     * @author Sushanth Ambati 
+     * @return Orphanage 
+     */
     public static Orphanage deserializeOrphanage() {
         Orphanage deserializedOrphanage = null;
         try {
@@ -250,6 +278,15 @@ public class Orphanage implements Serializable {
         return deserializedOrphanage;
     }
 
+    /**
+     * Creating new orphan
+     * @author Nick Lunt
+     * @param String name
+     * @param String age
+     * @param String gender
+     * @param String skill
+     * @param String languages
+     */
     public void createNewOrphan(String name, String age, String gender, String skill, String languages) {
         Orphan newOrphan = new Orphan(name, Integer.parseInt(age), gender, Orphanage.skills.get(skill), this,
                 Arrays.asList(languages));

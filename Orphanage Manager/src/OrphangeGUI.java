@@ -274,8 +274,7 @@ public class OrphangeGUI extends Application {
             try {
                 throw new NoOrphanFoundException("No orphan was found for your given inputs");
             } catch (NoOrphanFoundException e1) {
-                // e1.printStackTrace();
-                System.out.println("No filters applied");
+                System.out.println("No filters applied or no orphan was found");
             }
         }
 
@@ -897,7 +896,7 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * pop-up window that allows user to add a new orphan to the arraylist of
+     * Pop-up window that allows user to add a new orphan to the arraylist of
      * orphans
      * @author Nick Lunt
      */

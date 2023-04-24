@@ -85,7 +85,7 @@ public class Employee extends Person implements Taskable, Responsible {
      public boolean isEligableCareGiver() {
         if(getAge() < 18) {
            return false; 
-     } else if(getAge()-yearsOfExperience < 18) {
+     } else if(getAge()-yearsOfExperience < 14) {
   
         return false;
      } else if(levelOfEducation.equals("None") || levelOfEducation.equals("Elementary") || levelOfEducation.equals("Middle School")) {

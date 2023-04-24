@@ -163,7 +163,7 @@ public class OrphangeGUI extends Application {
         enterButton.setOnAction(e -> {
             VBox root = new VBox();
             setupControls(root);
-            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.setScene(new Scene(root, 800, 700));
         });
 
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);
@@ -869,11 +869,12 @@ public class OrphangeGUI extends Application {
                     display.getChildren().add(update);
 
                 } else {
-                    Label title = new Label("Not eligable to work in an orphanage");
+                    Label title = new Label("Not eligable to work in an orphanage\nMust be older than 18\nMust be High School grad or above\nMust have at least 3 years of experience");
                     title.setStyle("-fx-font-size: 20;");
                     title.setStyle("-fx-text-fill: #FFD700;");
                     orphanage.removeEmployee(employee);
 
+                    display.setAlignment(Pos.CENTER);
                     display.getChildren().add(title);
 
                     Button update = new Button();

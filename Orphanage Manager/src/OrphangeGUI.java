@@ -840,6 +840,8 @@ public class OrphangeGUI extends Application {
                         Integer.parseInt(yearsOfExperience.getText()), educationCombo.getValue(), true);
                 LOGGER.log(Level.INFO, "Employee Object Created.\n");
                 stage.close();
+                MenuItem refreshItem = helpMenu.getItems().get(0);
+                refreshItem.fire();
                 stage2.show();
 
             } catch (Exception d) {

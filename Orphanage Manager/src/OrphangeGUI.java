@@ -757,7 +757,7 @@ public class OrphangeGUI extends Application {
 
         Stage stage = new Stage();
         stage.setTitle("Add Employee");
-        stage.setHeight(350);
+        stage.setHeight(380);
         stage.setWidth(400);
 
         VBox mainPane = new VBox();
@@ -841,7 +841,7 @@ public class OrphangeGUI extends Application {
                 Label label3 = new Label("Improper inputs");
 
                 if (counter1 == 0) {
-                    System.out.println(counter1);
+                    counter1++;
                     mainPane.getChildren().add(label3);
 
                 }

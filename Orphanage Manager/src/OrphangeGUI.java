@@ -257,9 +257,10 @@ public class OrphangeGUI extends Application {
         possibleOrphans = orphanage.getPersons().parallelStream()
                 .filter(person -> person instanceof Orphan)
                 .map((person -> (Orphan) person))
-                .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
+                .filter(orphan -> orphan.getAge() - 5 <= maxAge)
+                //.filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge() + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
-                .filter(orphan -> orphan.speaksLanguage(languages))
+                //.filter(orphan -> orphan.speaksLanguage(languages))
                 .collect(Collectors.toList());
         if (possibleOrphans.size() == 0) {
 
@@ -491,7 +492,7 @@ public class OrphangeGUI extends Application {
 
         age.setMin(0);
         age.setMax(18);
-        age.setValue(15);
+        age.setValue(9);
         age.setShowTickLabels(true);
         age.setShowTickMarks(true);
         age.setMajorTickUnit(2);

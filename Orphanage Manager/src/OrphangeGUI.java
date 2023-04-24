@@ -252,7 +252,7 @@ public class OrphangeGUI extends Application {
             });
 
             if (pressed == false) {
-                Button childSkill = possibleOrphans.get(counter).getSkill().skill();
+                Button childSkill = possibleOrphans.get(counter).performTask();
                 childSkill.setText("Skill");
                 childSkill.relocate(250, 200);
 
@@ -274,7 +274,9 @@ public class OrphangeGUI extends Application {
             try {
                 throw new NoOrphanFoundException("No orphan was found for your given inputs");
             } catch (NoOrphanFoundException e1) {
-                System.out.println("No filters applied or no orphan was found");
+                System.out.println("No filters applied or no orphan was found, plsease try again");
+                MenuItem refreshItem = helpMenu.getItems().get(0);
+                refreshItem.fire();
             }
         }
 
@@ -649,7 +651,7 @@ public class OrphangeGUI extends Application {
 
             }
         });
-        
+
         // Adjust the positioning of the elements using setLayoutX() and setLayoutY()
         label.setLayoutX(300);
         label.setLayoutY(50);

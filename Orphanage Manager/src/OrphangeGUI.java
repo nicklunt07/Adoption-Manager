@@ -19,6 +19,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * This class models an OrphanageGUI, that allows the user to do a varity of
+ * selected tasks
+ * @version April 24, 2023
+ * @author Adnan Khaleeli, Sushanth Ambati, Nick Lunt
+ */
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
@@ -38,7 +44,6 @@ public class OrphangeGUI extends Application {
     private Menu helpMenu = new Menu("Help");
     private Adopter adopter;
     private Employee employee;
-    private boolean exceptionThrown;
     boolean result = false;
     private int counter1 = 0;
 
@@ -49,6 +54,10 @@ public class OrphangeGUI extends Application {
     }
 
     @Override
+    /**
+     * Starting the GUI
+     * @author Adnan Khaleeli and Sushhanth Ambati
+     */
     public void start(Stage primaryStage) {
 
         Task<Orphanage> deserializationTask = new Task<Orphanage>() {
@@ -87,9 +96,9 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * sets up main controls for GUI
-     * 
-     * @param mainPane
+     * Sets up main controls for GUI
+     * @author Adnan Khaleeli, Sushanth Ambati
+     * @param Pane mainPane: The main pane for the orphanage
      */
     private void setupControls(Pane mainPane) {
         MenuItem exitItem = new MenuItem("Exit");
@@ -133,9 +142,10 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * 
-     * @param primaryStage
-     * @return welcome screen
+     * Creates the inital Welcoming Page for the Orphanage
+     * @param Stage primaryStage: The main Stage of the GUI
+     * @return Pane: The welcome screen
+     * @author Sushanth Ambati
      */
     private Pane createWelcomePage(Stage primaryStage) {
         Pane welcomeLayout = new Pane();
@@ -172,9 +182,10 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * displays orphans one by one with button controls to view them
-     * 
-     * @param bottom
+     * This method displays the Orphans that match the user inputs
+     * @author Adnan Khaleeli: Vast majoirty, Nick Lunt addtional Buttons
+     * @param Pane Bottom: The Botton VBox of the mainPane that is being used
+     * @param Button reveal: The button used to Reveal the matching orphans
      */
     private void displayOrphans(Pane bottom, Button reveal) {
 
@@ -227,7 +238,7 @@ public class OrphangeGUI extends Application {
                             adopt();
                         });
                         button.relocate(150, 200);
-    
+
                         Label label10 = new Label(possibleOrphans.get(counter).toString());
                         label10.setTextFill(Paint.valueOf("#FFD700"));
                         label10.relocate(50, 100);
@@ -263,7 +274,7 @@ public class OrphangeGUI extends Application {
             try {
                 throw new NoOrphanFoundException("No orphan was found for your given inputs");
             } catch (NoOrphanFoundException e1) {
-                //e1.printStackTrace();
+                // e1.printStackTrace();
                 System.out.println("No filters applied");
             }
         }
@@ -271,25 +282,27 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * filters orphans based on GUI controls
+     * This method finds the matching orphans 
+     * @author Adnan Khaleeli
      */
     private void setOrphans() {
         possibleOrphans = orphanage.getPersons().parallelStream()
                 .filter(person -> person instanceof Orphan)
                 .map((person -> (Orphan) person))
                 .filter(orphan -> orphan.getAge() - 5 <= maxAge)
-                // .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge()
-                // + 5)
+                .filter(orphan -> orphan.getAge() - 5 <= maxAge && maxAge <= orphan.getAge()
+                 + 5)
                 .filter(orphan -> orphan.getGender().equals(sex))
-                // .filter(orphan -> orphan.speaksLanguage(languages))
+                .filter(orphan -> orphan.speaksLanguage(languages))
                 .collect(Collectors.toList());
         if (possibleOrphans.size() == 0) {
-
+            LOGGER.log(Level.INFO, "No matching orphan existent.\n");
         }
     }
 
     /**
-     * adopting the orphan
+     * This method is used to adopt an Oprhan that is liked
+     * @author Adnan Khaleeli->GUI and Sushanth Ambati-> Serialization
      */
     private void adopt() {
         Stage stage = new Stage();
@@ -362,14 +375,7 @@ public class OrphangeGUI extends Application {
                         }
                     };
 
-                    // Testing purposes
-                    /*
-                     * serializationTask.setOnSucceeded(event -> {
-                     * orphanage.removeAdoptedChild(possibleOrphans.get(counter));
-                     * possibleOrphans.remove(counter);
-                     * });
-                     */
-
+               
                     Thread serializationThread = new Thread(serializationTask);
                     serializationThread.setDaemon(true);
                     serializationThread.start();
@@ -403,9 +409,9 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * creates adoption pop-up pane for adoption
-     * 
-     * @param adoptedOrphan
+     * Shows the adoption details when the orphan is adopted
+     * @author Nick Lunt
+     * @param Orphan adoptedOrphan: The orphan adopted by the Adopter
      */
     private void showAdoptionDetails(Orphan adoptedOrphan) {
         Stage detailsStage = new Stage();
@@ -447,9 +453,9 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * sets up GUI controls for orphans tab
-     * 
-     * @param mainPane
+     * Sets up GUI controls for orphans tab
+     * @author Adnan Khaleeli
+     * @param Pane mainPane
      */
     private void setChilrenContent(Pane mainPane) {
         mainPane.getChildren().clear();
@@ -458,7 +464,6 @@ public class OrphangeGUI extends Application {
 
         childrenTab.setClosable(false);
         staffTab.setClosable(false);
-  
 
         tabPane.getTabs().addAll(childrenTab, staffTab);
 
@@ -599,9 +604,9 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * helper method for creating employees
-     * 
-     * @param mainPane
+     * Sets the eomployee content for that tab
+     * @author Adnan Khaleeli
+     * @param Pane mainPane: 
      */
     private void setEmployeeContent(Pane mainPane) {
         mainPane.getChildren().clear();
@@ -662,9 +667,9 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * creates employees section of GUI
-     * 
-     * @param mainPane
+     * Depicts all the employees
+     * @author Adnan Khaleeli
+     * @param Pane mainPane
      */
     private void setUpEmployeesGUI(Pane mainPane) {
         Button addEmployeeButton = new Button();
@@ -749,8 +754,8 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * adds new employee outside of the defaults
-     * 
+     * Adds new employee outside of the defaults
+     * @author Adnan Khaleeli
      * @return
      */
     private boolean addEmployee() {
@@ -848,8 +853,6 @@ public class OrphangeGUI extends Application {
 
                 label3.setStyle("-fx-text-fill: #FFD700;");
 
-                exceptionThrown = true;
-
             }
 
             if (employee != null) {
@@ -869,7 +872,8 @@ public class OrphangeGUI extends Application {
                     display.getChildren().add(update);
 
                 } else {
-                    Label title = new Label("Not eligable to work in an orphanage\nMust be older than 18\nMust be High School grad or above\nMust have at least 3 years of experience");
+                    Label title = new Label(
+                            "Not eligable to work in an orphanage\nMust be older than 18\nMust be High School grad or above\nMust have at least 3 years of experience");
                     title.setStyle("-fx-font-size: 20;");
                     title.setStyle("-fx-text-fill: #FFD700;");
                     orphanage.removeEmployee(employee);
@@ -895,6 +899,7 @@ public class OrphangeGUI extends Application {
     /**
      * pop-up window that allows user to add a new orphan to the arraylist of
      * orphans
+     * @author Nick Lunt
      */
     private void addNewOrphan() {
         Stage popupStage = new Stage();

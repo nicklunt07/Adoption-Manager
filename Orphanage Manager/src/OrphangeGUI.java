@@ -649,8 +649,7 @@ public class OrphangeGUI extends Application {
 
             }
         });
-
-       
+        
         // Adjust the positioning of the elements using setLayoutX() and setLayoutY()
         label.setLayoutX(300);
         label.setLayoutY(50);
@@ -663,7 +662,6 @@ public class OrphangeGUI extends Application {
         error.setLayoutX(300);
         error.setLayoutY(200);
 
-       
         mainPane.getChildren().addAll(label, box1, submitButton);
     }
 

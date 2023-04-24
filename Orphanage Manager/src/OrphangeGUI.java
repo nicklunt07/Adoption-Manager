@@ -163,7 +163,7 @@ public class OrphangeGUI extends Application {
         enterButton.setOnAction(e -> {
             VBox root = new VBox();
             setupControls(root);
-            primaryStage.setScene(new Scene(root, 800, 700));
+            primaryStage.setScene(new Scene(root, 800, 650));
         });
 
         welcomeLayout.getChildren().addAll(nameLabel, motiveLabel, enterButton);

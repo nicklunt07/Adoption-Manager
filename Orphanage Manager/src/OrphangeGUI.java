@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class OrphangeGUI extends Application {
     Orphanage orphanage = new Orphanage();
     int maxAge;
-    String sex = "Male";
+    String sex;
     Orphan orphanSelected;
     List<Orphan> possibleOrphans;
     private int counter = 0;
@@ -86,6 +86,10 @@ public class OrphangeGUI extends Application {
         deserializationThread.start();
     }
 
+    /**
+     * sets up main controls for GUI
+     * @param mainPane
+     */
     private void setupControls(VBox mainPane) {
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(e -> System.exit(0));
@@ -127,6 +131,11 @@ public class OrphangeGUI extends Application {
 
     }
 
+    /**
+     * 
+     * @param primaryStage
+     * @return welcome screen
+     */
     private Pane createWelcomePage(Stage primaryStage) {
         VBox welcomeLayout = new VBox(20);
         welcomeLayout.setAlignment(Pos.CENTER);
@@ -158,7 +167,7 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * 
+     * displays orphans one by one with button controls to view them
      * @param bottom
      */
     private void displayOrphans(HBox bottom, Button reveal) {
@@ -241,6 +250,9 @@ public class OrphangeGUI extends Application {
 
     }
 
+    /**
+     * filters orphans based on GUI controls
+     */
     private void setOrphans() {
         possibleOrphans = orphanage.getPersons().parallelStream()
                 .filter(person -> person instanceof Orphan)
@@ -369,7 +381,7 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * 
+     * creates adoption pop-up pane for adoption
      * @param adoptedOrphan
      */
     private void showAdoptionDetails(Orphan adoptedOrphan) {
@@ -411,6 +423,10 @@ public class OrphangeGUI extends Application {
         detailsStage.showAndWait();
     }
 
+    /**
+     * sets up GUI controls for orphans tab
+     * @param mainPane
+     */
     private void setChilrenContent(VBox mainPane) {
         mainPane.getChildren().clear();
         Button reveal = new Button("Click to Reveal Orphans under Filters");
@@ -460,7 +476,7 @@ public class OrphangeGUI extends Application {
         radioButton.getChildren().addAll(label, male, female);
         radioButton.setAlignment(Pos.CENTER_LEFT);
 
-        gender.selectToggle(male);
+        //gender.selectToggle(male);
         gender.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
             RadioButton buttonGender = (RadioButton) gender.getSelectedToggle();
             sex = buttonGender.getText();
@@ -553,6 +569,10 @@ public class OrphangeGUI extends Application {
         });
     }
 
+    /**
+     * helper method for creating employees
+     * @param mainPane
+     */
     private void setEmployeeContent(VBox mainPane) {
         mainPane.getChildren().clear();
         mainPane.getChildren().addAll(menuBar, tabPane);
@@ -602,6 +622,10 @@ public class OrphangeGUI extends Application {
 
     }
 
+    /**
+     * creates employees section of GUI
+     * @param mainPane
+     */
     private void setUpEmployeesGUI(VBox mainPane) {
         Button addEmployeeButton = new Button();
 
@@ -684,6 +708,10 @@ public class OrphangeGUI extends Application {
 
     }
 
+    /**
+     * adds new employee outside of the defaults
+     * @return 
+     */
     private boolean addEmployee() {
 
         Stage stage = new Stage();
@@ -814,7 +842,7 @@ public class OrphangeGUI extends Application {
     }
 
     /**
-     * 
+     * pop-up window that allows user to add a new orphan to the arraylist of orphans
      */
     private void addNewOrphan() {
         Stage popupStage = new Stage();

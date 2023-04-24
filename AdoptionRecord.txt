@@ -53,3 +53,13 @@ Name: Mary Cooper
 Age: 3
 Sex: Female
 
+Adopted! 
+Name: Mary Cooper
+Age: 3
+Sex: Female
+
+Adopted! 
+Name: Keanu Hardin
+Age: 5
+Sex: Male
+

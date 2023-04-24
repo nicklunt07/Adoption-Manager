@@ -175,17 +175,19 @@ public class OrphangeGUI extends Application {
      * displays orphans one by one with button controls to view them
      * @param bottom
      */
-    private void displayOrphans(HBox bottom, Button reveal) {
+    private void displayOrphans(Pane bottom, Button reveal) {
 
         try {
             bottom.getChildren().remove(reveal);
-            orphanBox.setAlignment(Pos.CENTER);
+            orphanBox.relocate(50, 50);
             Button backward = new Button();
             backward.setText("Previous Orphan");
-
+            backward.relocate(50, 250);
+    
             Button forward = new Button();
             forward.setText("Next orphan");
-
+            forward.relocate(250, 250);
+    
             forward.setOnAction(e -> {
                 if (counter < possibleOrphans.size() - 1 && counter >= 0 && pressed == true) {
                     counter++;
@@ -193,19 +195,22 @@ public class OrphangeGUI extends Application {
                     bottom.getChildren().clear();
                     Button childSkill = possibleOrphans.get(counter).performTask();
                     childSkill.setText("Skill");
-
+                    childSkill.relocate(250, 200);
+    
                     Button button = new Button("Adopt");
                     button.setOnAction(event -> {
                         adopt();
                     });
-
+                    button.relocate(150, 200);
+    
                     Label label10 = new Label(possibleOrphans.get(counter).toString());
                     label10.setTextFill(Paint.valueOf("#FFD700"));
-                    orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
-                    bottom.getChildren().add(orphanBox);
+                    label10.relocate(50, 100);
+                    orphanBox.getChildren().addAll(label10, button, childSkill);
+                    bottom.getChildren().addAll(orphanBox, forward, backward);
                 }
             });
-
+    
             backward.setOnAction(e -> {
                 if (counter <= possibleOrphans.size() - 1 && counter > 0 && pressed == true) {
                     try {
@@ -214,46 +219,51 @@ public class OrphangeGUI extends Application {
                         bottom.getChildren().clear();
                         Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                         childSkill.setText("Skill");
-
-                        // orphanBox.setStyle(STYLESHEET_CASPIAN);
-
+                        childSkill.relocate(250, 200);
+    
                         Button button = new Button("Adopt");
                         button.setOnAction(event -> {
                             adopt();
                         });
-
+                        button.relocate(150, 200);
+    
                         Label label10 = new Label(possibleOrphans.get(counter).toString());
                         label10.setTextFill(Paint.valueOf("#FFD700"));
-                        orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
-                        bottom.getChildren().add(orphanBox);
-
+                        label10.relocate(50, 100);
+                        orphanBox.getChildren().addAll(label10, button, childSkill);
+                        bottom.getChildren().addAll(orphanBox, forward, backward);
+    
                     } catch (Exception f) {
-
+    
                     }
                 }
             });
-
+    
             if (pressed == false) {
                 Button childSkill = possibleOrphans.get(counter).getSkill().skill();
                 childSkill.setText("Skill");
-
+                childSkill.relocate(250, 200);
+    
                 Button button = new Button("Adopt");
                 button.setOnAction(event -> {
                     adopt();
                 });
-
+                button.relocate(150, 200);
+    
                 Label label10 = new Label(possibleOrphans.get(counter).toString());
                 label10.setTextFill(Paint.valueOf("#FFD700"));
-                orphanBox.getChildren().addAll(label10, button, childSkill, forward, backward);
-                bottom.getChildren().add(orphanBox);
+                label10.relocate(50, 100);
+                orphanBox.getChildren().addAll(label10, button, childSkill);
+                bottom.getChildren().addAll(orphanBox, forward, backward);
                 pressed = true;
             }
         } catch (Exception e) {
             System.err.println("Custom Exception:");
             throw new NoOrphanFoundException("No orphan was found for your given inputs");
         }
-
+    
     }
+    
 
     /**
      * filters orphans based on GUI controls
